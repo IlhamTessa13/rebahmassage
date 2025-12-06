@@ -6,41 +6,40 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: white;
+    background-color: #f5f5f5;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Top Header */
 .top-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 60px;
-    background-color: #46486f;
-    color: white;
+    background-color: white;
+    color: #46486f;
     display: flex;
     align-items: center;
     padding: 0 20px;
     z-index: 1002;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .top-header h2 {
     margin: 0;
     font-size: 18px;
     font-weight: 500;
+    color: #46486f;
 }
 
-/* Toggle Button in Header */
 .top-header .toggle-btn {
     width: 45px;
     height: 45px;
     background-color: transparent;
     border: none;
-    color: white;
+    color: #46486f;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -51,7 +50,7 @@ body {
 }
 
 .top-header .toggle-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(70, 72, 111, 0.1);
 }
 
 .top-header .toggle-btn svg {
@@ -77,11 +76,10 @@ body {
     width: auto;
 }
 
-/* Sidebar Styles */
 .sidebar {
     width: 280px;
-    background-color: #46486f;
-    color: white;
+    background-color: white;
+    color: #46486f;
     display: flex;
     flex-direction: column;
     padding: 20px 15px;
@@ -92,8 +90,8 @@ body {
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
-
 /* Sidebar Collapsed/Closed State */
 .sidebar.collapsed,
 .sidebar.closed {
@@ -141,30 +139,28 @@ body {
     margin-bottom: 15px;
 }
 
-/* Custom scrollbar untuk menu */
 .menu::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
 }
 
 .menu::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(70, 72, 111, 0.05);
     border-radius: 10px;
 }
 
 .menu::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(70, 72, 111, 0.3);
     border-radius: 10px;
 }
 
 .menu::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(70, 72, 111, 0.5);
 }
-
 .menu-item {
     display: flex;
     align-items: center;
     padding: 12px 18px;
-    color: white;
+    color: #46486f;
     text-decoration: none;
     border-radius: 10px;
     transition: all 0.3s ease;
@@ -174,12 +170,13 @@ body {
 }
 
 .menu-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(70, 72, 111, 0.1);
 }
 
 .menu-item.active {
-    background-color: #f5f5dc;
+    background-color: rgba(70, 72, 111, 0.15);
     color: #46486f;
+    font-weight: 600;
 }
 
 .menu-item .icon {
@@ -200,7 +197,7 @@ body {
     display: flex;
     align-items: center;
     padding: 12px 18px;
-    color: white;
+    color: #46486f;
     text-decoration: none;
     border-radius: 10px;
     transition: all 0.3s ease;
@@ -210,7 +207,7 @@ body {
 }
 
 .logout:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(70, 72, 111, 0.1);
 }
 
 .logout .icon {

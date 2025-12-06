@@ -1,4 +1,4 @@
-// Auth Script with Modal Notifications
+// Auth Script with Modal Notifications and Elegant Icons
 
 // ============================================
 // NOTIFICATION MODAL FUNCTIONS
@@ -230,10 +230,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ============================================
-// PASSWORD TOGGLE
+// PASSWORD TOGGLE - ELEGANT SVG ICONS
 // ============================================
 
-// Function to add password toggle
+// Function to add password toggle with elegant SVG icons
 function addPasswordToggle(input) {
   const wrapper = input.parentElement;
 
@@ -246,10 +246,26 @@ function addPasswordToggle(input) {
     const toggle = document.createElement("button");
     toggle.type = "button";
     toggle.className = "password-toggle";
-    toggle.innerHTML = "👁️";
     toggle.setAttribute("aria-label", "Toggle password visibility");
     toggle.dataset.visible = "false";
 
+    // Eye icon (password hidden)
+    const eyeIcon = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+    `;
+
+    // Eye-off icon (password visible)
+    const eyeOffIcon = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+      </svg>
+    `;
+
+    toggle.innerHTML = eyeIcon;
     wrapper.appendChild(toggle);
 
     toggle.addEventListener("click", function (e) {
@@ -257,11 +273,11 @@ function addPasswordToggle(input) {
 
       if (toggle.dataset.visible === "false") {
         input.type = "text";
-        toggle.innerHTML = "🙈";
+        toggle.innerHTML = eyeOffIcon;
         toggle.dataset.visible = "true";
       } else {
         input.type = "password";
-        toggle.innerHTML = "👁️";
+        toggle.innerHTML = eyeIcon;
         toggle.dataset.visible = "false";
       }
       input.focus();

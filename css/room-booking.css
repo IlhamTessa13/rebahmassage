@@ -21,13 +21,13 @@
     align-items: center;
     margin-bottom: 20px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(40, 167, 69, 0.3);
+    box-shadow: 0 2px 5px rgba(70, 72, 111, 0.3);
 }
 
 .btn-add:hover {
-    background: #46486f;
+    background: #383a5c;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+    box-shadow: 0 4px 8px rgba(70, 72, 111, 0.4);
 }
 
 /* Table Styles */
@@ -77,7 +77,7 @@
 .entries-per-page select:focus {
     outline: none;
     border-color: #46486f;
-    box-shadow: 0 0 0 3px rgba(139, 90, 60, 0.1);
+    box-shadow: 0 0 0 3px rgba(70, 72, 111, 0.1);
 }
 
 .table-responsive {
@@ -147,46 +147,54 @@
     color: #721c24;
 }
 
-/* Action Buttons */
+/* Action Buttons - Updated to match therapist-data */
 .action-buttons {
     display: flex;
-    gap: 8px;
+    gap: 10px;
+    align-items: center;
 }
 
-.btn-action {
-    padding: 8px 12px;
+.action-btn {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.btn-action svg {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
+.action-btn svg {
+    width: 18px;
+    height: 18px;
 }
 
-.btn-toggle {
-    background: #ffc107;
+.btn-deactivate {
+    background: #FFC107;
     color: #000;
 }
 
-.btn-toggle:hover {
-    background: #e0a800;
+.btn-deactivate:hover {
+    background: #FFB300;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
 }
 
-.btn-toggledeactivate{
-    background: green;
-    color: #000;
+.btn-activate {
+    background: #28a745;
+    color: white;
 }
 
+.btn-activate:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
 
 .btn-delete {
     background: #dc3545;
@@ -196,6 +204,7 @@
 .btn-delete:hover {
     background: #c82333;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
 }
 
 /* Modal Styles */
@@ -287,7 +296,7 @@
 .form-group select:focus {
     outline: none;
     border-color: #46486f;
-    box-shadow: 0 0 0 3px rgba(139, 90, 60, 0.1);
+    box-shadow: 0 0 0 3px rgba(70, 72, 111, 0.1);
 }
 
 .disabled-input {
@@ -445,12 +454,23 @@
     
     .action-buttons {
         flex-direction: column;
+        gap: 5px;
+    }
+    
+    .action-btn {
+        width: 100%;
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+    
+    .action-btn svg {
+        width: 16px;
+        height: 16px;
     }
 }
 
 /* ========================================
    NOTIFICATION MODAL STYLES
-   COPY-PASTE SEMUA INI KE BAGIAN PALING BAWAH room-booking.css
    ======================================== */
 
 /* Notification Modal Overlay */
@@ -572,14 +592,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(139, 90, 60, 0.3);
+  box-shadow: 0 4px 15px rgba(70, 72, 111, 0.3);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .notification-ok-btn:hover {
-  background: #46486f;
+  background: #383a5c;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(139, 90, 60, 0.4);
+  box-shadow: 0 6px 20px rgba(70, 72, 111, 0.4);
 }
 
 .notification-ok-btn:active {

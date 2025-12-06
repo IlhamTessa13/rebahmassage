@@ -290,8 +290,8 @@ function displayVouchers(vouchers) {
                     📱 QR Code
                 </button>
                 <button class="btn-action btn-delete" onclick="deleteVoucher(${
-                        voucher.id
-                      })" title="Delete">
+                  voucher.id
+                })" title="Delete">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="3 6 5 6 21 6"></polyline>
                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -396,7 +396,7 @@ function saveVoucher() {
   if (quantity > 1) {
     showConfirmation(
       "Create Bulk Vouchers",
-      `Anda akan membuat ${quantity} voucher dengan kode: ${baseCode}_1, ${baseCode}_2, ... ${baseCode}_${quantity}. Lanjutkan?`
+      `You are about to create ${quantity} vouchers with codes: ${baseCode}_1, ${baseCode}_2, ... ${baseCode}_${quantity}. Continue?`
     ).then((confirmed) => {
       if (confirmed) {
         processSaveVoucher(data);
@@ -430,8 +430,8 @@ function processSaveVoucher(data) {
           data.quantity > 1
             ? `${
                 response.created_count || data.quantity
-              } voucher berhasil ditambahkan!`
-            : `Voucher "${data.code}" berhasil ditambahkan!`;
+              } vouchers successfully added!`
+            : `Voucher "${data.code}" successfully added!`;
 
         showNotification("success", message);
         closeModal("voucherModal");
@@ -444,17 +444,14 @@ function processSaveVoucher(data) {
           }, 500);
         }
       } else {
-        showNotification(
-          "error",
-          response.message || "Gagal menambahkan voucher"
-        );
+        showNotification("error", response.message || "Failed to add voucher");
       }
     })
     .catch((err) => {
       btnSave.disabled = false;
       btnSave.innerHTML = originalText;
       console.error("Error saving voucher:", err);
-      showNotification("error", "Terjadi kesalahan: " + err.message);
+      showNotification("error", "An error occurred: " + err.message);
     });
 }
 
@@ -486,7 +483,7 @@ function downloadQRCode() {
 
   const canvas = document.querySelector("#qrCodeContainer canvas");
   if (!canvas) {
-    showNotification("error", "QR Code tidak ditemukan");
+    showNotification("error", "QR Code not found");
     return;
   }
 
@@ -495,13 +492,13 @@ function downloadQRCode() {
   link.href = canvas.toDataURL();
   link.click();
 
-  showNotification("success", "QR Code berhasil diunduh!");
+  showNotification("success", "QR Code successfully downloaded!");
 }
 
 function deleteVoucher(voucherId) {
   showConfirmation(
-    "Hapus Voucher",
-    "Apakah Anda yakin ingin menghapus voucher ini?"
+    "Delete Voucher",
+    "Are you sure you want to delete this voucher?"
   ).then((confirmed) => {
     if (!confirmed) return;
 
@@ -513,15 +510,15 @@ function deleteVoucher(voucherId) {
       .then((r) => r.json())
       .then((data) => {
         if (data.success) {
-          showNotification("success", "Voucher berhasil dihapus!");
+          showNotification("success", "Voucher successfully deleted!");
           loadVouchers();
         } else {
-          showNotification("error", data.message || "Gagal menghapus voucher");
+          showNotification("error", data.message || "Failed to delete voucher");
         }
       })
       .catch((err) => {
         console.error("Error:", err);
-        showNotification("error", "Terjadi kesalahan: " + err.message);
+        showNotification("error", "An error occurred: " + err.message);
       });
   });
 }
@@ -578,7 +575,7 @@ function startScanner() {
     )
     .catch((err) => {
       console.error("Scanner error:", err);
-      showNotification("error", "Gagal memulai kamera");
+      showNotification("error", "Failed to start camera");
       backToMethodSelection();
     });
 }
@@ -596,7 +593,7 @@ function stopScanner() {
 function claimVoucher() {
   const code = document.getElementById("claimCode").value.trim();
   if (!code) {
-    showNotification("warning", "Silakan masukkan kode voucher");
+    showNotification("warning", "Please enter voucher code");
     return;
   }
   processClaimVoucher(code);
@@ -611,18 +608,18 @@ function processClaimVoucher(code) {
     .then((r) => r.json())
     .then((data) => {
       if (data.success) {
-        showNotification("success", `Voucher "${code}" berhasil digunakan!`);
+        showNotification("success", `Voucher "${code}" successfully claimed!`);
         closeClaimModal();
         loadVouchers();
       } else {
-        showNotification("error", data.message || "Gagal menggunakan voucher");
+        showNotification("error", data.message || "Failed to claim voucher");
         document.getElementById("claimCode").value = "";
         document.getElementById("claimCode").focus();
       }
     })
     .catch((err) => {
       console.error("Error:", err);
-      showNotification("error", "Terjadi kesalahan: " + err.message);
+      showNotification("error", "An error occurred: " + err.message);
     });
 }
 
@@ -641,14 +638,11 @@ function updatePagination(pagination) {
 
   let html = "";
 
-
   for (let i = 1; i <= pagination.pages; i++) {
     html += `<button class="pagination-btn ${
       i === currentPage ? "active" : ""
     }" onclick="changePage(${i})">${i}</button>`;
   }
-
-
 
   controls.innerHTML = html;
 }
@@ -687,11 +681,11 @@ window.onclick = function (event) {
 
 // Download Excel
 function downloadVoucherExcel() {
-    const params = new URLSearchParams({
-        branch_id: ADMIN_BRANCH_ID,
-        export: 'excel'
-    });
+  const params = new URLSearchParams({
+    branch_id: ADMIN_BRANCH_ID,
+    export: "excel",
+  });
 
-    console.log('Downloading voucher Excel with params:', params.toString());
-    window.open(`api/export_voucher_excel.php?${params}`, '_blank');
+  console.log("Downloading voucher Excel with params:", params.toString());
+  window.open(`api/export_voucher_excel.php?${params}`, "_blank");
 }

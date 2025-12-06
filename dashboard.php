@@ -61,7 +61,7 @@ $branch_name = $branch_data['name'];
             </svg>
         </button>
         <a href="dashboard.php" class="logo-link">
-            <img src="/php/public/logorebah2.png" class="logo-header" alt="Rebah Logo">
+            <img src="/php/public/logorebah.png" class="logo-header" alt="Rebah Logo">
         </a>
         <h2>Dashboard - <?php echo htmlspecialchars($branch_name); ?></h2>
     </header>
@@ -88,9 +88,9 @@ $branch_name = $branch_data['name'];
                         </svg>
                     </div>
                     <div class="stat-info">
-                        <h3>Reservasi</h3>
+                        <h3>Reservation</h3>
                         <p class="stat-number" id="totalReservasi">0</p>
-                        <span class="stat-label">Hari Ini</span>
+                        <span class="stat-label">Today</span>
                     </div>
                 </div>
 
@@ -104,9 +104,9 @@ $branch_name = $branch_data['name'];
                         </svg>
                     </div>
                     <div class="stat-info">
-                        <h3>Customer</h3>
+                        <h3>Customers</h3>
                         <p class="stat-number" id="totalCustomer">0</p>
-                        <span class="stat-label">Hari Ini</span>
+                        <span class="stat-label">Today</span>
                     </div>
                 </div>
 
@@ -120,7 +120,7 @@ $branch_name = $branch_data['name'];
                     <div class="stat-info">
                         <h3>Therapist</h3>
                         <p class="stat-number" id="totalTherapist">0</p>
-                        <span class="stat-label">Aktif</span>
+                        <span class="stat-label">Active</span>
                     </div>
                 </div>
             </div>
@@ -129,17 +129,17 @@ $branch_name = $branch_data['name'];
             <div class="dashboard-section chart-section">
                 <div class="chart-header">
                     <div class="chart-title-area">
-                        <h2>Statistik Reservasi</h2>
+                        <h2>Reservation Statistics</h2>
                         <div class="chart-current-value">
                             <span class="value-number" id="currentValue">0</span>
-                            <span class="value-label">Total Reservasi</span>
+                            <span class="value-label">Total Reservations</span>
                         </div>
                     </div>
                     <div class="chart-period-buttons">
-                        <button class="period-btn active" data-period="7days">7 Hari</button>
-                        <button class="period-btn" data-period="1month">1 Bulan</button>
-                        <button class="period-btn" data-period="3months">3 Bulan</button>
-                        <button class="period-btn" data-period="1year">1 Tahun</button>
+                        <button class="period-btn active" data-period="7days">7 Days</button>
+                        <button class="period-btn" data-period="1month">1 month</button>
+                        <button class="period-btn" data-period="3months">3 months</button>
+                        <button class="period-btn" data-period="1year">1 year</button>
                     </div>
                 </div>
                 <div class="chart-container">

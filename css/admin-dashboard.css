@@ -225,14 +225,14 @@
 }
 
 .data-table thead {
-    background: #f5f5dc;
+    background: #46486f;
 }
 
 .data-table th {
     padding: 15px;
     text-align: left;
     font-weight: 600;
-    color: #46486f;
+    color: white;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.5px;

@@ -165,8 +165,8 @@ function setupImagePreview() {
         if (file.size > 5 * 1024 * 1024) {
           showNotification(
             "error",
-            "Ukuran gambar harus kurang dari 5MB",
-            "File Terlalu Besar"
+            "Image size must be less than 5MB",
+            "File Too Large"
           );
           e.target.value = "";
           return;
@@ -176,8 +176,8 @@ function setupImagePreview() {
         if (!file.type.match("image.*")) {
           showNotification(
             "error",
-            "Silakan pilih file gambar (JPG, PNG, GIF)",
-            "Format File Salah"
+            "Please select an image file (JPG, PNG, GIF)",
+            "Invalid File Format"
           );
           e.target.value = "";
           return;
@@ -236,14 +236,14 @@ function loadBlogs() {
       if (data.success) {
         displayBlogs(data.blogs);
       } else {
-        showNotification("error", data.message || "Gagal memuat blog");
+        showNotification("error", data.message || "Failed to load blogs");
         document.getElementById("blogCardsContainer").innerHTML =
           '<div class="error-message">Error loading blogs</div>';
       }
     })
     .catch((err) => {
       console.error("Error loading blogs:", err);
-      showNotification("error", "Gagal memuat blog: " + err.message);
+      showNotification("error", "Failed to load blogs: " + err.message);
       document.getElementById("blogCardsContainer").innerHTML =
         '<div class="error-message">Error loading blogs</div>';
     });
@@ -351,12 +351,15 @@ function openEditModal(blogId) {
         document.getElementById("editBlogModal").style.display = "block";
         document.body.style.overflow = "hidden"; // Prevent background scroll
       } else {
-        showNotification("error", data.message || "Gagal memuat detail blog");
+        showNotification(
+          "error",
+          data.message || "Failed to load blog details"
+        );
       }
     })
     .catch((err) => {
       console.error("Error:", err);
-      showNotification("error", "Gagal memuat detail blog: " + err.message);
+      showNotification("error", "Failed to load blog details: " + err.message);
     });
 }
 
@@ -389,11 +392,7 @@ function saveBlog() {
   const description = document.getElementById("blogDescription").value.trim();
 
   if (!title || !clickbait || !description) {
-    showNotification(
-      "warning",
-      "Semua field harus diisi",
-      "Data Tidak Lengkap"
-    );
+    showNotification("warning", "All fields must be filled", "Incomplete Data");
     return;
   }
 
@@ -401,8 +400,8 @@ function saveBlog() {
   if (clickbait.length > 500) {
     showNotification(
       "warning",
-      "Clickbait maksimal 500 karakter",
-      "Text Terlalu Panjang"
+      "Clickbait maximum 500 characters",
+      "Text Too Long"
     );
     return;
   }
@@ -413,7 +412,7 @@ function saveBlog() {
   // Show loading
   const saveBtn = document.querySelector(".btn-save");
   const originalText = saveBtn.textContent;
-  saveBtn.textContent = "Menyimpan...";
+  saveBtn.textContent = "Saving...";
   saveBtn.disabled = true;
 
   fetch("api/update_blog.php", {
@@ -423,7 +422,7 @@ function saveBlog() {
     .then((r) => r.json())
     .then((data) => {
       if (data.success) {
-        showNotification("success", "Blog berhasil diperbarui!");
+        showNotification("success", "Blog successfully updated!");
         closeEditModal();
 
         // Reload blogs to show updated content with new cache-busted images
@@ -432,25 +431,25 @@ function saveBlog() {
         }, 300);
       } else {
         // Handle specific error messages
-        let errorMessage = data.message || "Gagal memperbarui blog";
+        let errorMessage = data.message || "Failed to update blog";
 
         if (errorMessage.includes("Invalid image type")) {
           showNotification(
             "error",
-            "Format gambar tidak valid. Hanya JPG, PNG, dan GIF yang diperbolehkan.",
-            "Format File Salah"
+            "Invalid image format. Only JPG, PNG, and GIF are allowed.",
+            "Invalid File Format"
           );
         } else if (errorMessage.includes("size must be less than")) {
           showNotification(
             "error",
-            "Ukuran gambar harus kurang dari 5MB",
-            "File Terlalu Besar"
+            "Image size must be less than 5MB",
+            "File Too Large"
           );
         } else if (errorMessage.includes("Missing required fields")) {
           showNotification(
             "warning",
-            "Semua field wajib diisi",
-            "Data Tidak Lengkap"
+            "All fields are required",
+            "Incomplete Data"
           );
         } else {
           showNotification("error", errorMessage);
@@ -461,7 +460,7 @@ function saveBlog() {
       console.error("Error:", err);
       showNotification(
         "error",
-        "Terjadi kesalahan saat menyimpan: " + err.message
+        "An error occurred while saving: " + err.message
       );
     })
     .finally(() => {

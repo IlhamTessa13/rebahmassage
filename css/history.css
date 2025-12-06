@@ -584,7 +584,7 @@ html {
 .footer-text {
   line-height: 1.6;
   margin-bottom: 1.5rem;
-  color: #46486f;
+  color: #915437;
   font-family: "Ubuntu", sans-serif;
   font-weight: 500;
   font-size: 0.95rem;
@@ -627,7 +627,7 @@ html {
 }
 
 .footer-heading {
-  color: #46486f;
+  color: #915437;
   font-family: "Ubuntu", sans-serif;
   font-weight: 600;
   font-size: 1.1rem;
@@ -635,7 +635,7 @@ html {
 }
 
 .footer-link {
-  color: #46486f;
+  color: #915437;
   text-decoration: none;
   font-family: "Ubuntu", sans-serif;
   font-weight: 500;
@@ -648,7 +648,7 @@ html {
 }
 
 .footer-info {
-  color: #46486f;
+  color: #915437;
   font-family: "Ubuntu", sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
@@ -665,6 +665,7 @@ html {
   font-family: "Ubuntu", sans-serif;
   font-weight: 500;
 }
+
 
 /* Responsive */
 @media (max-width: 768px) {

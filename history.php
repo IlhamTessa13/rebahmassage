@@ -96,23 +96,25 @@ require_once 'includes/db.php';
       </div>
       
       <div class="footer-right">
-        <div class="footer-column">
-          <h4 class="footer-heading">Navigation</h4>
-          <a href="#home" class="footer-link">Home</a>
-          <a href="#about" class="footer-link">About</a>
-          <a href="#service" class="footer-link">Service</a>
-          <a href="#blog" class="footer-link">Blog</a>
-          <a href="#maps" class="footer-link">Maps</a>
-        </div>
         
         <div class="footer-column">
           <h4 class="footer-heading">Rebah Fatmawati</h4>
-          <p class="footer-info">Everyday - 10AM - 10PM, last order<br>9PM (1 hour treatment)</p>
+          <p class="footer-info">Everyday - 9AM - 9PM, last order<br>8PM (1 hour treatment)</p>
         </div>
         
         <div class="footer-column">
           <h4 class="footer-heading">Rebah Menteng</h4>
-          <p class="footer-info">Everyday - 10AM - 10PM, last order<br>9PM (1 hour treatment)</p>
+          <p class="footer-info">Everyday - 9AM - 9PM, last order<br>8PM (1 hour treatment)</p>
+        </div>
+
+        <div class="footer-column">
+          <h4 class="footer-heading">Navigation</h4>
+          <a href="home-customer.php#about" class="footer-link">About</a>
+          <a href="home-customer.php#service" class="footer-link">Service</a>
+          <a href="home-customer.php#blog" class="footer-link">Blog</a>
+          <a href="home-customer.php#maps" class="footer-link">Maps</a>
+          <a href="booking.php" class="footer-link">Booking</a>
+          <a href="history.php" class="footer-link">History</a>
         </div>
       </div>
     </div>

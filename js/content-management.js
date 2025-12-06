@@ -221,8 +221,8 @@ function setupImagePreview() {
         if (file.size > 5 * 1024 * 1024) {
           showNotification(
             "error",
-            "Ukuran gambar harus kurang dari 5MB",
-            "File Terlalu Besar"
+            "Image size must be less than 5MB",
+            "File Too Large"
           );
           e.target.value = "";
           return;
@@ -232,8 +232,8 @@ function setupImagePreview() {
         if (!file.type.match("image.*")) {
           showNotification(
             "error",
-            "Silakan pilih file gambar (JPG, PNG)",
-            "Format File Salah"
+            "Please select an image file (JPG, PNG)",
+            "Invalid File Format"
           );
           e.target.value = "";
           return;
@@ -269,13 +269,13 @@ function loadServices() {
       if (data.success) {
         displayServices(data.services);
       } else {
-        showNotification("error", data.message || "Gagal memuat layanan");
+        showNotification("error", data.message || "Failed to load services");
         showError(data.message || "Failed to load services");
       }
     })
     .catch((err) => {
       console.error("Error loading services:", err);
-      showNotification("error", "Gagal memuat layanan: " + err.message);
+      showNotification("error", "Failed to load services: " + err.message);
       showError("Failed to load services: " + err.message);
     });
 }
@@ -401,13 +401,13 @@ function openEditModal(serviceId) {
       } else {
         showNotification(
           "error",
-          data.message || "Gagal memuat detail layanan"
+          data.message || "Failed to load service details"
         );
       }
     })
     .catch((err) => {
       console.error("Error:", err);
-      showNotification("error", "Gagal memuat detail layanan");
+      showNotification("error", "Failed to load service details");
     });
 }
 
@@ -437,8 +437,8 @@ function saveService() {
   if (!name) {
     showNotification(
       "warning",
-      "Nama layanan harus diisi",
-      "Data Tidak Lengkap"
+      "Service name must be filled",
+      "Incomplete Data"
     );
     return;
   }
@@ -447,8 +447,8 @@ function saveService() {
   if (mode === "add" && !fileInput.files[0]) {
     showNotification(
       "warning",
-      "Silakan pilih gambar untuk layanan",
-      "Gambar Diperlukan"
+      "Please select an image for the service",
+      "Image Required"
     );
     return;
   }
@@ -472,8 +472,8 @@ function saveService() {
       if (data.success) {
         const successMessage =
           mode === "add"
-            ? "Layanan berhasil ditambahkan!"
-            : "Layanan berhasil diperbarui!";
+            ? "Service successfully added!"
+            : "Service successfully updated!";
 
         showNotification("success", successMessage);
         closeServiceModal();
@@ -483,7 +483,7 @@ function saveService() {
         }, 300);
       } else {
         // Handle specific error messages
-        let errorMessage = data.message || "Gagal menyimpan layanan";
+        let errorMessage = data.message || "Failed to save service";
 
         if (
           errorMessage.toLowerCase().includes("image") &&
@@ -491,8 +491,8 @@ function saveService() {
         ) {
           showNotification(
             "error",
-            "Ukuran gambar terlalu besar. Maksimal 5MB",
-            "File Terlalu Besar"
+            "Image size is too large. Maximum 5MB",
+            "File Too Large"
           );
         } else if (
           errorMessage.toLowerCase().includes("image") &&
@@ -500,8 +500,8 @@ function saveService() {
         ) {
           showNotification(
             "error",
-            "Format gambar tidak valid. Gunakan JPG atau PNG",
-            "Format File Salah"
+            "Invalid image format. Use JPG or PNG",
+            "Invalid File Format"
           );
         } else {
           showNotification("error", errorMessage);
@@ -512,7 +512,7 @@ function saveService() {
       console.error("Error:", err);
       showNotification(
         "error",
-        "Terjadi kesalahan saat menyimpan: " + err.message
+        "An error occurred while saving: " + err.message
       );
     })
     .finally(() => {
@@ -530,8 +530,8 @@ function openDeleteModal(serviceId, serviceName) {
 
   // Show confirmation modal instead of old delete modal
   showConfirmation(
-    "Hapus Layanan",
-    `Apakah Anda yakin ingin menghapus layanan "${serviceName}"?\n\nTindakan ini tidak dapat dibatalkan.`
+    "Delete Service",
+    `Are you sure you want to delete service "${serviceName}"?\n\nThis action cannot be undone.`
   ).then((confirmed) => {
     if (confirmed) {
       confirmDelete();
@@ -559,21 +559,21 @@ function confirmDelete() {
     .then((r) => r.json())
     .then((data) => {
       if (data.success) {
-        showNotification("success", "Layanan berhasil dihapus!");
+        showNotification("success", "Service successfully deleted!");
         deletingServiceId = null;
 
         setTimeout(() => {
           loadServices();
         }, 300);
       } else {
-        showNotification("error", data.message || "Gagal menghapus layanan");
+        showNotification("error", data.message || "Failed to delete service");
       }
     })
     .catch((err) => {
       console.error("Error:", err);
       showNotification(
         "error",
-        "Terjadi kesalahan saat menghapus: " + err.message
+        "An error occurred while deleting: " + err.message
       );
     });
 }

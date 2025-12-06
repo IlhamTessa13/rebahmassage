@@ -266,29 +266,36 @@ function displayRooms(rooms) {
 
   const html = rooms
     .map((room) => {
-      const statusClass =
-        room.is_active === 1 ? "status-active" : "status-inactive";
-      const statusText = room.is_active === 1 ? "Active" : "Inactive";
-      const toggleText = room.is_active === 1 ? "Deactivate" : "Activate";
-      const toggleIcon = room.is_active === 1 ? "⊗" : "✓";
+      const isActive = parseInt(room.is_active) === 1;
+      const statusClass = isActive ? "status-active" : "status-inactive";
+      const statusText = isActive ? "Active" : "Inactive";
+      const buttonClass = isActive ? "btn-deactivate" : "btn-activate";
+      const buttonText = isActive ? "Deactivate" : "Activate";
 
       return `
         <tr>
             <td>${room.name}</td>
             <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-            <td class="action-buttons">
-                <button class="btn-action btn-toggle" onclick="toggleRoomStatus(${room.id}, ${room.is_active})" title="${toggleText}">
-                    ${toggleIcon} ${toggleText}
-                </button>
-                <button class="btn-action btn-delete" onclick="deleteRoom(${room.id})" title="Delete">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg>
-                    Delete
-                </button> 
+            <td>
+                <div class="action-buttons">
+                    <button class="action-btn ${buttonClass}" 
+                            onclick="toggleRoomStatus(${room.id}, ${room.is_active})" 
+                            title="${buttonText}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9 12l2 2 4-4"/>
+                        </svg>
+                        ${buttonText}
+                    </button>
+                    <button class="action-btn btn-delete" 
+                            onclick="deleteRoom(${room.id})" 
+                            title="Delete">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                        Delete
+                    </button>
+                </div>
             </td>
         </tr>
       `;

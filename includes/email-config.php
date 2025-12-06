@@ -39,7 +39,7 @@ function sendEmail($to, $subject, $body) {
 function sendVerificationEmail($email, $name, $token) {
     $verifyUrl = "http://localhost/php/verify-email.php?token=" . urlencode($token);
     
-    $subject = "Verifikasi Email Anda - Rebah Massage";
+    $subject = "Verify Your Email - Rebah Massage";
     $body = "
     <!DOCTYPE html>
     <html>
@@ -56,18 +56,18 @@ function sendVerificationEmail($email, $name, $token) {
     <body>
         <div class='container'>
             <div class='header'>
-                <h1>Selamat Datang di Rebah Massage!</h1>
+                <h1>Welcome to Rebah Massage!</h1>
             </div>
             <div class='content'>
-                <p>Halo <strong>{$name}</strong>,</p>
-                <p>Terima kasih telah mendaftar di Rebah Massage. Untuk mengaktifkan akun Anda, silakan verifikasi email Anda dengan mengklik tombol di bawah ini:</p>
+                <p>Hello <strong>{$name}</strong>,</p>
+                <p>Thank you for registering at Rebah Massage. To activate your account, please verify your email by clicking the button below:</p>
                 <div style='text-align: center;'>
-                    <a href='{$verifyUrl}' class='button'>Verifikasi Email</a>
+                    <a href='{$verifyUrl}' class='button'>Verify Email</a>
                 </div>
-                <p>Atau salin dan tempel link berikut di browser Anda:</p>
+                <p>Or copy and paste the following link into your browser:</p>
                 <p style='background: #e9ecef; padding: 10px; border-radius: 5px; word-break: break-all;'>{$verifyUrl}</p>
-                <p><strong>Link verifikasi akan kadaluarsa dalam 24 jam.</strong></p>
-                <p>Jika Anda tidak mendaftar di Rebah Massage, abaikan email ini.</p>
+                <p><strong>The verification link will expire in 24 hours.</strong></p>
+                <p>If you did not register at Rebah Massage, please ignore this email.</p>
             </div>
             <div class='footer'>
                 <p>&copy; 2025 Rebah Massage. All rights reserved.</p>
@@ -83,7 +83,7 @@ function sendVerificationEmail($email, $name, $token) {
 function sendPasswordResetEmail($email, $name, $token) {
     $resetUrl = "http://localhost/php/reset-password.php?token=" . urlencode($token);
     
-    $subject = "Reset Password Anda - Rebah Massage";
+    $subject = "Reset Your Password - Rebah Massage";
     $body = "
     <!DOCTYPE html>
     <html>
@@ -104,19 +104,19 @@ function sendPasswordResetEmail($email, $name, $token) {
                 <h1>Reset Password</h1>
             </div>
             <div class='content'>
-                <p>Halo <strong>{$name}</strong>,</p>
-                <p>Kami menerima permintaan untuk reset password akun Anda. Klik tombol di bawah ini untuk membuat password baru:</p>
+                <p>Hello <strong>{$name}</strong>,</p>
+                <p>We received a request to reset your account password. Click the button below to create a new password:</p>
                 <div style='text-align: center;'>
                     <a href='{$resetUrl}' class='button'>Reset Password</a>
                 </div>
-                <p>Atau salin dan tempel link berikut di browser Anda:</p>
+                <p>Or copy and paste the following link into your browser:</p>
                 <p style='background: #e9ecef; padding: 10px; border-radius: 5px; word-break: break-all;'>{$resetUrl}</p>
                 <div class='warning'>
-                    <strong>⚠️ Penting:</strong>
+                    <strong>⚠️ Important:</strong>
                     <ul style='margin: 10px 0 0 0;'>
-                        <li>Link ini akan kadaluarsa dalam 1 jam</li>
-                        <li>Jika Anda tidak meminta reset password, abaikan email ini</li>
-                        <li>Password Anda tidak akan berubah sampai Anda mengklik link di atas</li>
+                        <li>This link will expire in 1 hour</li>
+                        <li>If you did not request a password reset, please ignore this email</li>
+                        <li>Your password will not change until you click the link above</li>
                     </ul>
                 </div>
             </div>
@@ -133,14 +133,14 @@ function sendPasswordResetEmail($email, $name, $token) {
 
 /**
  * Send booking update notification email
- * Digunakan ketika admin mengubah room atau therapist
+ * Used when admin changes room or therapist
  */
 function sendBookingUpdateEmail($email, $customerName, $bookingData, $changesHtml) {
     $bookingDate = date('d M Y', strtotime($bookingData['booking_date']));
     $startTime = date('H:i', strtotime($bookingData['start_time']));
     $endTime = date('H:i', strtotime($bookingData['end_time']));
     
-    $subject = "Perubahan Detail Booking Anda - Rebah Massage";
+    $subject = "Booking Details Updated - Rebah Massage";
     $body = "
     <!DOCTYPE html>
     <html>
@@ -256,49 +256,49 @@ function sendBookingUpdateEmail($email, $customerName, $bookingData, $changesHtm
     <body>
         <div class='container'>
             <div class='header'>
-                <h1>🔔 Perubahan Detail Booking</h1>
+                <h1>🔔 Booking Details Updated</h1>
             </div>
             
             <div class='alert-box'>
-                <strong>⚠️ Pemberitahuan Penting</strong><br>
-                Terdapat perubahan pada booking Anda di Rebah Massage. Mohon perhatikan detail di bawah ini.
+                <strong>⚠️ Important Notice</strong><br>
+                There have been changes to your booking at Rebah Massage. Please review the details below.
             </div>
             
             <div class='content'>
-                <p>Halo <strong>{$customerName}</strong>,</p>
-                <p>Booking Anda telah diperbarui oleh admin karena alasan operasional.</p>
+                <p>Hello <strong>{$customerName}</strong>,</p>
+                <p>Your booking has been updated by our admin for operational reasons.</p>
                 
                 <div class='booking-info'>
-                    <h3>📋 Informasi Booking</h3>
+                    <h3>📋 Booking Information</h3>
                     <div class='info-row'>
-                        <div class='info-label'>Cabang:</div>
+                        <div class='info-label'>Branch:</div>
                         <div class='info-value'>{$bookingData['branch_name']}</div>
                     </div>
                     <div class='info-row'>
-                        <div class='info-label'>Kategori:</div>
+                        <div class='info-label'>Category:</div>
                         <div class='info-value'>{$bookingData['category_name']}</div>
                     </div>
                     <div class='info-row'>
-                        <div class='info-label'>Tanggal:</div>
+                        <div class='info-label'>Date:</div>
                         <div class='info-value'>{$bookingDate}</div>
                     </div>
                     <div class='info-row'>
-                        <div class='info-label'>Waktu:</div>
+                        <div class='info-label'>Time:</div>
                         <div class='info-value'>{$startTime} - {$endTime}</div>
                     </div>
                     <div class='info-row'>
-                        <div class='info-label'>Durasi:</div>
-                        <div class='info-value'>{$bookingData['duration']} menit</div>
+                        <div class='info-label'>Duration:</div>
+                        <div class='info-value'>{$bookingData['duration']} minutes</div>
                     </div>
                 </div>
                 
-                <h3 style='color: #8b5e3c;'>🔄 Detail Perubahan:</h3>
+                <h3 style='color: #8b5e3c;'>🔄 Changes Made:</h3>
                 <table class='changes-table'>
                     <thead>
                         <tr>
                             <th>Item</th>
-                            <th>Sebelumnya</th>
-                            <th>Menjadi</th>
+                            <th>Previous</th>
+                            <th>Updated To</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -307,19 +307,19 @@ function sendBookingUpdateEmail($email, $customerName, $bookingData, $changesHtm
                 </table>
                 
                 <div class='support-box'>
-                    <strong>💡 Catatan:</strong><br>
-                    Jadwal dan harga booking Anda tetap sama. Hanya room dan/atau therapist yang berubah untuk memastikan layanan terbaik bagi Anda.
+                    <strong>💡 Note:</strong><br>
+                    Your booking schedule and price remain the same. Only the room and/or therapist have been changed to ensure the best service for you.
                 </div>
                 
-                <p>Jika Anda memiliki pertanyaan atau keberatan terkait perubahan ini, silakan hubungi kami segera.</p>
+                <p>If you have any questions or concerns regarding these changes, please contact us immediately.</p>
                 
-                <p style='margin-top: 30px;'>Terima kasih atas pengertian Anda.</p>
-                <p><strong>Tim Rebah Massage</strong></p>
+                <p style='margin-top: 30px;'>Thank you for your understanding.</p>
+                <p><strong>Rebah Massage Team</strong></p>
             </div>
             
             <div class='footer'>
                 <p><strong>Rebah Massage</strong></p>
-                <p>Email: massagerebah@gmail.com | Phone: +62 822-9999-4263(Menteng) +62 822-9999-4259(Fatmawati) </p>
+                <p>Email: massagerebah@gmail.com | Phone: +62 822-9999-4263 (Menteng) +62 822-9999-4259 (Fatmawati)</p>
                 <p>&copy; 2025 Rebah Massage. All rights reserved.</p>
             </div>
         </div>

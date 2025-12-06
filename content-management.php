@@ -30,7 +30,7 @@ $admin = current_user();
             </svg>
         </button>
         <a href="dashboard.php" class="logo-link">
-            <img src="/php/public/logorebah2.png" class="logo-header" alt="Rebah Logo">
+            <img src="/php/public/logorebah.png" class="logo-header" alt="Rebah Logo">
         </a>
         <h2>Content Management</h2>
     </header>

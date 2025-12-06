@@ -133,22 +133,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <form method="POST">
                 <div class="form-group">
-                    <label>No. HP</label>
+                    <label>Phone Number</label>
                     <div class="input-wrapper">
                         <input type="tel" name="phone" placeholder="08xxxxxxxxxx" required />
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label>Jenis Kelamin</label>
+                    <label>Gender</label>
                     <div class="gender-group">
                         <div class="radio-wrapper">
                             <input type="radio" id="male" name="gender" value="male" required />
-                            <label for="male">Laki-laki</label>
+                            <label for="male">Male</label>
                         </div>
                         <div class="radio-wrapper">
                             <input type="radio" id="female" name="gender" value="female" required />
-                            <label for="female">Perempuan</label>
+                            <label for="female">Female</label>
                         </div>
                     </div>
                 </div>

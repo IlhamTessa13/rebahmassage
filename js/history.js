@@ -188,10 +188,7 @@ function loadBookings() {
       if (data.success) {
         displayBookings(data.bookings);
       } else {
-        showNotification(
-          "error",
-          data.message || "Gagal memuat riwayat booking"
-        );
+        showNotification("error", data.message || "Failed to load booking history");
         showError("Failed to load bookings");
       }
     })
@@ -199,7 +196,7 @@ function loadBookings() {
       console.error("Error:", error);
       showNotification(
         "error",
-        "Terjadi kesalahan saat memuat riwayat booking"
+        "An error occurred while loading booking history"
       );
       showError("Error loading bookings");
     });
@@ -307,8 +304,8 @@ function displayBookings(bookings) {
 function cancelBooking(bookingId) {
   // Show confirmation modal
   showConfirmation(
-    "Batalkan Booking",
-    "Apakah Anda yakin ingin membatalkan booking ini? Tindakan ini tidak dapat dibatalkan."
+    "Cancel Booking",
+    "Are you sure you want to cancel this booking? This action cannot be undone."
   ).then((confirmed) => {
     if (!confirmed) return;
 
@@ -335,8 +332,8 @@ function cancelBooking(bookingId) {
         if (data.success) {
           showNotification(
             "success",
-            "Booking berhasil dibatalkan!",
-            "Booking Dibatalkan"
+            "Booking successfully cancelled!",
+            "Booking Cancelled"
           );
 
           // Reload bookings after 1 second
@@ -346,7 +343,7 @@ function cancelBooking(bookingId) {
         } else {
           showNotification(
             "error",
-            data.message || "Gagal membatalkan booking. Silakan coba lagi."
+            data.message || "Failed to cancel booking. Please try again."
           );
 
           // Re-enable button
@@ -358,8 +355,8 @@ function cancelBooking(bookingId) {
       .catch((error) => {
         console.error("Error:", error);
         showNotification(
-          "error",
-          "Terjadi kesalahan jaringan. Silakan coba lagi."
+        "error",
+        "A network error occurred. Please try again."
         );
 
         // Re-enable button

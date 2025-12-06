@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $validToken) {
     <div class="form-container centered-form">
       <form method="post" class="auth-form">
         <h1 class="form-title">Reset Password</h1>
-        <p class="form-subtitle">Masukkan password baru Anda.</p>
+        <p class="form-subtitle">Enter your new password.</p>
         
         <?php if ($error): ?>
           <div class="error-message"><?= htmlspecialchars($error) ?></div>
@@ -75,14 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $validToken) {
         
         <?php if ($validToken): ?>
           <div class="form-group">
-            <label>Password Baru</label>
+            <label>New Password</label>
             <div class="input-wrapper">
               <input type="password" name="password" placeholder="Masukkan password baru" required minlength="6" />
             </div>
           </div>
           
           <div class="form-group">
-            <label>Konfirmasi Password</label>
+            <label>Confirm Password</label>
             <div class="input-wrapper">
               <input type="password" name="confirm_password" placeholder="Konfirmasi password" required minlength="6" />
             </div>
@@ -91,13 +91,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $validToken) {
           <button type="submit" class="submit-btn">Reset Password</button>
         <?php else: ?>
           <div class="info-box">
-            <p>Link reset password tidak valid atau telah kadaluarsa.</p>
+            <p>The password reset link is invalid or has expired.</p>
             <a href="forgot-password.php" class="submit-btn" style="display: inline-block; text-align: center; text-decoration: none; margin-top: 15px;">Minta Link Baru</a>
           </div>
         <?php endif; ?>
         
         <p class="toggle-text">
-          <a href="login.php" class="toggle-link">Kembali ke Login</a>
+          <a href="login.php" class="toggle-link">Return to Login</a>
         </p>
       </form>
     </div>

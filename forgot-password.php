@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
   if ($email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $error = 'Format email tidak valid.';
+      $error = 'Invalid email format.';
     } else {
       // Check if email exists
       $stmt = db()->prepare('SELECT id, full_name, email FROM users WHERE email = ? LIMIT 1');
@@ -28,17 +28,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Send reset email
         if (sendPasswordResetEmail($user['email'], $user['full_name'], $resetToken)) {
-          $success = 'Link reset password telah dikirim ke email Anda. Silakan cek inbox Anda.';
+          $success = 'A password reset link has been sent to your email. Please check your inbox..';
         } else {
-          $error = 'Gagal mengirim email. Silakan coba lagi.';
+          $error = 'Failed to send email. Please try again.';
         }
       } else {
         // Don't reveal if email exists or not (security best practice)
-        $success = 'Jika email terdaftar, link reset password akan dikirim ke email Anda.';
+        $success = 'If the email is registered, a password reset link will be sent to your email.';
       }
     }
   } else {
-    $error = 'Mohon masukkan email Anda.';
+    $error = 'Please enter your email.';
   }
 }
 ?>
@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="auth-container single-form">
     <div class="form-container centered-form">
       <form method="post" class="auth-form">
-        <h1 class="form-title">Lupa Password?</h1>
-        <p class="form-subtitle">Masukkan email Anda dan kami akan mengirimkan link untuk reset password.</p>
+        <h1 class="form-title">Forgot Password?</h1>
+        <p class="form-subtitle">Enter your email and we will send you a link to reset your password.</p>
         
         <?php if ($error): ?>
           <div class="error-message"><?= htmlspecialchars($error) ?></div>
@@ -72,11 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         </div>
         
-        <button type="submit" class="submit-btn">Kirim Link Reset</button>
+        <button type="submit" class="submit-btn">Send Reset Link</button>
         
         <p class="toggle-text">
-          Ingat password Anda? 
-          <a href="login.php" class="toggle-link">Kembali ke Login</a>
+          Remember your password? 
+          <a href="login.php" class="toggle-link">Return to Login</a>
         </p>
       </form>
     </div>

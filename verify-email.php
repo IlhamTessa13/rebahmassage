@@ -13,21 +13,21 @@ if ($token) {
   
   if ($user) {
     if ($user['email_verified'] == 1) {
-      $message = 'Email Anda sudah diverifikasi sebelumnya. Silakan login.';
+      $message = 'Your email has been verified. Please log in.';
       $success = true;
     } else {
       // Verify email
       $stmt = db()->prepare('UPDATE users SET email_verified = 1, verification_token = NULL WHERE id = ?');
       $stmt->execute([$user['id']]);
       
-      $message = 'Email berhasil diverifikasi! Sekarang Anda dapat login.';
+      $message = 'Email successfully verified! You can now log in.';
       $success = true;
     }
   } else {
-    $message = 'Token verifikasi tidak valid atau telah kadaluarsa.';
+    $message = 'The verification token is invalid or has expired.';
   }
 } else {
-  $message = 'Token tidak ditemukan.';
+  $message = 'Token not found.';
 }
 ?>
 <!DOCTYPE html>
@@ -35,7 +35,7 @@ if ($token) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verifikasi Email - Rebah Massage</title>
+  <title>Email Verification - Rebah Massage</title>
   <link rel="stylesheet" href="css/auth-style.css">
   <style>
     .verification-container {
@@ -73,7 +73,7 @@ if ($token) {
           <?= $success ? '✓' : '✗' ?>
         </div>
         
-        <h1 class="form-title">Verifikasi Email</h1>
+        <h1 class="form-title">Email Verification</h1>
         
         <div class="info-box">
           <p style="margin: 0; font-size: 16px; color: #2d3748;">
@@ -83,11 +83,11 @@ if ($token) {
         
         <?php if ($success): ?>
           <a href="login.php" class="submit-btn" style="display: inline-block; text-decoration: none;">
-            Login Sekarang
+            Login Now
           </a>
         <?php else: ?>
           <a href="login.php" class="submit-btn" style="display: inline-block; text-decoration: none;">
-            Kembali ke Login
+            Return to Login
           </a>
         <?php endif; ?>
       </div>

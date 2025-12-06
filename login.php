@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     if ($user && password_verify($password, $user['password'])) {
       // Check if email is verified
       if ($user['email_verified'] == 0) {
-        $loginError = 'Email Anda belum diverifikasi. Silakan cek inbox email Anda.';
+        $loginError = 'Your email has not been verified. Please check your inbox.';
       } else {
         $_SESSION['user'] = [
           'id' => (int)$user['id'],
@@ -46,10 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         exit;
       }
     } else {
-      $loginError = 'Email atau password salah.';
+      $loginError = 'Incorrect email or password.';
     }
   } else {
-    $loginError = 'Mohon isi email dan password.';
+    $loginError = 'Please fill in your email and password.';
   }
 }
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
   if ($name && $email && $password && $gender) {
     // Validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $registerError = 'Format email tidak valid.';
+      $registerError = 'Invalid email format.';
     } else {
       $hash = password_hash($password, PASSWORD_DEFAULT);
       $verificationToken = bin2hex(random_bytes(32));
@@ -75,18 +75,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         
         // Send verification email
         if (sendVerificationEmail($email, $name, $verificationToken)) {
-          $_SESSION['success'] = 'Registrasi berhasil! Silakan cek email Anda untuk verifikasi akun.';
+          $_SESSION['success'] = 'Registration successful! Please check your email to verify your account.';
           header('Location: /php/login.php');
           exit;
         } else {
-          $registerError = 'Registrasi berhasil, tapi gagal mengirim email verifikasi. Silakan hubungi admin.';
+          $registerError = 'Registration was successful, but failed to send the verification email. Please contact the admin.';
         }
       } catch (PDOException $e) {
-        $registerError = 'Email sudah terdaftar.';
+        $registerError = 'Email has been registered.';
       }
     }
   } else {
-    $registerError = 'Mohon lengkapi data yang diperlukan.';
+    $registerError = 'Please complete the required data.';
   }
 }
 
@@ -153,7 +153,7 @@ $googleLoginUrl = getGoogleLoginUrl();
         </div>
         
         <div class="forgot-password-link">
-          <a href="forgot-password.php">Lupa Password?</a>
+          <a href="forgot-password.php">Forgot Password?</a>
         </div>
         
         <button type="submit" name="login" class="submit-btn">Sign In</button>
@@ -170,7 +170,7 @@ $googleLoginUrl = getGoogleLoginUrl();
       <form method="post" class="auth-form">
         <!-- Mobile Back Button (only visible on mobile) -->
         <a href="#" class="mobile-back-btn" onclick="document.getElementById('signInLink').click(); return false;">
-          Kembali ke Login
+          Return to Login
         </a>
         
         <h1 class="form-title">Create Account</h1>
@@ -195,7 +195,7 @@ $googleLoginUrl = getGoogleLoginUrl();
         </div>
         
         <div class="form-group">
-          <label>Nama Lengkap</label>
+          <label>Name</label>
           <div class="input-wrapper">
             <input type="text" name="name" placeholder="Enter your name" required />
           </div>
@@ -209,22 +209,22 @@ $googleLoginUrl = getGoogleLoginUrl();
         </div>
         
         <div class="form-group">
-          <label>No. HP</label>
+          <label>Phone Number</label>
           <div class="input-wrapper">
             <input type="tel" name="phone" placeholder="08xxxxxxxxxx" />
           </div>
         </div>
         
         <div class="form-group">
-          <label>Jenis Kelamin</label>
+          <label>Gender</label>
           <div class="gender-group">
             <div class="radio-wrapper">
               <input type="radio" id="male" name="gender" value="male" required />
-              <label for="male">Laki-laki</label>
+              <label for="male">Male</label>
             </div>
             <div class="radio-wrapper">
               <input type="radio" id="female" name="gender" value="female" required />
-              <label for="female">Perempuan</label>
+              <label for="female">Female</label>
             </div>
           </div>
         </div>

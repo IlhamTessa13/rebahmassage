@@ -33,7 +33,7 @@ function validateOperationalHours(startTime, durationMinutes) {
   if (startTimeDecimal < OPENING_TIME) {
     return {
       valid: false,
-      message: `Rebah Massage buka mulai pukul ${OPENING_TIME}:00`,
+      message: `Rebah Massage opens at ${OPENING_TIME}:00 AM`,
     };
   }
 
@@ -42,7 +42,7 @@ function validateOperationalHours(startTime, durationMinutes) {
     const maxStart = getMaxStartTime(durationMinutes);
     return {
       valid: false,
-      message: `Untuk durasi ${durationMinutes} menit, waktu booking terakhir adalah pukul ${maxStart} agar selesai sebelum jam tutup (21:00)`,
+      message: `For ${durationMinutes} minutes duration, the latest booking time is ${maxStart} to finish before closing time (9:00 PM)`,
     };
   }
 
@@ -173,13 +173,13 @@ function loadBranches() {
       } else {
         showNotification(
           "error",
-          "Gagal memuat daftar cabang: " + (data.message || "Terjadi kesalahan")
+          "Failed to load branches: " + (data.message || "An error occurred")
         );
       }
     })
     .catch((error) => {
       console.error("Error:", error);
-      showNotification("error", "Terjadi kesalahan saat memuat cabang");
+      showNotification("error", "An error occurred while loading branches");
     });
 }
 
@@ -238,12 +238,12 @@ function loadCategories(branchId) {
       if (data.success) {
         displayCategories(data.categories);
       } else {
-        showNotification("error", "Gagal memuat kategori layanan");
+        showNotification("error", "Failed to load service categories");
       }
     })
     .catch((error) => {
       console.error("Error:", error);
-      showNotification("error", "Terjadi kesalahan saat memuat kategori");
+      showNotification("error", "An error occurred while loading categories");
     });
 }
 
@@ -383,8 +383,8 @@ function filterTimeSlots(durationMinutes) {
     timeSelect.value = "";
     showNotification(
       "warning",
-      `Waktu yang dipilih tidak valid untuk durasi ${durationMinutes} menit. Silakan pilih waktu maksimal ${maxStartTime}`,
-      "Waktu Tidak Valid"
+      `Selected time is not valid for ${durationMinutes} minutes duration. Please select time up to ${maxStartTime}`,
+      "Invalid Time"
     );
   }
 }
@@ -400,9 +400,9 @@ document.getElementById("duration")?.addEventListener("change", function () {
 
     // Show info message
     const infoMessages = {
-      60: "Untuk durasi 60 menit, Anda dapat booking hingga pukul 20:00",
-      90: "Untuk durasi 90 menit, Anda dapat booking hingga pukul 19:30",
-      120: "Untuk durasi 120 menit, Anda dapat booking hingga pukul 19:00",
+      60: "For 60 minutes duration, you can book until 8:00 PM",
+      90: "For 90 minutes duration, you can book until 7:30 PM",
+      120: "For 120 minutes duration, you can book until 7:00 PM",
     };
 
     if (infoMessages[duration]) {
@@ -445,7 +445,7 @@ function checkAvailability() {
   if (time && duration) {
     const validation = validateOperationalHours(time, parseInt(duration));
     if (!validation.valid) {
-      showNotification("error", validation.message, "Waktu Tidak Valid");
+      showNotification("error", validation.message, "Invalid Time");
 
       // Clear therapist dropdown
       const therapistSelect = document.getElementById("therapist");
@@ -476,8 +476,8 @@ function checkAvailability() {
         if (data.success && !data.available) {
           showNotification(
             "warning",
-            "Ruangan ini tidak tersedia pada waktu yang dipilih. Silakan pilih waktu lain.",
-            "Ruangan Tidak Tersedia"
+            "This room is not available at the selected time. Please choose another time.",
+            "Room Not Available"
           );
         }
       })
@@ -529,20 +529,20 @@ function loadTherapists() {
         if (data.therapists.length === 0) {
           showNotification(
             "warning",
-            "Tidak ada therapist yang tersedia untuk waktu yang dipilih. Silakan pilih waktu lain.",
-            "Therapist Tidak Tersedia"
+            "No therapists available at the selected time. Please choose another time.",
+            "Therapist Not Available"
           );
         }
       } else {
         showNotification(
           "error",
-          data.message || "Gagal memuat daftar therapist"
+          data.message || "Failed to load therapist list"
         );
       }
     })
     .catch((error) => {
       console.error("Error loading therapists:", error);
-      showNotification("error", "Terjadi kesalahan saat memuat therapist");
+      showNotification("error", "An error occurred while loading therapists");
     });
 }
 
@@ -562,7 +562,7 @@ document
     // FINAL VALIDATION BEFORE SUBMIT
     const validation = validateOperationalHours(time, parseInt(duration));
     if (!validation.valid) {
-      showNotification("error", validation.message, "Booking Tidak Valid");
+      showNotification("error", validation.message, "Invalid Booking");
       return;
     }
 
@@ -598,8 +598,8 @@ document
         if (data.success) {
           showNotification(
             "success",
-            "Booking berhasil dibuat! Menunggu persetujuan admin.\n\nAnda akan diarahkan ke halaman riwayat...",
-            "Booking Berhasil"
+            "Booking created successfully! Waiting for admin approval.\n\nYou will be redirected to the history page...",
+            "Booking Successful"
           );
 
           // Redirect after success
@@ -608,25 +608,21 @@ document
           }, 3000);
         } else {
           // Handle specific error messages
-          let errorMessage = data.message || "Gagal membuat booking";
+          let errorMessage = data.message || "Failed to create booking";
 
           if (
             errorMessage.toLowerCase().includes("operational hours") ||
             errorMessage.toLowerCase().includes("jam operasional")
           ) {
-            showNotification(
-              "error",
-              errorMessage,
-              "Jam Operasional Tidak Valid"
-            );
+            showNotification("error", errorMessage, "Invalid Operating Hours");
           } else if (
             errorMessage.toLowerCase().includes("room") &&
             errorMessage.toLowerCase().includes("not available")
           ) {
             showNotification(
               "error",
-              "Ruangan yang dipilih tidak tersedia pada waktu tersebut. Silakan pilih ruangan atau waktu lain.",
-              "Ruangan Tidak Tersedia"
+              "The selected room is not available at that time. Please choose another room or time.",
+              "Room Not Available"
             );
           } else if (
             errorMessage.toLowerCase().includes("therapist") &&
@@ -634,8 +630,8 @@ document
           ) {
             showNotification(
               "error",
-              "Therapist yang dipilih tidak tersedia pada waktu tersebut. Silakan pilih therapist atau waktu lain.",
-              "Therapist Tidak Tersedia"
+              "The selected therapist is not available at that time. Please choose another therapist or time.",
+              "Therapist Not Available"
             );
           } else {
             showNotification("error", errorMessage);
@@ -651,7 +647,7 @@ document
         console.error("Error:", error);
         showNotification(
           "error",
-          "Terjadi kesalahan saat membuat booking: " + error.message
+          "An error occurred while creating booking: " + error.message
         );
       });
   });

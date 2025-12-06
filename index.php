@@ -200,6 +200,17 @@ try {
       </div>
       
       <div class="footer-right">
+        
+        <div class="footer-column">
+          <h4 class="footer-heading">Rebah Fatmawati</h4>
+          <p class="footer-info">Everyday - 9AM - 9PM, last order<br>8PM (1 hour treatment)</p>
+        </div>
+        
+        <div class="footer-column">
+          <h4 class="footer-heading">Rebah Menteng</h4>
+          <p class="footer-info">Everyday - 9AM - 9PM, last order<br>8PM (1 hour treatment)</p>
+        </div>
+
         <div class="footer-column">
           <h4 class="footer-heading">Navigation</h4>
           <a href="#home" class="footer-link">Home</a>
@@ -207,16 +218,7 @@ try {
           <a href="#service" class="footer-link">Service</a>
           <a href="#blog" class="footer-link">Blog</a>
           <a href="#maps" class="footer-link">Maps</a>
-        </div>
-        
-        <div class="footer-column">
-          <h4 class="footer-heading">Rebah Fatmawati</h4>
-          <p class="footer-info">Everyday - 10AM - 10PM, last order<br>9PM (1 hour treatment)</p>
-        </div>
-        
-        <div class="footer-column">
-          <h4 class="footer-heading">Rebah Menteng</h4>
-          <p class="footer-info">Everyday - 10AM - 10PM, last order<br>9PM (1 hour treatment)</p>
+          <a href=login.php class="footer-link">Booking</a>
         </div>
       </div>
     </div>
