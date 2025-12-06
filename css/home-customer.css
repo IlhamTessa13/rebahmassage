@@ -1,0 +1,962 @@
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #46486f;
+  color: #333;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 1vw;
+  left: 50vw;
+  transform: translateX(-50%);
+  background: #FDEDBB;
+  backdrop-filter: blur(10px);
+  padding: 1vw;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  z-index: 1000;
+  max-width: 900px;
+  width: 70vw;
+  border-radius: 1vw;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  opacity: 90%;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+  gap: 2vw;
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  color: #915437;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2vw;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 100%;
+  background: #915437;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: -1;
+  border-radius: 2vw;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  width: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #FDEDBB;
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding-top: 0;
+}
+
+.hero-card {
+  width: 100%;
+  max-width: 1200px;
+  height: 600px;
+  background: url('/php/public/headerbg.png') center/cover;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 3.6vw;
+}
+
+/* About Section */
+.about-section {
+  padding: 3vw;
+  background: #46486f;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(to right, #FDEDBB 40%, #46486f 100%);
+  border-radius: 30px;
+  padding: 3vw;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-content {
+  flex: 1;
+  color: white;
+}
+
+.about-title {
+  line-height: 1.8;
+  font-size: 3.1vw;
+  color: #915437;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+}
+
+.about-text {
+  line-height: 1.8;
+  font-size: 1.5vw;
+  color: #915437;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+}
+
+.about-img {
+  width: 50vw;
+  height: 47vw;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+  margin-right: -5vw;
+  margin-top: -1vw;
+}
+
+.about-img:hover {
+  transform: scale(1.01);
+}
+
+/* Services Section */
+.services-section {
+    padding: 4rem 2rem;
+    background: #46486f;
+}
+
+.services-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+}
+
+.services-title {
+    font-size: 2rem;
+    color: #FDEDBB;
+    margin-bottom: 0.5rem;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 600;
+}
+
+.services-subtitle {
+    color: #FDEDBB;
+    line-height: 1.6;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+}
+
+.services-carousel-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #FDEDBB;
+    border-radius: 30px;
+    padding: 3rem 4rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.services-carousel {
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.services-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 1.5rem;
+    will-change: transform;
+}
+
+.service-card {
+    flex: 0 0 calc(33.333% - 1rem);
+    min-width: calc(33.333% - 1rem);
+    max-width: calc(33.333% - 1rem);
+}
+
+.service-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+}
+
+.service-image-wrapper:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.service-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.service-image-wrapper:hover .service-image {
+    transform: scale(1.1);
+}
+
+.service-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(139, 84, 60, 0.95), transparent);
+    padding: 2rem 1.5rem;
+    transition: all 0.4s ease;
+}
+
+.service-image-wrapper:hover .service-overlay {
+    padding: 2.5rem 1.5rem;
+}
+
+.service-name {
+    color: #FDEDBB;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: "Ubuntu", sans-serif;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #915437;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn:hover {
+    background: #6d3a2a;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: #FDEDBB;
+}
+
+.carousel-prev {
+    left: 1rem;
+}
+
+.carousel-next {
+    right: 1rem;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 2rem;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #915437;
+    opacity: 0.3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+}
+
+.carousel-dot.active {
+    opacity: 1;
+    width: 30px;
+    border-radius: 6px;
+}
+
+.carousel-dot:hover {
+    opacity: 0.7;
+}
+
+/* Skeleton Loading */
+.service-card.skeleton {
+    pointer-events: none;
+}
+
+.skeleton-img {
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 15px;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.service-error {
+    width: 100%;
+    text-align: center;
+    padding: 3rem;
+    color: #915437;
+    font-size: 1.2rem;
+    font-family: "Ubuntu", sans-serif;
+}
+
+/* Blog Section */
+.blog-section {
+  padding: 4rem 2rem;
+  background: #46486f;
+}
+
+.blog-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
+
+.blog-title {
+  font-size: 2rem;
+  color: #FDEDBB;
+  margin-bottom: 1rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+}
+
+.blog-subtitle {
+  color: #FDEDBB;
+  line-height: 1.6;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+}
+
+.blog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.blog-card {
+  background: #FDEDBB;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.blog-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.blog-content {
+  padding: 1.5rem;
+}
+
+.blog-card-title {
+  font-size: 1.25rem;
+  color: #915437;
+  margin-bottom: 0.5rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+}
+
+.blog-excerpt {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.blog-link {
+  color: #915437;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: "Ubuntu", sans-serif;
+  transition: color 0.3s ease;
+}
+
+.blog-link:hover {
+  color: #6d3a2a;
+}
+
+.blog-view-all {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.view-all-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #FDEDBB;
+  color: #915437;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-family: "Ubuntu", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.view-all-btn:hover {
+  background: #915437;
+  color: #FDEDBB;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Maps Section - FIXED */
+.maps-section {
+  padding: 4rem 2rem;
+  background: #46486f;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.maps-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #FDEDBB;
+  margin-bottom: 3rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+}
+
+.maps-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #FDEDBB;
+  border-radius: 30px;
+  padding: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Map Card - Only iFrame in white box */
+.map-card {
+  flex: 1 1 calc(50% - 1.5rem);
+  min-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.map-iframe-wrapper {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.map-iframe-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.map-image {
+  width: 100%;
+  height: 300px;
+  border: none;
+  display: block;
+}
+
+/* Map Info - Outside white box, in cream container */
+.map-info {
+  padding: 0;
+}
+
+.map-location {
+  font-size: 1.4rem;
+  color: #915437;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #915437;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+}
+
+.map-address {
+  font-size: 1rem;
+  color: #915437;
+  line-height: 1.7;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+}
+
+.map-address strong {
+  font-weight: 600;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* Footer */
+.footer {
+  background: #46486f;
+  padding: 3rem 2rem 1rem 2rem;
+  color: white;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #FDEDBB;
+  border-radius: 20px;
+  padding: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.footer-left {
+  flex: 1;
+  max-width: 350px;
+}
+
+.footer-logo {
+  width: 200px;
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.footer-text {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #46486f;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.social-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+}
+
+.footer-right {
+  flex: 2;
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-heading {
+  color: #46486f;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-link {
+  color: #46486f;
+  text-decoration: none;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #915437;
+}
+
+.footer-info {
+  color: #46486f;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 2rem;
+  color: #FDEDBB;
+  font-size: 0.9rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+    .service-card {
+        flex: 0 0 calc(50% - 0.75rem);
+        min-width: calc(50% - 0.75rem);
+        max-width: calc(50% - 0.75rem);
+    }
+
+    .services-carousel-wrapper {
+        padding: 2.5rem 3.5rem;
+    }
+
+    .service-image-wrapper {
+        height: 320px;
+    }
+
+    .map-card {
+        flex: 1 1 calc(50% - 1.5rem);
+        min-width: 340px;
+    }
+}
+
+/* Mobile & Tablet (768px and below) */
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    top: 10px;
+    width: 95%;
+    padding: 0.75rem 0.5rem;
+    border-radius: 15px;
+  }
+
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    border-radius: 10px;
+  }
+
+  /* Hero */
+  .hero-section {
+    padding: 1rem;
+    min-height: 50vh;
+  }
+
+  .hero-card {
+    height: 350px;
+    margin-top: 70px;
+    border-radius: 15px;
+  }
+
+  /* About */
+  .about-section {
+    padding: 2rem 1rem;
+  }
+
+  .about-container {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    background: #FDEDBB;
+    gap: 1.5rem;
+  }
+
+  .about-title {
+    font-size: 6vw;
+  }
+
+  .about-text {
+    font-size: 3.5vw;
+  }
+
+  .about-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    margin: 0;
+  }
+
+  /* Services - Mobile Optimized */
+  .services-section {
+    padding: 3rem 1rem;
+  }
+
+  .services-title {
+    font-size: 1.75rem;
+  }
+
+  .services-subtitle {
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+  }
+
+  .services-carousel-wrapper {
+    padding: 2rem 2.5rem;
+    border-radius: 20px;
+  }
+  
+  .service-card {
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  .services-track {
+    gap: 0;
+  }
+  
+  .service-image-wrapper {
+    height: 300px;
+    border-radius: 12px;
+  }
+
+  .service-name {
+    font-size: 1.35rem;
+  }
+  
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .carousel-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .carousel-prev {
+    left: 0.5rem;
+  }
+
+  .carousel-next {
+    right: 0.5rem;
+  }
+
+  .carousel-dots {
+    margin-top: 1.5rem;
+  }
+
+  /* Blog */
+  .blog-section {
+    padding: 3rem 1rem;
+  }
+
+  .blog-title {
+    font-size: 1.75rem;
+  }
+
+  .blog-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Maps - Mobile */
+  .maps-section {
+    padding: 3rem 1rem;
+  }
+
+  .maps-title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .maps-container {
+    padding: 2rem 1.5rem;
+    gap: 2.5rem;
+    border-radius: 20px;
+  }
+
+  .map-card {
+    flex: 1 1 100%;
+    min-width: 100%;
+    gap: 1.25rem;
+  }
+
+  .map-image {
+    height: 250px;
+  }
+
+  .map-location {
+    font-size: 1.25rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .map-address {
+    font-size: 0.9rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 2rem 1rem 1rem 1rem;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  
+  .footer-left {
+    max-width: 100%;
+  }
+  
+  .footer-right {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .footer-logo {
+    width: 150px;
+    height: 60px;
+  }
+  
+  .social-links {
+    justify-content: flex-start;
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .nav-link {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-card {
+    height: 280px;
+  }
+
+  .about-title {
+    font-size: 7vw;
+  }
+
+  .about-text {
+    font-size: 4vw;
+  }
+
+  /* Services - Small Mobile */
+  .services-section {
+    padding: 2.5rem 0.75rem;
+  }
+
+  .services-title {
+    font-size: 1.5rem;
+  }
+
+  .services-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .services-carousel-wrapper {
+    padding: 1.75rem 2.25rem;
+    border-radius: 15px;
+  }
+  
+  .service-image-wrapper {
+    height: 280px;
+  }
+  
+  .service-name {
+    font-size: 1.2rem;
+  }
+
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .carousel-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Maps - Small Mobile */
+  .maps-container {
+    padding: 1.5rem 1.25rem;
+    gap: 2rem;
+    border-radius: 15px;
+  }
+
+  .map-image {
+    height: 220px;
+  }
+
+  .map-location {
+    font-size: 1.15rem;
+  }
+
+  .map-address {
+    font-size: 0.85rem;
+  }
+}

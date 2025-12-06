@@ -1,0 +1,467 @@
+/* Dashboard Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+}
+
+.date-info {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Statistics Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: #46486f;
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-icon svg {
+    width: 35px;
+    height: 35px;
+    color: #46486F;
+}
+
+.stat-card.reservasi .stat-icon {
+    background: #FDEDBB;
+    color: white;
+}
+
+.stat-card.customer .stat-icon {
+    background: #FDEDBB;
+    color: white;
+}
+
+.stat-card.therapist .stat-icon {
+    background: #FDEDBB;
+    color: white;
+}
+
+.stat-info h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #FDEDBB;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: #FDEDBB;
+    margin: 0;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #FDEDBB;
+}
+
+/* Chart Section */
+.chart-section {
+    margin-bottom: 30px;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.chart-title-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.chart-title-area h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #46486f;
+}
+
+.chart-current-value {
+    background: #46486f;
+    padding: 12px 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #46486f;
+}
+
+.value-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #FDEDBB;
+    line-height: 1;
+}
+
+.value-label {
+    font-size: 11px;
+    color: #FDEDBB;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.chart-period-buttons {
+    display: flex;
+    gap: 8px;
+    background: #f5f5f5;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.period-btn {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: #666;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.period-btn:hover {
+    background: rgb(253, 237, 187);
+    color: #46486F;
+}
+
+.period-btn.active {
+    background: #FDEDBB;
+    color: #46486F;
+    box-shadow: 0 2px 8px rgba(18, 88, 116, 0.3);
+}
+
+.chart-container {
+    position: relative;
+    height: 350px;
+    padding: 20px 10px;
+}
+
+/* Dashboard Section */
+.dashboard-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #46486f;
+}
+
+.view-all {
+    color: #46486f;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.view-all:hover {
+    color: #46486f;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table thead {
+    background: #f5f5dc;
+}
+
+.data-table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #46486f;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-table td {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    font-size: 14px;
+}
+
+.data-table tbody tr {
+    transition: background 0.3s ease;
+}
+
+.data-table tbody tr:hover {
+    background: #fafafa;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #46486f;
+}
+
+.status-badge.approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-badge.completed {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Therapist Grid */
+.therapist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.therapist-card {
+    background: linear-gradient(135deg, #f5f5dc 0%, #fffef5 100%);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 2px solid #46486f;
+    transition: all 0.3s ease;
+}
+
+.therapist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(139, 90, 60, 0.2);
+}
+
+.therapist-avatar {
+    width: 70px;
+    height: 70px;
+    background: #46486f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    color: white;
+}
+
+.therapist-avatar svg {
+    width: 35px;
+    height: 35px;
+}
+
+.therapist-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #46486f;
+}
+
+.bookings-count {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.status-indicator {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-indicator.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-indicator.inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .chart-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .chart-title-area {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .chart-period-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .period-btn {
+        flex: 1;
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .table-container {
+        overflow-x: scroll;
+    }
+
+    .data-table {
+        min-width: 600px;
+    }
+
+    .therapist-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+
+    .chart-period-buttons {
+        flex-wrap: wrap;
+    }
+
+    .period-btn {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+
+    .value-number {
+        font-size: 24px;
+    }
+
+    .value-label {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .stat-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .stat-number {
+        font-size: 28px;
+    }
+
+    .dashboard-section {
+        padding: 15px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .chart-container {
+        height: 250px;
+        padding: 10px 5px;
+    }
+
+    .chart-current-value {
+        padding: 10px 16px;
+    }
+
+    .value-number {
+        font-size: 22px;
+    }
+}

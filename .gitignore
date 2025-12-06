@@ -1,0 +1,42 @@
+# Composer
+/vendor/
+composer.lock
+
+# Google OAuth Credentials (NEVER COMMIT!)
+/php/includes/google-config.php
+
+# Database Config (if contains sensitive info)
+/php/includes/db.php
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+error_log
+debug.log
+
+# Uploads
+/php/uploads/*
+!/php/uploads/.gitkeep
+
+# Cache
+/php/cache/*
+!/php/cache/.gitkeep
+
+# Session files
+/php/sessions/*
+!/php/sessions/.gitkeep
