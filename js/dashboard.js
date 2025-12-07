@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setupChartButtons();
 });
 
-// Setup sidebar toggle (kompatibel dengan semua halaman)
+// Setup sidebar toggle dengan support mobile overlay
 function setupSidebarToggle() {
   const toggleBtn = document.getElementById("toggleBtn");
   const sidebar =
@@ -33,35 +33,107 @@ function setupSidebarToggle() {
 
   if (!toggleBtn || !sidebar || !mainContent) {
     console.warn("Sidebar elements not found");
-    console.log("toggleBtn:", toggleBtn);
-    console.log("sidebar:", sidebar);
-    console.log("mainContent:", mainContent);
     return;
   }
 
-  // Check localStorage for sidebar state
-  const sidebarState = localStorage.getItem("sidebarState");
-  if (sidebarState === "closed") {
-    sidebar.classList.add("collapsed");
-    sidebar.classList.add("closed");
-    mainContent.classList.add("expanded");
+  // Create overlay untuk mobile/tablet
+  let overlay = document.querySelector(".sidebar-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "sidebar-overlay";
+    document.body.appendChild(overlay);
   }
 
-  toggleBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("collapsed");
-    sidebar.classList.toggle("closed");
-    mainContent.classList.toggle("expanded");
+  // Check jika mobile/tablet view
+  function isMobileView() {
+    return window.innerWidth <= 1024;
+  }
 
-    // Save state to localStorage
-    if (
-      sidebar.classList.contains("collapsed") ||
-      sidebar.classList.contains("closed")
-    ) {
-      localStorage.setItem("sidebarState", "closed");
+  // Toggle sidebar function
+  function toggleSidebar() {
+    if (isMobileView()) {
+      // Mobile/Tablet behavior: overlay sidebar
+      const isOpen = sidebar.classList.contains("mobile-open");
+
+      if (isOpen) {
+        // Close sidebar
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+      } else {
+        // Open sidebar
+        sidebar.classList.add("mobile-open");
+        overlay.classList.add("active");
+        mainContent.classList.add("blurred");
+      }
     } else {
-      localStorage.setItem("sidebarState", "open");
+      // Desktop behavior: collapse sidebar
+      const isCollapsed = sidebar.classList.contains("collapsed");
+
+      if (isCollapsed) {
+        sidebar.classList.remove("collapsed");
+        mainContent.classList.remove("expanded");
+        localStorage.setItem("sidebarState", "open");
+      } else {
+        sidebar.classList.add("collapsed");
+        mainContent.classList.add("expanded");
+        localStorage.setItem("sidebarState", "closed");
+      }
+    }
+  }
+
+  // Toggle button click
+  toggleBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    toggleSidebar();
+  });
+
+  // Close sidebar ketika overlay diklik (mobile only)
+  overlay.addEventListener("click", function () {
+    if (isMobileView()) {
+      sidebar.classList.remove("mobile-open");
+      overlay.classList.remove("active");
+      mainContent.classList.remove("blurred");
     }
   });
+
+  // Handle window resize
+  let resizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (isMobileView()) {
+        // Switch to mobile mode
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+        mainContent.classList.remove("expanded");
+      } else {
+        // Switch to desktop mode
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+
+        // Restore desktop sidebar state
+        const sidebarState = localStorage.getItem("sidebarState");
+        if (sidebarState === "closed") {
+          sidebar.classList.add("collapsed");
+          mainContent.classList.add("expanded");
+        } else {
+          sidebar.classList.remove("collapsed");
+          mainContent.classList.remove("expanded");
+        }
+      }
+    }, 250);
+  });
+
+  // Initialize state for desktop
+  if (!isMobileView()) {
+    const sidebarState = localStorage.getItem("sidebarState");
+    if (sidebarState === "closed") {
+      sidebar.classList.add("collapsed");
+      mainContent.classList.add("expanded");
+    }
+  }
 }
 
 // Load dashboard statistics
@@ -138,8 +210,8 @@ function updateChart(labels, data) {
             pointBackgroundColor: "#46486F",
             pointBorderColor: "#fff",
             pointBorderWidth: 2,
-            pointRadius: 5,
-            pointHoverRadius: 7,
+            pointRadius: 4,
+            pointHoverRadius: 6,
           },
         ],
       },
@@ -152,12 +224,12 @@ function updateChart(labels, data) {
           },
           tooltip: {
             backgroundColor: "rgba(0, 0, 0, 0.8)",
-            padding: 12,
+            padding: 10,
             titleFont: {
-              size: 13,
+              size: 12,
             },
             bodyFont: {
-              size: 14,
+              size: 13,
               weight: "bold",
             },
           },
@@ -170,7 +242,7 @@ function updateChart(labels, data) {
             },
             ticks: {
               font: {
-                size: 12,
+                size: 11,
               },
             },
           },
@@ -180,7 +252,7 @@ function updateChart(labels, data) {
             },
             ticks: {
               font: {
-                size: 12,
+                size: 11,
               },
             },
           },
