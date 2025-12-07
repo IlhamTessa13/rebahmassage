@@ -81,6 +81,93 @@ html {
   color: #FDEDBB;
 }
 
+/* Mobile Header - Hidden on Desktop */
+.nav-mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo Mobile - Hidden on Desktop */
+.nav-logo-mobile {
+  display: none;
+  height: 50px;
+  width: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Hamburger Button - Hidden on Desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: #915437;
+  border-radius: 3px;
+}
+
+/* Sembunyikan hamburger ketika sidebar active */
+.hamburger.hide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+
+
+/* Close Button - Hidden on Desktop */
+.nav-close {
+  display: none;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: #915437;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 300;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}
+
+.nav-close:hover {
+  color: #6d3a2a;
+  transform: rotate(90deg);
+}
+
+/* Overlay - Hidden on Desktop */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+}
 /* Hero Section */
 .hero-section {
   padding: 2rem;
@@ -688,38 +775,95 @@ html {
 
 /* Mobile & Tablet (768px and below) */
 @media (max-width: 768px) {
-  /* Navbar */
+  /* Navbar Mobile */
   .navbar {
-    top: 10px;
-    width: 95%;
-    padding: 0.75rem 0.5rem;
-    border-radius: 15px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: none;
+    border-radius: 0;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    opacity: 100%;
+  }
+
+  .nav-logo-mobile {
+    display: block;
+  }
+
+  .hamburger {
+    display: flex;
+    position: relative;
+    z-index: 1001;
   }
 
   .nav-container {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 75%;
+    max-width: 350px;
+    height: 100vh;
+    background: #FDEDBB;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 2rem 2rem 2rem;
+    gap: 0;
     margin: 0;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-container.active {
+    left: 0;
+  }
+
+  .nav-close {
+    display: block;
+  }
+
+  .nav-overlay {
+    display: block;
   }
 
   .nav-link {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.85rem;
-    border-radius: 10px;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link.active,
+  .nav-link:hover {
+    border-left-color: #915437;
+    background: rgba(145, 84, 55, 0.15);
+    color: #915437;
+  }
+
+  .nav-link::before {
+    display: none;
   }
 
   /* Hero */
   .hero-section {
-    padding: 1rem;
+    padding: 0.5rem 1rem 1rem 1rem; /* Kurangi padding top */
     min-height: 50vh;
   }
 
   .hero-card {
     height: 350px;
-    margin-top: 70px;
+    margin-top: 30px; /* Kurangi jarak dari 70px jadi 65px */
     border-radius: 15px;
   }
-
   /* About */
   .about-section {
     padding: 2rem 1rem;
@@ -889,12 +1033,13 @@ html {
 /* Small Mobile (480px and below) */
 @media (max-width: 480px) {
   .nav-link {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.75rem;
+    padding: 1.15rem 1.25rem;
+    font-size: 1.2rem;
   }
 
   .hero-card {
     height: 280px;
+    margin-top: 20px; /* Kurangi jarak untuk mobile kecil */
   }
 
   .about-title {

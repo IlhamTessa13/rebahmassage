@@ -25,19 +25,30 @@ try {
 </head>
 <body>
   
+<!-- Navbar -->
+<nav class="navbar">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#home" class="nav-link active">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#service" class="nav-link">Service</a>
-      <a href="#blog" class="nav-link">Blog</a>
-      <a href="#maps" class="nav-link">Maps</a>
-      <a href="/php/booking.php" class="nav-link">Booking</a>
-      <a href="/php/login.php" class="nav-link">Login</a>
-    </div>
-  </nav>
+  <img src="/php/public/logorebah.png" alt="Rebah Logo" class="nav-logo-mobile">
+
+  <div class="nav-container" id="navContainer">
+    <button class="nav-close" id="navClose" aria-label="Close Menu">×</button>
+    
+    <a href="#home" class="nav-link active">Home</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#service" class="nav-link">Service</a>
+    <a href="#blog" class="nav-link">Blog</a>
+    <a href="#maps" class="nav-link">Maps</a>
+    <a href="/php/booking.php" class="nav-link">Booking</a>
+    <a href="/php/login.php" class="nav-link">Login</a>
+  </div>
+  
+  <div class="nav-overlay" id="navOverlay"></div>
+</nav>
 
   <!-- Hero Section -->
   <section id="home" class="hero-section">

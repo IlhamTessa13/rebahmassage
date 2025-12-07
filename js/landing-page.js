@@ -1,9 +1,59 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Landing page loaded");
 
+  // Mobile Navigation Toggle
+  const hamburger = document.getElementById("hamburgerBtn");
+  const navContainer = document.getElementById("navContainer");
+  const navClose = document.getElementById("navClose");
+  const navOverlay = document.getElementById("navOverlay");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  function openNav() {
+    navContainer.classList.add("active");
+    navOverlay.classList.add("active");
+    hamburger.classList.add("hide"); // Tambahkan class hide
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeNav() {
+    navContainer.classList.remove("active");
+    navOverlay.classList.remove("active");
+    hamburger.classList.remove("hide"); // Hapus class hide
+    document.body.style.overflow = "";
+  }
+
+  if (hamburger) {
+    hamburger.addEventListener("click", openNav);
+  }
+
+  if (navClose) {
+    navClose.addEventListener("click", closeNav);
+  }
+
+  if (navOverlay) {
+    navOverlay.addEventListener("click", closeNav);
+  }
+
+  // Close nav when clicking nav links
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      if (window.innerWidth <= 768) {
+        closeNav();
+      }
+    });
+  });
+
+  // Close nav on ESC key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && navContainer.classList.contains("active")) {
+      closeNav();
+    }
+  });
+
+  // ... kode yang sudah ada sebelumnya ...
+
   // Navbar active link on scroll
   const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll(".nav-link");
 
   window.addEventListener("scroll", function () {
     let current = "";
