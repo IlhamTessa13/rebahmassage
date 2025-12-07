@@ -111,13 +111,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Setup character counters
   setupCharCounters();
+
+  // IMPORTANT: Pastikan modal edit TERSEMBUNYI saat halaman load
+  const editModal = document.getElementById("editBlogModal");
+  if (editModal) {
+    editModal.classList.remove("modal-open");
+    editModal.style.display = "none";
+  }
 });
 
 // ============================================
 // SETUP FUNCTIONS
 // ============================================
 
-// Setup sidebar toggle (kompatibel dengan dashboard.js)
+// Setup sidebar toggle dengan support mobile overlay
 function setupSidebarToggle() {
   const toggleBtn = document.getElementById("toggleBtn");
   const sidebar =
@@ -129,29 +136,104 @@ function setupSidebarToggle() {
     return;
   }
 
-  // Check localStorage for sidebar state
-  const sidebarState = localStorage.getItem("sidebarState");
-  if (sidebarState === "closed") {
-    sidebar.classList.add("collapsed");
-    sidebar.classList.add("closed");
-    mainContent.classList.add("expanded");
+  // Create overlay untuk mobile/tablet
+  let overlay = document.querySelector(".sidebar-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "sidebar-overlay";
+    document.body.appendChild(overlay);
   }
 
-  toggleBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("collapsed");
-    sidebar.classList.toggle("closed");
-    mainContent.classList.toggle("expanded");
+  // Check jika mobile/tablet view
+  function isMobileView() {
+    return window.innerWidth <= 1024;
+  }
 
-    // Save state to localStorage
-    if (
-      sidebar.classList.contains("collapsed") ||
-      sidebar.classList.contains("closed")
-    ) {
-      localStorage.setItem("sidebarState", "closed");
+  // Toggle sidebar function
+  function toggleSidebar() {
+    if (isMobileView()) {
+      // Mobile/Tablet behavior: overlay sidebar
+      const isOpen = sidebar.classList.contains("mobile-open");
+
+      if (isOpen) {
+        // Close sidebar
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+      } else {
+        // Open sidebar
+        sidebar.classList.add("mobile-open");
+        overlay.classList.add("active");
+        mainContent.classList.add("blurred");
+      }
     } else {
-      localStorage.setItem("sidebarState", "open");
+      // Desktop behavior: collapse sidebar
+      const isCollapsed = sidebar.classList.contains("collapsed");
+
+      if (isCollapsed) {
+        sidebar.classList.remove("collapsed");
+        mainContent.classList.remove("expanded");
+        localStorage.setItem("sidebarState", "open");
+      } else {
+        sidebar.classList.add("collapsed");
+        mainContent.classList.add("expanded");
+        localStorage.setItem("sidebarState", "closed");
+      }
+    }
+  }
+
+  // Toggle button click
+  toggleBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    toggleSidebar();
+  });
+
+  // Close sidebar ketika overlay diklik (mobile only)
+  overlay.addEventListener("click", function () {
+    if (isMobileView()) {
+      sidebar.classList.remove("mobile-open");
+      overlay.classList.remove("active");
+      mainContent.classList.remove("blurred");
     }
   });
+
+  // Handle window resize
+  let resizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (isMobileView()) {
+        // Switch to mobile mode
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+        mainContent.classList.remove("expanded");
+      } else {
+        // Switch to desktop mode
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+
+        // Restore desktop sidebar state
+        const sidebarState = localStorage.getItem("sidebarState");
+        if (sidebarState === "closed") {
+          sidebar.classList.add("collapsed");
+          mainContent.classList.add("expanded");
+        } else {
+          sidebar.classList.remove("collapsed");
+          mainContent.classList.remove("expanded");
+        }
+      }
+    }, 250);
+  });
+
+  // Initialize state for desktop
+  if (!isMobileView()) {
+    const sidebarState = localStorage.getItem("sidebarState");
+    if (sidebarState === "closed") {
+      sidebar.classList.add("collapsed");
+      mainContent.classList.add("expanded");
+    }
+  }
 }
 
 // Setup image preview
@@ -284,7 +366,7 @@ function displayBlogs(blogs) {
                         <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
                         <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
                     </svg>
-                    Edit Blog
+                    Edit
                 </button>
             </div>
         </div>
@@ -347,8 +429,10 @@ function openEditModal(blogId) {
         document.getElementById("blogImage").value = "";
         document.getElementById("newImagePreview").style.display = "none";
 
-        // Open modal
-        document.getElementById("editBlogModal").style.display = "block";
+        // Open modal with proper class
+        const modal = document.getElementById("editBlogModal");
+        modal.classList.add("modal-open");
+        modal.style.display = ""; // Remove inline display none
         document.body.style.overflow = "hidden"; // Prevent background scroll
       } else {
         showNotification(
@@ -363,12 +447,13 @@ function openEditModal(blogId) {
     });
 }
 
-// Close edit modal
 function closeEditModal() {
-  document.getElementById("editBlogModal").style.display = "none";
+  const modal = document.getElementById("editBlogModal");
+  modal.classList.remove("modal-open");
+  modal.style.display = "none"; // Force hide
   document.getElementById("editBlogForm").reset();
   document.getElementById("newImagePreview").style.display = "none";
-  document.body.style.overflow = "auto"; // Restore scroll
+  document.body.style.overflow = "auto";
   editingBlogId = null;
 }
 
@@ -488,7 +573,10 @@ function formatDate(dateString) {
 // Close modal when clicking outside (only for edit modal, not notification)
 window.onclick = function (event) {
   const editModal = document.getElementById("editBlogModal");
-  if (event.target === editModal) {
+  if (
+    event.target === editModal &&
+    editModal.classList.contains("modal-open")
+  ) {
     closeEditModal();
   }
 };

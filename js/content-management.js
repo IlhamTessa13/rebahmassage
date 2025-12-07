@@ -37,7 +37,7 @@ function createNotificationModal() {
     <div id="confirmationModal" class="notification-modal">
       <div class="notification-modal-content">
         <div class="notification-icon warning" id="confirmationIcon">
-          <svg id="warningIcon" class="icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <svg class="icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
             <line x1="12" y1="9" x2="12" y2="13"></line>
             <circle cx="12" cy="17" r="0.5" fill="currentColor"></circle>
@@ -177,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // SETUP FUNCTIONS
 // ============================================
 
+// Setup sidebar toggle dengan support mobile overlay
 function setupSidebarToggle() {
   const toggleBtn = document.getElementById("toggleBtn");
   const sidebar =
@@ -188,27 +189,104 @@ function setupSidebarToggle() {
     return;
   }
 
-  const sidebarState = localStorage.getItem("sidebarState");
-  if (sidebarState === "closed") {
-    sidebar.classList.add("collapsed");
-    sidebar.classList.add("closed");
-    mainContent.classList.add("expanded");
+  // Create overlay untuk mobile/tablet
+  let overlay = document.querySelector(".sidebar-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "sidebar-overlay";
+    document.body.appendChild(overlay);
   }
 
-  toggleBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("collapsed");
-    sidebar.classList.toggle("closed");
-    mainContent.classList.toggle("expanded");
+  // Check jika mobile/tablet view
+  function isMobileView() {
+    return window.innerWidth <= 1024;
+  }
 
-    if (
-      sidebar.classList.contains("collapsed") ||
-      sidebar.classList.contains("closed")
-    ) {
-      localStorage.setItem("sidebarState", "closed");
+  // Toggle sidebar function
+  function toggleSidebar() {
+    if (isMobileView()) {
+      // Mobile/Tablet behavior: overlay sidebar
+      const isOpen = sidebar.classList.contains("mobile-open");
+
+      if (isOpen) {
+        // Close sidebar
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+      } else {
+        // Open sidebar
+        sidebar.classList.add("mobile-open");
+        overlay.classList.add("active");
+        mainContent.classList.add("blurred");
+      }
     } else {
-      localStorage.setItem("sidebarState", "open");
+      // Desktop behavior: collapse sidebar
+      const isCollapsed = sidebar.classList.contains("collapsed");
+
+      if (isCollapsed) {
+        sidebar.classList.remove("collapsed");
+        mainContent.classList.remove("expanded");
+        localStorage.setItem("sidebarState", "open");
+      } else {
+        sidebar.classList.add("collapsed");
+        mainContent.classList.add("expanded");
+        localStorage.setItem("sidebarState", "closed");
+      }
+    }
+  }
+
+  // Toggle button click
+  toggleBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    toggleSidebar();
+  });
+
+  // Close sidebar ketika overlay diklik (mobile only)
+  overlay.addEventListener("click", function () {
+    if (isMobileView()) {
+      sidebar.classList.remove("mobile-open");
+      overlay.classList.remove("active");
+      mainContent.classList.remove("blurred");
     }
   });
+
+  // Handle window resize
+  let resizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (isMobileView()) {
+        // Switch to mobile mode
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+        mainContent.classList.remove("expanded");
+      } else {
+        // Switch to desktop mode
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+
+        // Restore desktop sidebar state
+        const sidebarState = localStorage.getItem("sidebarState");
+        if (sidebarState === "closed") {
+          sidebar.classList.add("collapsed");
+          mainContent.classList.add("expanded");
+        } else {
+          sidebar.classList.remove("collapsed");
+          mainContent.classList.remove("expanded");
+        }
+      }
+    }, 250);
+  });
+
+  // Initialize state for desktop
+  if (!isMobileView()) {
+    const sidebarState = localStorage.getItem("sidebarState");
+    if (sidebarState === "closed") {
+      sidebar.classList.add("collapsed");
+      mainContent.classList.add("expanded");
+    }
+  }
 }
 
 function setupImagePreview() {

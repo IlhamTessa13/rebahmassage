@@ -101,7 +101,7 @@ $admin = current_user();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-cancel" onclick="closeServiceModal()">Cancel</button>
-                <button type="button" class="btn-save" onclick="saveService()">Save Service</button>
+                <button type="button" class="btn-save" onclick="saveService()">Save</button>
             </div>
         </div>
     </div>

@@ -31,19 +31,31 @@ require_once 'includes/db.php';
 </head>
 <body>
   
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="home-customer.php" class="nav-link">Home</a>
-      <a href="home-customer.php#about" class="nav-link">About</a>
-      <a href="home-customer.php#service" class="nav-link">Service</a>
-      <a href="home-customer.php#maps" class="nav-link">Maps</a>
-      <a href="home-customer.php#blog" class="nav-link">Blog</a>
-      <a href="booking.php" class="nav-link active">Booking</a>
-      <a href="history.php" class="nav-link">History</a>
-      <a href="logout.php" class="nav-link">Logout</a>
-    </div>
-  </nav>
+<!-- Navbar -->
+<nav class="navbar">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <img src="/php/public/logorebah.png" alt="Rebah Logo" class="nav-logo-mobile">
+
+  <div class="nav-container" id="navContainer">
+    <button class="nav-close" id="navClose" aria-label="Close Menu">×</button>
+    
+    <a href="home-customer.php" class="nav-link">Home</a>
+    <a href="home-customer.php#about" class="nav-link">About</a>
+    <a href="home-customer.php#service" class="nav-link">Service</a>
+    <a href="home-customer.php#maps" class="nav-link">Maps</a>
+    <a href="home-customer.php#blog" class="nav-link">Blog</a>
+    <a href="booking.php" class="nav-link active">Booking</a>
+    <a href="history.php" class="nav-link">History</a>
+    <a href="logout.php" class="nav-link">Logout</a>
+  </div>
+  
+  <div class="nav-overlay" id="navOverlay"></div>
+</nav>
 
   <!-- Hero Section -->
   <section id="home" class="hero-section">

@@ -143,17 +143,69 @@ function closeNotificationModal() {
 // ============================================
 
 // Initialize on page load
+// Mobile Navigation Toggle
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Booking page loaded");
 
   // Create notification modal
   createNotificationModal();
 
+  // Mobile Navigation
+  const hamburger = document.getElementById("hamburgerBtn");
+  const navContainer = document.getElementById("navContainer");
+  const navClose = document.getElementById("navClose");
+  const navOverlay = document.getElementById("navOverlay");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  function openNav() {
+    navContainer.classList.add("active");
+    navOverlay.classList.add("active");
+    hamburger.classList.add("hide");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeNav() {
+    navContainer.classList.remove("active");
+    navOverlay.classList.remove("active");
+    hamburger.classList.remove("hide");
+    document.body.style.overflow = "";
+  }
+
+  if (hamburger) {
+    hamburger.addEventListener("click", openNav);
+  }
+
+  if (navClose) {
+    navClose.addEventListener("click", closeNav);
+  }
+
+  if (navOverlay) {
+    navOverlay.addEventListener("click", closeNav);
+  }
+
+  // Close nav when clicking nav links
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      if (window.innerWidth <= 768) {
+        closeNav();
+      }
+    });
+  });
+
+  // Close nav on ESC key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && navContainer.classList.contains("active")) {
+      closeNav();
+    }
+  });
+
+  // Load booking data
   loadBranches();
   setMinDate();
   generateTimeSlots();
 });
 
+// ... rest of your booking.js code stays the same ...
 // ============================================
 // LOAD DATA FUNCTIONS
 // ============================================

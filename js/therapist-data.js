@@ -122,7 +122,6 @@ function showConfirmation(title, message) {
     titleEl.textContent = title;
     messageEl.textContent = message;
 
-    // Ensure icon is visible
     const iconContainer = document.getElementById("confirmationIcon");
     const warningIcon = iconContainer.querySelector(".icon-warning");
     if (warningIcon) warningIcon.style.display = "block";
@@ -154,7 +153,7 @@ function showConfirmation(title, message) {
   });
 }
 
-// Biar kompatibel dengan kode lama
+// Kompatibilitas dengan kode lama
 function showAlert(type, message) {
   showNotification(type, message);
 }
@@ -170,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
     typeof ADMIN_BRANCH_ID !== "undefined" ? ADMIN_BRANCH_ID : "NOT DEFINED"
   );
 
-  // Setup sidebar toggle
+  // Setup sidebar toggle dengan mobile support
   setupSidebarToggle();
 
   // Create notification modal
@@ -180,33 +179,124 @@ document.addEventListener("DOMContentLoaded", function () {
   loadTherapists();
 });
 
-// Setup sidebar toggle
+// Setup sidebar toggle dengan support mobile overlay
 function setupSidebarToggle() {
   const toggleBtn = document.getElementById("toggleBtn");
-  const sidebar = document.querySelector(".sidebar");
+  const sidebar =
+    document.getElementById("sidebar") || document.querySelector(".sidebar");
   const mainContent = document.querySelector(".main-content");
+  const therapistModal = document.getElementById("therapistModal");
 
   if (!toggleBtn || !sidebar || !mainContent) {
     console.warn("Sidebar elements not found");
     return;
   }
 
-  const sidebarState = localStorage.getItem("sidebarState");
-  if (sidebarState === "closed") {
-    sidebar.classList.add("collapsed");
-    mainContent.classList.add("expanded");
+  // Create overlay untuk mobile/tablet
+  let overlay = document.querySelector(".sidebar-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "sidebar-overlay";
+    document.body.appendChild(overlay);
   }
 
-  toggleBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("collapsed");
-    mainContent.classList.toggle("expanded");
+  // Check jika mobile/tablet view
+  function isMobileView() {
+    return window.innerWidth <= 1024;
+  }
 
-    if (sidebar.classList.contains("collapsed")) {
-      localStorage.setItem("sidebarState", "closed");
+  // Toggle sidebar function
+  function toggleSidebar() {
+    if (isMobileView()) {
+      // Mobile/Tablet behavior: overlay sidebar
+      const isOpen = sidebar.classList.contains("mobile-open");
+
+      if (isOpen) {
+        // Close sidebar
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+        if (therapistModal) therapistModal.classList.remove("blurred");
+      } else {
+        // Open sidebar
+        sidebar.classList.add("mobile-open");
+        overlay.classList.add("active");
+        mainContent.classList.add("blurred");
+        if (therapistModal && therapistModal.style.display === "block") {
+          therapistModal.classList.add("blurred");
+        }
+      }
     } else {
-      localStorage.setItem("sidebarState", "open");
+      // Desktop behavior: collapse sidebar
+      const isCollapsed = sidebar.classList.contains("collapsed");
+
+      if (isCollapsed) {
+        sidebar.classList.remove("collapsed");
+        mainContent.classList.remove("expanded");
+        localStorage.setItem("sidebarState", "open");
+      } else {
+        sidebar.classList.add("collapsed");
+        mainContent.classList.add("expanded");
+        localStorage.setItem("sidebarState", "closed");
+      }
+    }
+  }
+
+  // Toggle button click
+  toggleBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    toggleSidebar();
+  });
+
+  // Close sidebar ketika overlay diklik (mobile only)
+  overlay.addEventListener("click", function () {
+    if (isMobileView()) {
+      sidebar.classList.remove("mobile-open");
+      overlay.classList.remove("active");
+      mainContent.classList.remove("blurred");
+      if (therapistModal) therapistModal.classList.remove("blurred");
     }
   });
+
+  // Handle window resize
+  let resizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (isMobileView()) {
+        // Switch to mobile mode
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+        if (therapistModal) therapistModal.classList.remove("blurred");
+        mainContent.classList.remove("expanded");
+      } else {
+        // Switch to desktop mode
+        overlay.classList.remove("active");
+        mainContent.classList.remove("blurred");
+        if (therapistModal) therapistModal.classList.remove("blurred");
+
+        // Restore desktop sidebar state
+        const sidebarState = localStorage.getItem("sidebarState");
+        if (sidebarState === "closed") {
+          sidebar.classList.add("collapsed");
+          mainContent.classList.add("expanded");
+        } else {
+          sidebar.classList.remove("collapsed");
+          mainContent.classList.remove("expanded");
+        }
+      }
+    }, 250);
+  });
+
+  // Initialize state for desktop
+  if (!isMobileView()) {
+    const sidebarState = localStorage.getItem("sidebarState");
+    if (sidebarState === "closed") {
+      sidebar.classList.add("collapsed");
+      mainContent.classList.add("expanded");
+    }
+  }
 }
 
 // Load therapists
@@ -372,12 +462,6 @@ function openDeleteModal(therapistId) {
       deletingTherapistId = null;
     }
   });
-}
-
-// Close delete modal (tidak perlu lagi, sudah pakai confirmation modal)
-function closeDeleteModal() {
-  deletingTherapistId = null;
-  // Modal lama sudah tidak dipakai
 }
 
 // Confirm delete

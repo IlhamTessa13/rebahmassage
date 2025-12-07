@@ -31,7 +31,7 @@
 }
 
 .btn-add:hover {
-    background: #46486f;
+    background: #383a5c;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
 }
@@ -52,7 +52,7 @@
 }
 
 .btn-claim:hover {
-    background: #46486f;
+    background: #383a5c;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4);
 }
@@ -120,7 +120,6 @@
 
 .voucher-table thead {
     background:#46486f;
-
 }
 
 .voucher-table th {
@@ -178,6 +177,7 @@
     gap: 8px;
     flex-wrap: wrap;
 }
+
 .btn-action {
     padding: 6px 12px;
     border: none;
@@ -244,7 +244,7 @@
     padding: 0;
     border-radius: 15px;
     width: 90%;
-    max-width: 450px;
+    max-width: 420px;
     max-height: calc(100vh - 160px);
     box-shadow: 0 5px 30px rgba(0,0,0,0.3);
     animation: slideIn 0.3s;
@@ -508,117 +508,6 @@
     }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .modal {
-        padding: 60px 15px 30px;
-    }
-    
-    .modal-content {
-        width: 95%;
-        max-width: 400px;
-        max-height: calc(100vh - 120px);
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .claim-method-buttons {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .modal {
-        padding: 50px 10px 25px;
-    }
-    
-    .modal-content {
-        width: 95%;
-        max-width: 360px;
-        max-height: calc(100vh - 100px);
-    }
-    
-    .modal-header {
-        padding: 10px 14px;
-    }
-    
-    .modal-header h2 {
-        font-size: 15px;
-    }
-    
-    .close {
-        font-size: 18px;
-        width: 20px;
-        height: 20px;
-    }
-    
-    .modal-body {
-        padding: 14px;
-    }
-    
-    .form-group {
-        margin-bottom: 10px;
-    }
-    
-    .form-group label {
-        font-size: 11px;
-        margin-bottom: 3px;
-    }
-    
-    .label-help {
-        font-size: 9px;
-    }
-    
-    .form-group input,
-    .form-group select {
-        font-size: 12px;
-        padding: 7px 9px;
-    }
-    
-    .form-group small {
-        font-size: 10px;
-        margin-top: 2px;
-    }
-    
-    .form-row {
-        gap: 0;
-        margin-bottom: 10px;
-    }
-    
-    .modal-footer {
-        padding: 8px 14px;
-    }
-    
-    .btn-save,
-    .btn-cancel {
-        padding: 7px 14px;
-        font-size: 12px;
-    }
-    
-    .btn-save svg {
-        width: 14px;
-        height: 14px;
-        margin-right: 6px;
-    }
-    
-    .btn-method {
-        padding: 16px 12px;
-        font-size: 12px;
-    }
-    
-    .btn-method svg {
-        width: 20px;
-        height: 20px;
-        margin-bottom: 5px;
-    }
-    
-    #qrCodeContainer {
-        padding: 12px;
-    }
-}
-
 /* Pagination */
 .pagination {
     display: flex;
@@ -627,15 +516,22 @@
     padding: 20px;
     background: #f8f9fa;
     border-top: 1px solid #dee2e6;
-    position: relative;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.pagination-info {
+    color: #666;
+    font-size: 14px;
+    order: 1;
 }
 
 .pagination-controls {
     display: flex;
     gap: 8px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    order: 2;
+    flex: 1;
+    justify-content: center;
 }
 
 .btn-download-excel {
@@ -652,6 +548,7 @@
     gap: 8px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    order: 3;
 }
 
 .btn-download-excel:hover {
@@ -664,13 +561,6 @@
     width: 18px;
     height: 18px;
 }
-
-.pagination-info {
-    color: #666;
-    font-size: 14px;
-}
-
-
 
 .pagination-btn {
     padding: 8px 12px;
@@ -702,313 +592,604 @@
    ======================================== */
 
 .notification-modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .notification-modal.show {
-  opacity: 1;
+    opacity: 1;
 }
 
 .notification-modal-content {
-  background: white;
-  border-radius: 20px;
-  padding: 40px 50px;
-  text-align: center;
-  max-width: 420px;
-  width: 90%;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  transform: scale(0.7);
-  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background: white;
+    border-radius: 20px;
+    padding: 40px 50px;
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    transform: scale(0.7);
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .notification-modal.show .notification-modal-content {
-  transform: scale(1);
+    transform: scale(1);
 }
 
 .notification-icon {
-  width: 85px;
-  height: 85px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .notification-icon.success {
-  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-  border: 3px solid #28a745;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 3px solid #28a745;
 }
 
 .notification-icon.error {
-  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-  border: 3px solid #dc3545;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border: 3px solid #dc3545;
 }
 
 .notification-icon.warning {
-  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-  border: 3px solid #ffc107;
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border: 3px solid #ffc107;
 }
 
 .icon-check {
-  width: 48px;
-  height: 48px;
-  stroke: #28a745;
-  display: none;
-  animation: checkmark 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    width: 48px;
+    height: 48px;
+    stroke: #28a745;
+    display: none;
+    animation: checkmark 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .icon-error {
-  width: 48px;
-  height: 48px;
-  stroke: #dc3545;
-  display: none;
-  animation: errorShake 0.5s;
+    width: 48px;
+    height: 48px;
+    stroke: #dc3545;
+    display: none;
+    animation: errorShake 0.5s;
 }
 
 .icon-warning {
-  width: 48px;
-  height: 48px;
-  stroke: #ffc107;
-  display: none;
-  animation: warningBounce 0.6s;
+    width: 48px;
+    height: 48px;
+    stroke: #ffc107;
+    display: none;
+    animation: warningBounce 0.6s;
 }
 
 .notification-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 10px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .notification-message {
-  font-size: 15px;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 25px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  white-space: pre-line;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    white-space: pre-line;
 }
 
 .notification-ok-btn {
-  background: #46486f;
-  color: white;
-  border: none;
-  padding: 12px 40px;
-  border-radius: 25px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(139, 90, 60, 0.3);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #46486f;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 90, 60, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .notification-ok-btn:hover {
-  background: #46486f;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(139, 90, 60, 0.4);
+    background: #383a5c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 90, 60, 0.4);
 }
 
 .notification-ok-btn:active {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .confirmation-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 25px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 25px;
 }
 
 .confirmation-cancel-btn {
-  background: #6c757d;
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 25px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .confirmation-cancel-btn:hover {
-  background: #5a6268;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
 }
 
 .confirmation-ok-btn {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 25px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .confirmation-ok-btn:hover {
-  background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
 .confirmation-ok-btn:active,
 .confirmation-cancel-btn:active {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 /* Animations */
 @keyframes scaleIn {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes checkmark {
-  0% {
-    stroke-dasharray: 0 100;
-    stroke-dashoffset: 0;
-  }
-  100% {
-    stroke-dasharray: 100 100;
-    stroke-dashoffset: 0;
-  }
+    0% {
+        stroke-dasharray: 0 100;
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dasharray: 100 100;
+        stroke-dashoffset: 0;
+    }
 }
 
 @keyframes errorShake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  10%, 30%, 50%, 70%, 90% {
-    transform: translateX(-5px);
-  }
-  20%, 40%, 60%, 80% {
-    transform: translateX(5px);
-  }
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
 }
 
 @keyframes warningBounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  25% {
-    transform: translateY(-10px);
-  }
-  50% {
-    transform: translateY(0);
-  }
-  75% {
-    transform: translateY(-5px);
-  }
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-10px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    75% {
+        transform: translateY(-5px);
+    }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* ========================================
+   RESPONSIVE DESIGN - TABLET & MOBILE
+   ======================================== */
+
+@media (max-width: 1024px) {
     .table-header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
+        padding: 15px;
     }
     
-    .pagination {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
+    .table-header h3 {
+        font-size: 16px;
     }
     
-    .pagination-controls {
-        position: static;
-        transform: none;
-    }
-    
-    .btn-download-excel {
-        width: 100%;
-        justify-content: center;
+    .entries-per-page {
+        font-size: 13px;
     }
     
     .voucher-table {
-        min-width: 700px;
+        min-width: 750px;
     }
     
     .voucher-table th,
     .voucher-table td {
-        padding: 10px 8px;
+        padding: 9px 6px;
+        font-size: 11px;
+    }
+    
+    .status-badge {
+        font-size: 9px;
+        padding: 4px 8px;
+    }
+    
+    .btn-action {
+        font-size: 9px;
+        padding: 5px 8px;
+        gap: 3px;
+    }
+    
+    .btn-action svg {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .pagination {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .pagination-info {
+        font-size: 11px;
+    }
+    
+    .pagination-btn {
+        padding: 6px 8px;
+        font-size: 12px;
+        min-width: 32px;
+    }
+    
+    .btn-download-excel {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    .btn-download-excel svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* Modal Extra Compact */
+    .modal {
+        padding: 55px 10px 20px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-width: 320px;
+        max-height: calc(100vh - 100px);
+        border-radius: 12px;
+    }
+    
+    .modal-header {
+        padding: 9px 12px;
+        border-radius: 12px 12px 0 0;
+    }
+    
+    .modal-header h2 {
         font-size: 14px;
     }
     
+    .close {
+        font-size: 18px;
+        width: 20px;
+        height: 20px;
+    }
+    
+    .modal-body {
+        padding: 12px;
+    }
+    
+    .form-group {
+        margin-bottom: 9px;
+    }
+    
+    .form-group label {
+        font-size: 10.5px;
+        margin-bottom: 3px;
+    }
+    
+    .label-help {
+        font-size: 8.5px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 6px 8px;
+        font-size: 11.5px;
+        border-radius: 6px;
+    }
+    
+    .form-group small {
+        font-size: 9.5px;
+        margin-top: 2px;
+    }
+    
     .form-row {
-        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: 9px;
+    }
+    
+    .modal-footer {
+        padding: 7px 12px;
+    }
+    
+    .btn-save,
+    .btn-cancel {
+        padding: 6px 12px;
+        font-size: 11.5px;
+        border-radius: 6px;
+    }
+    
+    .btn-save svg {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
     }
     
     .claim-method-buttons {
-        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .btn-method {
+        padding: 16px 10px;
+        font-size: 11.5px;
+        border-radius: 10px;
+    }
+    
+    .btn-method svg {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 5px;
+    }
+    
+    #qrCodeContainer {
+        padding: 12px;
+    }
+    
+    /* Notification Modal Compact */
+    .notification-modal-content {
+        padding: 25px 20px;
+        max-width: 300px;
+    }
+    
+    .notification-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    
+    .icon-check,
+    .icon-error,
+    .icon-warning {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .notification-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    
+    .notification-message {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    
+    .notification-ok-btn {
+        padding: 10px 32px;
+        font-size: 14px;
+        border-radius: 20px;
+    }
+    
+    .confirmation-buttons {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    
+    .confirmation-cancel-btn,
+    .confirmation-ok-btn {
+        width: 100%;
+        padding: 9px 25px;
+        font-size: 13px;
+        border-radius: 20px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .content-wrapper h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
     }
     
     .action-buttons-row {
         flex-direction: column;
+        gap: 12px;
     }
     
     .btn-add,
     .btn-claim {
         width: 100%;
         justify-content: center;
+        padding: 11px 20px;
+        font-size: 13px;
     }
     
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
+    .table-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 12px;
     }
     
-    .action-buttons {
-        flex-direction: row;
-        gap: 5px;
+    .table-header h3 {
+        font-size: 15px;
+    }
+    
+    .entries-per-page {
+        font-size: 12px;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .voucher-table {
+        min-width: 650px;
+    }
+    
+    .voucher-table th,
+    .voucher-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+    
+    .status-badge {
+        font-size: 10px;
+        padding: 5px 10px;
     }
     
     .btn-action {
-        font-size: 11px;
-        padding: 6px 10px;
+        font-size: 10px;
+        padding: 5px 10px;
     }
     
     .btn-action svg {
         width: 14px;
         height: 14px;
     }
-}
-
-@media (max-width: 480px) {
+    
+    .pagination {
+        padding: 12px;
+        gap: 12px;
+    }
+    
+    .pagination-btn {
+        padding: 7px 10px;
+        font-size: 13px;
+        min-width: 36px;
+    }
+    
+    .btn-download-excel {
+        padding: 9px 18px;
+        font-size: 13px;
+    }
+    
+    /* Modal Responsive */
+    .modal {
+        padding: 60px 12px 25px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-width: 350px;
+        max-height: calc(100vh - 120px);
+    }
+    
+    .modal-header {
+        padding: 10px 14px;
+    }
+    
+    .modal-header h2 {
+        font-size: 15px;
+    }
+    
+    .modal-body {
+        padding: 14px;
+    }
+    
+    .form-group {
+        margin-bottom: 10px;
+    }
+    
+    .form-group label {
+        font-size: 11px;
+    }
+    
+    .label-help {
+        font-size: 9px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 7px 9px;
+        font-size: 12px;
+    }
+    
+    .form-group small {
+        font-size: 10px;
+    }
+    
+    .modal-footer {
+        padding: 8px 14px;
+    }
+    
+    .btn-save,
+    .btn-cancel {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
+    
+    .claim-method-buttons {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .btn-method {
+        padding: 18px 12px;
+        font-size: 12px;
+    }
+    
+    .btn-method svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* Notification Modal */
     .notification-modal-content {
         padding: 30px 25px;
-        width: 85%;
-        max-width: 340px;
+        max-width: 360px;
     }
     
     .notification-icon {
@@ -1030,26 +1211,12 @@
     .notification-message {
         font-size: 14px;
     }
-    
-    .notification-ok-btn {
-        padding: 10px 35px;
-        font-size: 14px;
-    }
-    
-    .confirmation-buttons {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .confirmation-cancel-btn,
-    .confirmation-ok-btn {
-        width: 100%;
-        padding: 10px 25px;
-        font-size: 14px;
-    }
-    
-    .voucher-table {
-        min-width: 600px;
+}
+
+@media (max-width: 480px) {
+    .content-wrapper h1 {
+        font-size: 19px;
+        margin-bottom: 18px;
     }
     
     .action-buttons-row {
@@ -1058,7 +1225,234 @@
     
     .btn-add,
     .btn-claim {
-        padding: 10px 20px;
+        padding: 10px 18px;
+        font-size: 12px;
+    }
+    
+    .btn-add svg,
+    .btn-claim svg {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+    }
+    
+    .voucher-table-container {
+        border-radius: 12px;
+    }
+    
+    .table-header {
+        padding: 10px;
+    }
+    
+    .table-header h3 {
+        font-size: 14px;
+    }
+    
+    .entries-per-page {
+        font-size: 11px;
+    }
+    
+    .entries-per-page select {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    
+    .voucher-table {
+        min-width: 580px;
+    }
+    
+    .voucher-table th,
+    .voucher-table td {
+    padding: 9px 6px;
+        font-size: 11px;
+    }
+    
+    .status-badge {
+        font-size: 9px;
+        padding: 4px 8px;
+    }
+    
+    .btn-action {
+        font-size: 9px;
+        padding: 5px 8px;
+        gap: 3px;
+    }
+    
+    .btn-action svg {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .pagination {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .pagination-info {
+        font-size: 11px;
+    }
+    
+    .pagination-btn {
+        padding: 6px 8px;
+        font-size: 12px;
+        min-width: 32px;
+    }
+    
+    .btn-download-excel {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    .btn-download-excel svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* Modal Extra Compact */
+    .modal {
+        padding: 55px 10px 20px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-width: 320px;
+        max-height: calc(100vh - 100px);
+        border-radius: 12px;
+    }
+    
+    .modal-header {
+        padding: 9px 12px;
+        border-radius: 12px 12px 0 0;
+    }
+    
+    .modal-header h2 {
+        font-size: 14px;
+    }
+    
+    .close {
+        font-size: 18px;
+        width: 20px;
+        height: 20px;
+    }
+    
+    .modal-body {
+        padding: 12px;
+    }
+    
+    .form-group {
+        margin-bottom: 9px;
+    }
+    
+    .form-group label {
+        font-size: 10.5px;
+        margin-bottom: 3px;
+    }
+    
+    .label-help {
+        font-size: 8.5px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 6px 8px;
+        font-size: 11.5px;
+        border-radius: 6px;
+    }
+    
+    .form-group small {
+        font-size: 9.5px;
+        margin-top: 2px;
+    }
+    
+    .form-row {
+        gap: 8px;
+        margin-bottom: 9px;
+    }
+    
+    .modal-footer {
+        padding: 7px 12px;
+    }
+    
+    .btn-save,
+    .btn-cancel {
+        padding: 6px 12px;
+        font-size: 11.5px;
+        border-radius: 6px;
+    }
+    
+    .btn-save svg {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+    }
+    
+    .claim-method-buttons {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .btn-method {
+        padding: 16px 10px;
+        font-size: 11.5px;
+        border-radius: 10px;
+    }
+    
+    .btn-method svg {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 5px;
+    }
+    
+    #qrCodeContainer {
+        padding: 12px;
+    }
+    
+    /* Notification Modal Compact */
+    .notification-modal-content {
+        padding: 25px 20px;
+        max-width: 300px;
+    }
+    
+    .notification-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    
+    .icon-check,
+    .icon-error,
+    .icon-warning {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .notification-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    
+    .notification-message {
         font-size: 13px;
+        margin-bottom: 20px;
+    }
+    
+    .notification-ok-btn {
+        padding: 10px 32px;
+        font-size: 14px;
+        border-radius: 20px;
+    }
+    
+    .confirmation-buttons {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    
+    .confirmation-cancel-btn,
+    .confirmation-ok-btn {
+        width: 100%;
+        padding: 9px 25px;
+        font-size: 13px;
+        border-radius: 20px;
     }
 }

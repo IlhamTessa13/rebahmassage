@@ -208,11 +208,6 @@ $branch_name = $branch_data['name'];
             <div class="modal-footer">
                 <button type="button" class="btn-cancel" onclick="closeModal('voucherModal')">Cancel</button>
                 <button type="button" class="btn-save" onclick="saveVoucher()">
-                    <svg style="width: 16px; height: 16px; margin-right: 8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
-                        <polyline points="17 21 17 13 7 13 7 21"/>
-                        <polyline points="7 3 7 8 15 8"/>
-                    </svg>
                     Save & Generate
                 </button>
             </div>

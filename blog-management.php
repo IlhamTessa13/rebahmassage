@@ -111,7 +111,7 @@ $admin = current_user();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancel</button>
-                <button type="button" class="btn-save" onclick="saveBlog()">Save Changes</button>
+                <button type="button" class="btn-save" onclick="saveBlog()">Save</button>
             </div>
         </div>
     </div>
