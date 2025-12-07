@@ -81,6 +81,93 @@ html {
   color: #FDEDBB;
 }
 
+/* Mobile Header - Hidden on Desktop */
+.nav-mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo Mobile - Hidden on Desktop */
+.nav-logo-mobile {
+  display: none;
+  height: 50px;
+  width: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Hamburger Button - Hidden on Desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: #915437;
+  border-radius: 3px;
+}
+
+/* Sembunyikan hamburger ketika sidebar active */
+.hamburger.hide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+
+
+/* Close Button - Hidden on Desktop */
+.nav-close {
+  display: none;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: #915437;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 300;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}
+
+.nav-close:hover {
+  color: #6d3a2a;
+  transform: rotate(90deg);
+}
+
+/* Overlay - Hidden on Desktop */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+}
 /* Hero Section */
 .hero-section {
   padding: 2rem;
@@ -580,7 +667,7 @@ html {
 .footer-text {
   line-height: 1.6;
   margin-bottom: 1.5rem;
-  color:#915437;
+  color: #915437;
   font-family: "Ubuntu", sans-serif;
   font-weight: 500;
   font-size: 0.95rem;
@@ -662,65 +749,99 @@ html {
   font-weight: 500;
 }
 
-
 /* ========== RESPONSIVE DESIGN ========== */
 
 /* Tablet (1024px and below) */
-@media (max-width: 1024px) {
-    .service-card {
-        flex: 0 0 calc(50% - 0.75rem);
-        min-width: calc(50% - 0.75rem);
-        max-width: calc(50% - 0.75rem);
-    }
-
-    .services-carousel-wrapper {
-        padding: 2.5rem 3.5rem;
-    }
-
-    .service-image-wrapper {
-        height: 320px;
-    }
-
-    .map-card {
-        flex: 1 1 calc(50% - 1.5rem);
-        min-width: 340px;
-    }
-}
-
-/* Mobile & Tablet (768px and below) */
 @media (max-width: 768px) {
-  /* Navbar */
+  /* Navbar Mobile */
   .navbar {
-    top: 10px;
-    width: 95%;
-    padding: 0.75rem 0.5rem;
-    border-radius: 15px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: none;
+    border-radius: 0;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    opacity: 100%;
+  }
+
+  .nav-logo-mobile {
+    display: block;
+  }
+
+  .hamburger {
+    display: flex;
+    position: relative;
+    z-index: 1001;
   }
 
   .nav-container {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 75%;
+    max-width: 350px;
+    height: 100vh;
+    background: #FDEDBB;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 2rem 2rem 2rem;
+    gap: 0;
     margin: 0;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-container.active {
+    left: 0;
+  }
+
+  .nav-close {
+    display: block;
+  }
+
+  .nav-overlay {
+    display: block;
   }
 
   .nav-link {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.85rem;
-    border-radius: 10px;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link.active,
+  .nav-link:hover {
+    border-left-color: #915437;
+    background: rgba(145, 84, 55, 0.15);
+    color: #915437;
+  }
+
+  .nav-link::before {
+    display: none;
   }
 
   /* Hero */
   .hero-section {
-    padding: 1rem;
+    padding: 0.5rem 1rem 1rem 1rem;
     min-height: 50vh;
   }
 
   .hero-card {
     height: 350px;
-    margin-top: 70px;
+    margin-top: 30px;
     border-radius: 15px;
   }
-
   /* About */
   .about-section {
     padding: 2rem 1rem;
@@ -748,7 +869,7 @@ html {
     margin: 0;
   }
 
-  /* Services - Mobile Optimized */
+  /* Services - Mobile & Tablet */
   .services-section {
     padding: 3rem 1rem;
   }
@@ -763,7 +884,7 @@ html {
   }
 
   .services-carousel-wrapper {
-    padding: 2rem 2.5rem;
+    padding: 2rem 3rem;
     border-radius: 20px;
   }
   
@@ -774,16 +895,20 @@ html {
   }
   
   .services-track {
-    gap: 0;
+    gap: 16px;
   }
   
   .service-image-wrapper {
-    height: 300px;
+    height: 280px;
     border-radius: 12px;
   }
 
   .service-name {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
+  }
+
+  .service-overlay {
+    padding: 1.5rem 1rem;
   }
   
   .carousel-btn {
@@ -806,8 +931,17 @@ html {
 
   .carousel-dots {
     margin-top: 1.5rem;
+    gap: 8px;
   }
 
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .carousel-dot.active {
+    width: 25px;
+  }
   /* Blog */
   .blog-section {
     padding: 3rem 1rem;
@@ -889,13 +1023,14 @@ html {
 
 /* Small Mobile (480px and below) */
 @media (max-width: 480px) {
-  .nav-link {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.75rem;
+   .nav-link {
+    padding: 1.15rem 1.25rem;
+    font-size: 1.2rem;
   }
 
   .hero-card {
     height: 280px;
+    margin-top: 20px;
   }
 
   .about-title {
@@ -906,9 +1041,9 @@ html {
     font-size: 4vw;
   }
 
-  /* Services - Small Mobile */
+  /* Services - DIPERBAIKI UNTUK 480px */
   .services-section {
-    padding: 2.5rem 0.75rem;
+    padding: 2.5rem 0.5rem;
   }
 
   .services-title {
@@ -920,26 +1055,62 @@ html {
   }
   
   .services-carousel-wrapper {
-    padding: 1.75rem 2.25rem;
+    padding: 1.75rem 2.75rem;
     border-radius: 15px;
+  }
+
+  .service-card {
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  .services-track {
+    gap: 16px;
   }
   
   .service-image-wrapper {
-    height: 280px;
+    height: 240px;
   }
   
   .service-name {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .service-overlay {
+    padding: 1.25rem 0.875rem;
   }
 
   .carousel-btn {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
   }
 
   .carousel-btn svg {
     width: 18px;
     height: 18px;
+  }
+
+  .carousel-prev {
+    left: 0.4rem;
+  }
+
+  .carousel-next {
+    right: 0.4rem;
+  }
+
+  .carousel-dots {
+    gap: 6px;
+    margin-top: 1.25rem;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .carousel-dot.active {
+    width: 20px;
   }
 
   /* Maps - Small Mobile */
@@ -959,5 +1130,29 @@ html {
 
   .map-address {
     font-size: 0.85rem;
+  }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+  .services-carousel-wrapper {
+    padding: 1.5rem 2.5rem;
+  }
+  
+  .service-image-wrapper {
+    height: 220px;
+  }
+  
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .carousel-prev {
+    left: 0.3rem;
+  }
+
+  .carousel-next {
+    right: 0.3rem;
   }
 }

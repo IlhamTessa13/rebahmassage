@@ -752,28 +752,6 @@ html {
 /* ========== RESPONSIVE DESIGN ========== */
 
 /* Tablet (1024px and below) */
-@media (max-width: 1024px) {
-    .service-card {
-        flex: 0 0 calc(50% - 0.75rem);
-        min-width: calc(50% - 0.75rem);
-        max-width: calc(50% - 0.75rem);
-    }
-
-    .services-carousel-wrapper {
-        padding: 2.5rem 3.5rem;
-    }
-
-    .service-image-wrapper {
-        height: 320px;
-    }
-
-    .map-card {
-        flex: 1 1 calc(50% - 1.5rem);
-        min-width: 340px;
-    }
-}
-
-/* Mobile & Tablet (768px and below) */
 @media (max-width: 768px) {
   /* Navbar Mobile */
   .navbar {
@@ -855,13 +833,13 @@ html {
 
   /* Hero */
   .hero-section {
-    padding: 0.5rem 1rem 1rem 1rem; /* Kurangi padding top */
+    padding: 0.5rem 1rem 1rem 1rem;
     min-height: 50vh;
   }
 
   .hero-card {
     height: 350px;
-    margin-top: 30px; /* Kurangi jarak dari 70px jadi 65px */
+    margin-top: 30px;
     border-radius: 15px;
   }
   /* About */
@@ -891,7 +869,7 @@ html {
     margin: 0;
   }
 
-  /* Services - Mobile Optimized */
+  /* Services - Mobile & Tablet */
   .services-section {
     padding: 3rem 1rem;
   }
@@ -906,7 +884,7 @@ html {
   }
 
   .services-carousel-wrapper {
-    padding: 2rem 2.5rem;
+    padding: 2rem 3rem;
     border-radius: 20px;
   }
   
@@ -917,16 +895,20 @@ html {
   }
   
   .services-track {
-    gap: 0;
+    gap: 16px;
   }
   
   .service-image-wrapper {
-    height: 300px;
+    height: 280px;
     border-radius: 12px;
   }
 
   .service-name {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
+  }
+
+  .service-overlay {
+    padding: 1.5rem 1rem;
   }
   
   .carousel-btn {
@@ -949,8 +931,17 @@ html {
 
   .carousel-dots {
     margin-top: 1.5rem;
+    gap: 8px;
   }
 
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .carousel-dot.active {
+    width: 25px;
+  }
   /* Blog */
   .blog-section {
     padding: 3rem 1rem;
@@ -1032,14 +1023,14 @@ html {
 
 /* Small Mobile (480px and below) */
 @media (max-width: 480px) {
-  .nav-link {
+   .nav-link {
     padding: 1.15rem 1.25rem;
     font-size: 1.2rem;
   }
 
   .hero-card {
     height: 280px;
-    margin-top: 20px; /* Kurangi jarak untuk mobile kecil */
+    margin-top: 20px;
   }
 
   .about-title {
@@ -1050,9 +1041,9 @@ html {
     font-size: 4vw;
   }
 
-  /* Services - Small Mobile */
+  /* Services - DIPERBAIKI UNTUK 480px */
   .services-section {
-    padding: 2.5rem 0.75rem;
+    padding: 2.5rem 0.5rem;
   }
 
   .services-title {
@@ -1064,26 +1055,62 @@ html {
   }
   
   .services-carousel-wrapper {
-    padding: 1.75rem 2.25rem;
+    padding: 1.75rem 2.75rem;
     border-radius: 15px;
+  }
+
+  .service-card {
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  .services-track {
+    gap: 16px;
   }
   
   .service-image-wrapper {
-    height: 280px;
+    height: 240px;
   }
   
   .service-name {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .service-overlay {
+    padding: 1.25rem 0.875rem;
   }
 
   .carousel-btn {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
   }
 
   .carousel-btn svg {
     width: 18px;
     height: 18px;
+  }
+
+  .carousel-prev {
+    left: 0.4rem;
+  }
+
+  .carousel-next {
+    right: 0.4rem;
+  }
+
+  .carousel-dots {
+    gap: 6px;
+    margin-top: 1.25rem;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .carousel-dot.active {
+    width: 20px;
   }
 
   /* Maps - Small Mobile */
@@ -1103,5 +1130,29 @@ html {
 
   .map-address {
     font-size: 0.85rem;
+  }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+  .services-carousel-wrapper {
+    padding: 1.5rem 2.5rem;
+  }
+  
+  .service-image-wrapper {
+    height: 220px;
+  }
+  
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .carousel-prev {
+    left: 0.3rem;
+  }
+
+  .carousel-next {
+    right: 0.3rem;
   }
 }

@@ -46,7 +46,17 @@ require_once 'includes/db.php';
   
   <!-- Navbar -->
   <nav class="navbar">
-    <div class="nav-container">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <img src="/php/public/logorebah.png" alt="Rebah Logo" class="nav-logo-mobile">
+
+    <div class="nav-container" id="navContainer">
+    <button class="nav-close" id="navClose" aria-label="Close Menu">×</button>
+    
       <a href=#home" class="nav-link active">Home</a>
       <a href="#about" class="nav-link">About</a>
       <a href="#service" class="nav-link">Service</a>
@@ -56,6 +66,7 @@ require_once 'includes/db.php';
       <a href="history.php" class="nav-link">History</a>
       <a href="logout.php" class="nav-link">Logout</a>
     </div>
+    <div class="nav-overlay" id="navOverlay"></div>
   </nav>
 
   <!-- Hero Section -->

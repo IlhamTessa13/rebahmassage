@@ -268,10 +268,14 @@ function updateCarousel(animate = true) {
 
   if (cards.length === 0) return;
 
-  const visibleCards = getVisibleCards();
   const cardElement = cards[0];
   const cardWidth = cardElement.offsetWidth;
-  const gap = 24; // 1.5rem = 24px
+
+  // Gap dinamis berdasarkan ukuran layar
+  let gap = 24; // Desktop default
+  if (window.innerWidth <= 768) {
+    gap = 16; // Mobile & tablet - seragam 16px
+  }
 
   const moveAmount = (cardWidth + gap) * currentSlide;
 
