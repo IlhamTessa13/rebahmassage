@@ -1101,14 +1101,26 @@
     }
     
     .pagination {
-        padding: 12px;
+        flex-direction: column;
         gap: 12px;
+        align-items: flex-start;
+        padding: 12px 15px;
     }
-    
+
+    .pagination-info {
+        font-size: 12px;
+    }
+
+    .pagination-controls {
+        position: static;
+        transform: none;
+        width: 100%;
+        justify-content: center;
+    }
+
     .pagination-btn {
-        padding: 7px 10px;
-        font-size: 13px;
-        min-width: 36px;
+        padding: 6px 10px;
+        font-size: 12px;
     }
     
     .btn-download-excel {
@@ -1283,19 +1295,9 @@
         height: 12px;
     }
     
-    .pagination {
-        padding: 10px;
-        gap: 10px;
-    }
-    
-    .pagination-info {
-        font-size: 11px;
-    }
-    
     .pagination-btn {
-        padding: 6px 8px;
-        font-size: 12px;
-        min-width: 32px;
+        padding: 5px 8px;
+        font-size: 11px;
     }
     
     .btn-download-excel {

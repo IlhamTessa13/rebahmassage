@@ -276,20 +276,20 @@
         flex-direction: column;
         gap: 12px;
         align-items: flex-start;
-        padding: 15px;
+        padding: 12px 15px;
     }
-    
+
     .pagination-info {
         font-size: 12px;
     }
-    
+
     .pagination-controls {
         position: static;
         transform: none;
         width: 100%;
         justify-content: center;
     }
-    
+
     .pagination-btn {
         padding: 6px 10px;
         font-size: 12px;
@@ -354,19 +354,9 @@
         font-size: 12px;
     }
     
-    .pagination {
-        padding: 12px;
-        gap: 10px;
-    }
-    
-    .pagination-info {
-        font-size: 11px;
-    }
-    
     .pagination-btn {
         padding: 5px 8px;
         font-size: 11px;
-        min-width: 32px;
     }
     
     .btn-download-excel {

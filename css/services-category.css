@@ -184,6 +184,7 @@
     padding: 15px 20px;
     background: #f8f9fa;
     border-top: 1px solid #dee2e6;
+    position: relative;
 }
 
 .pagination-info {
@@ -195,6 +196,9 @@
 .pagination-controls {
     display: flex;
     gap: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .pagination-btn {
@@ -724,7 +728,7 @@
         height: 12px;
     }
 
-    .pagination {
+     .pagination {
         flex-direction: column;
         gap: 12px;
         align-items: flex-start;
@@ -736,6 +740,8 @@
     }
 
     .pagination-controls {
+        position: static;
+        transform: none;
         width: 100%;
         justify-content: center;
     }
@@ -744,7 +750,6 @@
         padding: 6px 10px;
         font-size: 12px;
     }
-
     /* Modal untuk mobile */
     .modal {
         padding: 10px;
