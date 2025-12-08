@@ -39,7 +39,7 @@ require_once 'includes/db.php';
     <span></span>
   </button>
 
-  <img src="/php/public/logorebah.png" alt="Rebah Logo" class="nav-logo-mobile">
+  <img src="/php/public/logobrown.png" alt="Rebah Logo" class="nav-logo-mobile">
 
   <div class="nav-container" id="navContainer">
     <button class="nav-close" id="navClose" aria-label="Close Menu">×</button>
@@ -152,7 +152,7 @@ require_once 'includes/db.php';
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-left">
-        <img src="/php/public/logorebah.png" class="footer-logo" alt="Rebah Logo">
+        <img src="/php/public/logobrown.png" class="footer-logo" alt="Rebah Logo">
         <p class="footer-text">
           Book your appointment via WhatsApp. We recommend booking in advance to ensure your preferred time slot.
         </p>

@@ -257,6 +257,106 @@ html {
   background: #f9f9f9;
 }
 
+/* Mobile Card Layout (Hidden on Desktop) */
+.booking-cards-container {
+  display: none;
+}
+
+.booking-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.booking-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.booking-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #46486f;
+}
+
+.booking-card-code {
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: 0.25rem;
+}
+
+.booking-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.booking-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.booking-info-label {
+  font-size: 0.85rem;
+  color: #999;
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.booking-info-value {
+  font-size: 0.9rem;
+  color: #46486f;
+  font-weight: 500;
+  text-align: right;
+  flex: 1;
+}
+
+.booking-detail-section {
+  background: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+}
+
+.booking-detail-title {
+  font-size: 0.8rem;
+  color: #999;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.booking-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.booking-detail-item {
+  text-align: center;
+}
+
+.booking-detail-label {
+  font-size: 0.75rem;
+  color: #999;
+  margin-bottom: 0.25rem;
+}
+
+.booking-detail-value {
+  font-size: 0.9rem;
+  color: #46486f;
+  font-weight: 600;
+}
+
 /* Status Badges */
 .status-badge {
   display: inline-block;
@@ -747,7 +847,16 @@ html {
 
 /* Responsive */
 @media (max-width: 768px) {
-   /* Navbar Mobile */
+  /* Hide table, show cards on mobile/tablet */
+  .history-table-wrapper table {
+    display: none;
+  }
+  
+  .booking-cards-container {
+    display: block;
+  }
+
+  /* Navbar Mobile */
   .navbar {
     top: 0;
     left: 0;
@@ -941,6 +1050,15 @@ html {
 }
 
 @media (max-width: 480px) {
+  /* Hide table, show cards on mobile */
+  .history-table-wrapper table {
+    display: none;
+  }
+  
+  .booking-cards-container {
+    display: block;
+  }
+
   .nav-link {
     padding: 1.15rem 1.25rem;
     font-size: 1.2rem;

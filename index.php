@@ -33,7 +33,7 @@ try {
     <span></span>
   </button>
 
-  <img src="/php/public/logorebah.png" alt="Rebah Logo" class="nav-logo-mobile">
+  <img src="/php/public/logobrown.png" alt="Rebah Logo" class="nav-logo-mobile">
 
   <div class="nav-container" id="navContainer">
     <button class="nav-close" id="navClose" aria-label="Close Menu">×</button>
@@ -196,7 +196,7 @@ try {
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-left">
-        <img src="/php/public/logorebah.png" class="footer-logo" alt="Rebah Logo">
+        <img src="/php/public/logobrown.png" class="footer-logo" alt="Rebah Logo">
         <p class="footer-text">
           Book your appointment via WhatsApp. We recommend booking in advance to ensure your preferred time slot.
         </p>
@@ -215,11 +215,13 @@ try {
         <div class="footer-column">
           <h4 class="footer-heading">Rebah Fatmawati</h4>
           <p class="footer-info">Everyday - 9AM - 9PM, last order<br>8PM (1 hour treatment)</p>
+          <a href="https://wa.me/6282299994259" class="footer-link" target="_blank">Booking via WhatsApp</a>
         </div>
         
         <div class="footer-column">
           <h4 class="footer-heading">Rebah Menteng</h4>
           <p class="footer-info">Everyday - 9AM - 9PM, last order<br>8PM (1 hour treatment)</p>
+          <a href="https://wa.me/6282299994263" class="footer-link" target="_blank">Booking via WhatsApp</a>
         </div>
 
         <div class="footer-column">

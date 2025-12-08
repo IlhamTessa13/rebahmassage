@@ -237,7 +237,10 @@ function loadBookings() {
       if (data.success) {
         displayBookings(data.bookings);
       } else {
-        showNotification("error", data.message || "Failed to load booking history");
+        showNotification(
+          "error",
+          data.message || "Failed to load booking history"
+        );
         showError("Failed to load bookings");
       }
     })
@@ -265,14 +268,30 @@ function displayBookings(bookings) {
         </td>
       </tr>
     `;
+
+    // Also update cards container for mobile
+    const cardsContainer = document.getElementById("bookingCardsContainer");
+    if (cardsContainer) {
+      cardsContainer.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📅</div>
+          <div class="empty-state-text">No bookings yet</div>
+          <div class="empty-state-subtext">Start by making your first booking!</div>
+        </div>
+      `;
+    }
     return;
   }
 
   tableBody.innerHTML = "";
 
-  bookings.forEach((booking) => {
-    const row = document.createElement("tr");
+  // Get cards container for mobile view
+  const cardsContainer = document.getElementById("bookingCardsContainer");
+  if (cardsContainer) {
+    cardsContainer.innerHTML = "";
+  }
 
+  bookings.forEach((booking) => {
     // Format date
     const date = new Date(booking.booking_date);
     const formattedDate = date.toLocaleDateString("id-ID", {
@@ -329,6 +348,8 @@ function displayBookings(bookings) {
       `;
     }
 
+    // Create table row (for desktop)
+    const row = document.createElement("tr");
     row.innerHTML = `
       <td>${String(booking.id).padStart(3, "0")}</td>
       <td>${booking.branch_name}</td>
@@ -340,8 +361,57 @@ function displayBookings(bookings) {
       <td>${statusBadge}</td>
       <td>${actionButtons}</td>
     `;
-
     tableBody.appendChild(row);
+
+    // Create card (for mobile/tablet)
+    if (cardsContainer) {
+      const card = document.createElement("div");
+      card.className = "booking-card";
+      card.innerHTML = `
+        <div class="booking-card-header">
+          <div>
+            <div class="booking-card-title">${booking.branch_name}</div>
+            <div class="booking-card-code">Booking Code: ${String(
+              booking.id
+            ).padStart(3, "0")}</div>
+          </div>
+          ${statusBadge}
+        </div>
+        
+        <div class="booking-card-body">
+          <div class="booking-info-row">
+            <span class="booking-info-label">Service</span>
+            <span class="booking-info-value">${booking.category_name}</span>
+          </div>
+          
+          <div class="booking-detail-section">
+            <div class="booking-detail-title">Booking Details</div>
+            <div class="booking-detail-grid">
+              <div class="booking-detail-item">
+                <div class="booking-detail-label">Date</div>
+                <div class="booking-detail-value">${formattedDate}</div>
+              </div>
+              <div class="booking-detail-item">
+                <div class="booking-detail-label">Time</div>
+                <div class="booking-detail-value">${time}</div>
+              </div>
+              <div class="booking-detail-item">
+                <div class="booking-detail-label">Duration</div>
+                <div class="booking-detail-value">${booking.duration}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="booking-info-row">
+            <span class="booking-info-label">Room</span>
+            <span class="booking-info-value">${booking.room_name}</span>
+          </div>
+        </div>
+        
+        ${actionButtons}
+      `;
+      cardsContainer.appendChild(card);
+    }
   });
 }
 
@@ -404,8 +474,8 @@ function cancelBooking(bookingId) {
       .catch((error) => {
         console.error("Error:", error);
         showNotification(
-        "error",
-        "A network error occurred. Please try again."
+          "error",
+          "A network error occurred. Please try again."
         );
 
         // Re-enable button

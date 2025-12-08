@@ -824,8 +824,23 @@
 /* ========================================
    RESPONSIVE DESIGN - TABLET & MOBILE
    ======================================== */
+/* ========================================
+   RESPONSIVE DESIGN - TABLET & MOBILE
+   ======================================== */
 
 @media (max-width: 1024px) {
+    /* Modal alignment untuk tablet - TANPA MENGUBAH DISPLAY */
+    .modal {
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Saat modal dibuka via JS, ubah jadi flex */
+    .modal[style*="display: block"] {
+        display: flex !important;
+    }
+
     .table-header {
         padding: 15px;
     }
@@ -889,20 +904,16 @@
         height: 16px;
     }
     
-    /* Modal Extra Compact */
-    .modal {
-        padding: 55px 10px 20px;
-    }
-    
+    /* Modal Extra Compact & Centered */
     .modal-content {
-        width: 95%;
-        max-width: 320px;
-        max-height: calc(100vh - 100px);
-        border-radius: 12px;
+        width: 85%;
+        max-width: 360px;
+        max-height: 70vh;
+        margin: 0 auto;
     }
     
     .modal-header {
-        padding: 9px 12px;
+        padding: 10px 14px;
         border-radius: 12px 12px 0 0;
     }
     
@@ -987,7 +998,7 @@
     #qrCodeContainer {
         padding: 12px;
     }
-    
+ 
     /* Notification Modal Compact */
     .notification-modal-content {
         padding: 25px 20px;
@@ -1040,6 +1051,17 @@
 
 
 @media (max-width: 768px) {
+    /* Modal alignment untuk mobile */
+    .modal {
+        padding: 0;
+    }
+    
+    .modal[style*="display: block"] {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    
     .content-wrapper h1 {
         font-size: 22px;
         margin-bottom: 20px;
@@ -1123,20 +1145,24 @@
         font-size: 12px;
     }
     
-    .btn-download-excel {
-        padding: 9px 18px;
-        font-size: 13px;
+   .btn-download-excel {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .btn-download-excel svg {
+        width: 14px;
+        height: 14px;
     }
     
-    /* Modal Responsive */
-    .modal {
-        padding: 60px 12px 25px;
-    }
-    
+    /* Modal Responsive & Centered */
     .modal-content {
-        width: 95%;
+        width: 90%;
         max-width: 350px;
-        max-height: calc(100vh - 120px);
+        max-height: 65vh;
+        margin: 0 auto;
     }
     
     .modal-header {
@@ -1197,7 +1223,7 @@
         width: 20px;
         height: 20px;
     }
-    
+
     /* Notification Modal */
     .notification-modal-content {
         padding: 30px 25px;
@@ -1226,6 +1252,12 @@
 }
 
 @media (max-width: 480px) {
+    .modal[style*="display: block"] {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    
     .content-wrapper h1 {
         font-size: 19px;
         margin-bottom: 18px;
@@ -1275,7 +1307,7 @@
     
     .voucher-table th,
     .voucher-table td {
-    padding: 9px 6px;
+        padding: 9px 6px;
         font-size: 11px;
     }
     
@@ -1301,25 +1333,22 @@
     }
     
     .btn-download-excel {
-        padding: 8px 16px;
-        font-size: 12px;
+        padding: 7px 14px;
+        font-size: 11px;
     }
-    
+
     .btn-download-excel svg {
-        width: 16px;
-        height: 16px;
+        width: 13px;
+        height: 13px;
     }
     
-    /* Modal Extra Compact */
-    .modal {
-        padding: 55px 10px 20px;
-    }
-    
+    /* Modal Extra Compact & Centered */
     .modal-content {
         width: 95%;
         max-width: 320px;
-        max-height: calc(100vh - 100px);
+        max-height: 70vh;
         border-radius: 12px;
+        margin: 0 auto;
     }
     
     .modal-header {

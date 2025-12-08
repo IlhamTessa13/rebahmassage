@@ -64,7 +64,7 @@ html {
 .blog-container {
   max-width: 900px;
   margin: 0 auto;
-  background: #FDEDBB;
+  background: white;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);

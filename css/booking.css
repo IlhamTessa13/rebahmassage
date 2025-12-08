@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Ubuntu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #46486f;
   color: #333;
   overflow-x: hidden;
@@ -73,14 +73,12 @@ html {
 
 .nav-link:hover::before,
 .nav-link.active::before {
-  border-radius: -3vw;
   width: 100%;
 }
 
 .nav-link:hover,
 .nav-link.active {
   color: #FDEDBB;
-  border-radius: 2vw;
 }
 
 /* Logo Mobile - Hidden on Desktop */
@@ -112,7 +110,6 @@ html {
   border-radius: 3px;
 }
 
-/* Sembunyikan hamburger ketika sidebar active */
 .hamburger.hide {
   opacity: 0;
   pointer-events: none;
@@ -271,6 +268,7 @@ html {
 .branch-card.selected {
   border-color: #FDEDBB;
   background: #915437;
+  box-shadow: 0 8px 25px rgba(145, 84, 55, 0.4);
 }
 
 .branch-image {
@@ -290,8 +288,9 @@ html {
 
 .branch-address {
   font-size: 0.9rem;
-  color: #666;
+  color: #FDEDBB;
   line-height: 1.4;
+  opacity: 0.9;
 }
 
 /* Category Grid */
@@ -324,6 +323,7 @@ html {
 .category-card.selected {
   border-color: #FDEDBB;
   background: #915437;
+  box-shadow: 0 8px 25px rgba(145, 84, 55, 0.4);
 }
 
 .category-icon {
@@ -364,7 +364,7 @@ html {
 .form-group label {
   display: block;
   font-weight: 600;
-  color: #FDEDBB;
+  color: #915437;
   margin-bottom: 0.5rem;
   font-size: 1rem;
 }
@@ -384,7 +384,7 @@ html {
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #FDEDBB;
+  border-color: #915437;
   box-shadow: 0 0 0 3px rgba(145, 84, 55, 0.1);
 }
 
@@ -447,7 +447,6 @@ html {
    NOTIFICATION MODAL STYLES
    ======================================== */
 
-/* Notification Modal Overlay */
 .notification-modal {
   display: none;
   position: fixed;
@@ -467,7 +466,6 @@ html {
   opacity: 1;
 }
 
-/* Modal Content */
 .notification-modal-content {
   background: white;
   border-radius: 20px;
@@ -484,7 +482,6 @@ html {
   transform: scale(1);
 }
 
-/* Icon Container */
 .notification-icon {
   width: 85px;
   height: 85px;
@@ -511,7 +508,6 @@ html {
   border: 3px solid #ffc107;
 }
 
-/* Icons */
 .icon-check {
   width: 48px;
   height: 48px;
@@ -536,26 +532,23 @@ html {
   animation: warningBounce 0.6s;
 }
 
-/* Title */
 .notification-title {
   font-size: 24px;
   font-weight: 600;
   color: #333;
   margin-bottom: 10px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
-/* Message */
 .notification-message {
   font-size: 15px;
   color: #666;
   line-height: 1.6;
   margin-bottom: 25px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   white-space: pre-line;
 }
 
-/* OK Button */
 .notification-ok-btn {
   background: linear-gradient(135deg, #915437 0%, #b56b4d 100%);
   color: white;
@@ -567,7 +560,7 @@ html {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(145, 84, 55, 0.3);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .notification-ok-btn:hover {
@@ -580,7 +573,6 @@ html {
   transform: translateY(0);
 }
 
-/* Animations */
 @keyframes scaleIn {
   0% {
     transform: scale(0);
@@ -725,7 +717,7 @@ html {
 }
 
 .footer-link:hover {
-  color: #915437;
+  color: #6d3a2a;
 }
 
 .footer-info {
@@ -747,8 +739,10 @@ html {
   font-weight: 500;
 }
 
+/* ========================================
+   RESPONSIVE - MOBILE & TABLET ENHANCED
+   ======================================== */
 
-/* Responsive */
 @media (max-width: 768px) {
   /* Navbar Mobile */
   .navbar {
@@ -806,13 +800,12 @@ html {
     display: block;
   }
 
-  /* PERBAIKAN FONT SIZE - Sama dengan landing-page.css */
   .nav-link {
     width: 100%;
     padding: 1.25rem 1.5rem;
     border-radius: 12px;
     margin-bottom: 0.75rem;
-    font-size: 1.3rem; /* Diperbesar dari 0.85rem */
+    font-size: 1.3rem;
     font-weight: 500;
     border-left: 4px solid transparent;
     transition: all 0.3s ease;
@@ -829,162 +822,295 @@ html {
     display: none;
   }
 
-  /* Hero Section */
+  /* Hero Section - Enhanced Mobile */
   .hero-section {
-    padding: 0.5rem 1rem 1rem 1rem;
-    min-height: 50vh;
+    padding: 0.5rem 0.75rem 1rem 0.75rem;
+    min-height: 35vh;
   }
 
   .hero-card {
-    height: 350px;
-    margin-top: 30px; /* Sama dengan landing-page */
+    height: 250px;
+    margin-top: 70px;
     border-radius: 15px;
   }
 
-
-  /* Booking */
+  /* Booking Container - Enhanced Mobile */
   .booking-container {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
-  .welcome-box {
-    padding: 1.5rem;
-  }
-
-  .welcome-box h3 {
-    font-size: 1.5rem;
-  }
-
-  .booking-section {
-    padding: 1.5rem;
-  }
-
+  /* Section Title - More Compact */
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+    padding: 0 0.5rem;
   }
 
-  .branch-grid,
+  /* Booking Section - Enhanced Mobile */
+  .booking-section {
+    padding: 1.25rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+  }
+
+  /* Branch Grid - Mobile Enhanced with Cards */
+  .branch-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .branch-card {
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+    background: linear-gradient(135deg, #915437 0%, #a66448 100%);
+  }
+
+  .branch-card.selected {
+    background: linear-gradient(135deg, #6d3a2a 0%, #915437 100%);
+    box-shadow: 0 6px 20px rgba(145, 84, 55, 0.5);
+    transform: scale(1.02);
+  }
+
+  .branch-image {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    border-radius: 12px;
+    margin-bottom: 0;
+  }
+
+  .branch-info {
+    flex: 1;
+  }
+
+  .branch-name {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .branch-address {
+    font-size: 0.8rem;
+    opacity: 0.95;
+  }
+
+  /* Category Grid - Mobile Enhanced with Icon */
   .category-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .category-card {
+    padding: 1rem;
+    border-radius: 12px;
+    flex-direction: row;
+    text-align: left;
+    gap: 1rem;
+    background: linear-gradient(135deg, #915437 0%, #a66448 100%);
+  }
+
+  .category-card.selected {
+    background: linear-gradient(135deg, #6d3a2a 0%, #915437 100%);
+    box-shadow: 0 6px 20px rgba(145, 84, 55, 0.5);
+    transform: scale(1.02);
+  }
+
+  .category-icon {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    border-radius: 12px;
+  }
+
+  .category-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .category-name {
+    font-size: 1.15rem;
+  }
+
+  .category-description {
+    font-size: 0.8rem;
+  }
+
+  /* Form - Mobile Enhanced */
+  .booking-form {
+    max-width: 100%;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 
-  .branch-image {
-    height: 120px;
+  .form-group {
+    margin-bottom: 1.25rem;
   }
 
-  .category-icon {
-    width: 60px;
-    height: 60px;
+  .form-group label {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
   }
 
-  /* Footer */
+  .form-group input,
+  .form-group select {
+    padding: 0.85rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+
+  .btn-confirm {
+    padding: 0.95rem;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  /* Footer Mobile */
   .footer {
-    padding: 2rem 1rem;
-    height: 400px;
+    padding: 2rem 0.75rem;
   }
 
   .footer-content {
     padding: 1.5rem;
-    border-radius: 15px;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .footer-left {
-    max-width: 100%;
-  }
-
-  .footer-right {
+    border-radius: 12px;
     flex-direction: column;
     gap: 1.5rem;
   }
 
+  .footer-left {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .footer-right {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
   .footer-logo {
-    width: 150px;
-    height: 75px;
+    width: 140px;
+    height: 70px;
+    margin: 0 auto 1rem;
   }
 
   .footer-text {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .social-links {
     justify-content: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .social-icon {
-    width: 35px;
-    height: 35px;
   }
 
   .footer-bottom {
     font-size: 0.8rem;
+    padding-top: 1.5rem;
   }
-  
+
+  /* Notification Modal Mobile */
   .notification-modal-content {
-    padding: 30px 25px;
-    width: 85%;
-    max-width: 340px;
+    padding: 25px 20px;
+    width: 90%;
+    max-width: 320px;
   }
-  
+
   .notification-icon {
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
   }
-  
+
   .icon-check,
   .icon-error,
   .icon-warning {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
   }
-  
+
   .notification-title {
-    font-size: 20px;
+    font-size: 18px;
   }
-  
+
   .notification-message {
-    font-size: 14px;
+    font-size: 13px;
   }
-  
+
   .notification-ok-btn {
-    padding: 10px 35px;
-    font-size: 14px;
+    padding: 10px 30px;
+    font-size: 13px;
   }
 }
 
 /* Extra small devices (phones, 480px and down) */
 @media (max-width: 480px) {
-  /* PERBAIKAN FONT SIZE MOBILE KECIL */
   .nav-link {
     padding: 1.15rem 1.25rem;
-    font-size: 1.2rem; /* Diperbesar dari 0.75rem */
+    font-size: 1.2rem;
   }
 
   .hero-card {
-    height: 280px;
-    margin-top: 20px; /* Sama dengan landing-page */
-  }
-
-
-  .welcome-box h3 {
-    font-size: 1.2rem;
+    height: 220px;
+    margin-top: 65px;
   }
 
   .section-title {
     font-size: 1.3rem;
   }
 
+  .booking-section {
+    padding: 1rem;
+  }
+
+  .branch-card,
+  .category-card {
+    padding: 0.85rem;
+  }
+
+  .branch-image {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+  }
+
   .branch-name {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .branch-address {
+    font-size: 0.75rem;
+  }
+
+  .category-icon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
   }
 
   .category-name {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+  }
+
+  .category-description {
+    font-size: 0.75rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-confirm {
+    padding: 0.85rem;
+    font-size: 0.95rem;
   }
 }

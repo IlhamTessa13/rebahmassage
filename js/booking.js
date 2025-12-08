@@ -143,7 +143,6 @@ function closeNotificationModal() {
 // ============================================
 
 // Initialize on page load
-// Mobile Navigation Toggle
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Booking page loaded");
 
@@ -205,7 +204,6 @@ document.addEventListener("DOMContentLoaded", function () {
   generateTimeSlots();
 });
 
-// ... rest of your booking.js code stays the same ...
 // ============================================
 // LOAD DATA FUNCTIONS
 // ============================================
@@ -235,7 +233,7 @@ function loadBranches() {
     });
 }
 
-// Display branches
+// Display branches - UPDATED for mobile layout
 function displayBranches(branches) {
   const branchGrid = document.getElementById("branchGrid");
   branchGrid.innerHTML = "";
@@ -247,8 +245,10 @@ function displayBranches(branches) {
       <img src="${branch.image || "public/branch-default.jpg"}" alt="${
       branch.name
     }" class="branch-image">
-      <div class="branch-name">${branch.name}</div>
-      <div class="branch-address">${branch.address}</div>
+      <div class="branch-info">
+        <div class="branch-name">${branch.name}</div>
+        <div class="branch-address">${branch.address}</div>
+      </div>
     `;
 
     branchCard.addEventListener("click", () =>
@@ -299,7 +299,7 @@ function loadCategories(branchId) {
     });
 }
 
-// Display categories
+// Display categories - UPDATED for mobile layout
 function displayCategories(categories) {
   const categoryGrid = document.getElementById("categoryGrid");
   categoryGrid.innerHTML = "";
@@ -311,8 +311,10 @@ function displayCategories(categories) {
       <img src="${category.image || "public/categories-default.png"}" alt="${
       category.name
     }" class="category-icon">
-      <div class="category-name">${category.name}</div>
-      <div class="category-description">${category.description || ""}</div>
+      <div class="category-info">
+        <div class="category-name">${category.name}</div>
+        <div class="category-description">${category.description || ""}</div>
+      </div>
     `;
 
     categoryCard.addEventListener("click", () =>

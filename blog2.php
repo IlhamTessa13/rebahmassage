@@ -44,7 +44,6 @@ try {
             <article class="blog-article">
                 <header class="blog-header">
                     <h1 class="blog-title"><?php echo htmlspecialchars($blog['title']); ?></h1>
-                    <p class="blog-clickbait"><?php echo htmlspecialchars($blog['clickbait']); ?></p>
                 </header>
 
                 <div class="blog-image-container">
@@ -69,7 +68,7 @@ try {
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-left">
-                <img src="/php/public/logorebah.png" class="footer-logo" alt="Rebah Logo">
+                <img src="/php/public/logobrown.png" class="footer-logo" alt="Rebah Logo">
                 <p class="footer-text">
                     Book your appointment via WhatsApp. We recommend booking in advance to ensure your preferred time slot.
                 </p>

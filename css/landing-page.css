@@ -1156,3 +1156,34 @@ html {
     right: 0.3rem;
   }
 }
+
+/* WhatsApp Link Styling */
+.whatsapp {
+  display: inline-block;
+  color: #915437;
+  text-decoration: none;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.whatsapp:hover {
+  color: #6d3a2a;
+  border-bottom-color: #915437;
+  transform: translateX(5px);
+}
+
+/* Adjust footer-info spacing */
+.footer-info {
+  color: #915437;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
