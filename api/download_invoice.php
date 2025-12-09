@@ -65,6 +65,133 @@ try {
     die('Error: ' . $e->getMessage());
 }
 
+// Shared HTML Generation Function (Table-based for TCPDF compatibility)
+function getInvoiceHTML($booking) {
+    $bookingCode = str_pad($booking['id'], 3, '0', STR_PAD_LEFT);
+    
+    // PERUBAHAN 1: Gunakan tanggal real-time saat download (bukan booking_date)
+    $currentDate = date('F j, Y'); // Tanggal saat ini
+    
+    $formattedDate = date('d-m-Y', strtotime($booking['booking_date']));
+    $startTime = date('H:i', strtotime($booking['start_time']));
+    $endTime = date('H:i', strtotime($booking['end_time']));
+    $isPdf = func_num_args() > 1 ? func_get_arg(1) : false;
+
+    // Base URL for images - handle both PDF and Web contexts if needed
+    if ($isPdf) {
+        $logoPath = realpath(__DIR__ . '/../public/logorebah.jpg');
+    } else {
+        $logoPath = '../public/logorebah.jpg';
+    }
+
+    $html = '
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: Helvetica, Arial, sans-serif; color: #46486F; font-size: 12px; border-collapse: collapse;">
+        <!-- Header -->
+        <tr>
+            <td width="50%" align="left" style="vertical-align: middle;">
+                <img src="' . $logoPath . '" style="width: 150px; height: auto;" height="50" />
+            </td>
+            <td width="50%" align="right" style="vertical-align: middle; font-size: 30px; font-weight: bold; color: #46486F; letter-spacing: 2px;">
+                INVOICE
+            </td>
+        </tr>
+        <tr><td colspan="2" height="30"></td></tr>
+
+        <!-- Info Section -->
+        <tr>
+            <td width="60%" valign="top">
+                <div style="font-weight: bold; font-size: 14px; color: #46486F; margin-bottom: 5px;">Invoice To :</div>
+                <div style="font-size: 12px; color: #46486F; line-height: 1.4;">
+                    <strong>' . htmlspecialchars($booking['customer_name']) . '</strong><br>
+                    ' . htmlspecialchars($booking['customer_email']) . '<br>
+                    ' . htmlspecialchars($booking['customer_phone']) . '
+                </div>
+            </td>
+            <td width="40%" valign="bottom" align="right">
+                <div style="font-size: 16px; font-weight: bold; color: #46486F;">' . $currentDate . '</div>
+            </td>
+        </tr>
+        <tr><td colspan="2" height="30"></td></tr>
+
+        <!-- Customer Info -->
+        <tr>
+            <td colspan="2" style="font-size: 14px; font-weight: bold; color: #46486F; border-bottom: 2px solid #46486F; padding-bottom: 5px;">
+                Customer Information
+            </td>
+        </tr>
+        <tr><td colspan="2" height="10"></td></tr>
+    </table>
+
+    <table cellpadding="8" cellspacing="0" width="100%" style="font-family: Helvetica; font-size: 11px; border-collapse: collapse;">
+        <tr style="background-color: #46486F;">
+            <td width="33%" style="font-weight: bold; color: #FFFFFF; padding: 10px;">Nama</td>
+            <td width="34%" style="font-weight: bold; text-align:center; color: #FFFFFF; padding: 10px;">Email</td>
+            <td width="33%" style="font-weight: bold; text-align:center; color: #FFFFFF; padding: 10px;">Phone</td>
+        </tr>
+        <tr style="background-color: #FFFFFF;">
+            <td style="border-bottom: 1px solid #46486F; color: #46486F; padding: 8px;">'.htmlspecialchars($booking['customer_name']).'</td>
+            <td style="border-bottom: 1px solid #46486F; text-align:center; color: #46486F; padding: 8px;">'.htmlspecialchars($booking['customer_email']).'</td>
+            <td style="border-bottom: 1px solid #46486F; text-align:center; color: #46486F; padding: 8px;">'.htmlspecialchars($booking['customer_phone']).'</td>
+        </tr>
+    </table>
+
+    <!-- PERUBAHAN 2: Tambah jarak/spasi lebih besar sebelum Booking Details -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: Helvetica; color: #46486F;">
+        <tr><td colspan="7" height="30"></td></tr>
+        <tr>
+            <td colspan="7" style="font-size: 14px; font-weight: bold; border-bottom: 2px solid #46486F; padding: 5px 0;">
+                Booking Details
+            </td>
+        </tr>
+    </table>
+
+    <table cellpadding="8" cellspacing="0" width="100%" style="font-family: Helvetica; font-size: 11px; border-collapse: collapse;">
+        <tr style="background-color: #46486F;">
+            <td width="16%" style="font-weight: bold; color: #FFFFFF; padding: 10px;">Branch</td>
+            <td width="18%" style="font-weight: bold; text-align:center; color: #FFFFFF; padding: 10px;">Service</td>
+            <td width="14%" style="font-weight: bold; text-align:center; color: #FFFFFF; padding: 10px;">Date</td>
+            <td width="14%" style="font-weight: bold; text-align:center; color: #FFFFFF; padding: 10px;">Time</td>
+            <td width="13%" style="font-weight: bold; text-align:center; color: #FFFFFF; padding: 10px;">Duration</td>
+            <td width="12%" style="font-weight: bold; text-align:center; color: #FFFFFF; padding: 10px;">Room</td>
+            <td width="13%" style="font-weight: bold; text-align:center; color: #FFFFFF; padding: 10px;">Therapist</td>
+        </tr>
+
+        <tr style="background-color: #FFFFFF;">
+            <td style="border-bottom: 1px solid #46486F; color: #46486F; padding: 8px;">'.htmlspecialchars($booking['branch_name']).'</td>
+            <td style="border-bottom: 1px solid #46486F; text-align:center; color: #46486F; padding: 8px;">'.htmlspecialchars($booking['category_name']).'</td>
+            <td style="border-bottom: 1px solid #46486F; text-align:center; color: #46486F; padding: 8px;">'.$formattedDate.'</td>
+            <td style="border-bottom: 1px solid #46486F; text-align:center; color: #46486F; padding: 8px;">'.$startTime.' - '.$endTime.'</td>
+            <td style="border-bottom: 1px solid #46486F; text-align:center; color: #46486F; padding: 8px;">'.$booking['duration'].' mins</td>
+            <td style="border-bottom: 1px solid #46486F; text-align:center; color: #46486F; padding: 8px;">'.htmlspecialchars($booking['room_name']).'</td>
+            <td style="border-bottom: 1px solid #46486F; text-align:center; color: #46486F; padding: 8px;">'.htmlspecialchars($booking['therapist_name']).'</td>
+        </tr>
+    </table>
+
+    <!-- PERUBAHAN 3: Footer disimetriskan - Fatmawati kiri, Menteng kanan -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: Helvetica, Arial, sans-serif; color: #46486F; font-size: 11px;">
+        <tr>
+            <td width="50%" valign="top" align="left">
+                <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Rebah Fatmawati</div>
+                <div style="line-height: 1.4;">
+                    Fatmawati Raya Street, West Cilandak,<br>
+                    Cilandak, South Jakarta, 12430<br>
+                    +62 822-9999-4259
+                </div>
+            </td>
+            <td width="50%" valign="top" align="right">
+                <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Rebah Menteng</div>
+                <div style="line-height: 1.4;">
+                    51 Teuku Cik Ditiro Street, Menteng,<br>
+                    Central Jakarta, 10310<br>
+                    +62 822-9999-4263
+                </div>
+            </td>
+        </tr>
+    </table>
+    ';
+    return $html;
+}
+
 // Function using TCPDF
 function generatePDFWithTCPDF($booking) {
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -77,123 +204,18 @@ function generatePDFWithTCPDF($booking) {
     $pdf->setPrintFooter(false);
     $pdf->SetMargins(15, 15, 15);
     $pdf->AddPage();
-    $pdf->SetFont('helvetica', '', 10);
     
-    $bookingCode = str_pad($booking['id'], 3, '0', STR_PAD_LEFT);
-    $bookingDate = date('d-m-Y', strtotime($booking['booking_date']));
-    $startTime = date('H:i', strtotime($booking['start_time']));
-    $endTime = date('H:i', strtotime($booking['end_time']));
-    
-    $html = '
-    <style>
-        body { font-family: Arial, sans-serif; color: #46486F; }
-        .header { margin-bottom: 30px; }
-        .logo { width: 120px; float: left; }
-        .invoice-title { font-size: 36px; color: #46486F; font-weight: bold; letter-spacing: 3px; text-align: right; margin-top: 20px; }
-        .invoice-to { margin: 30px 0; clear: both; }
-        .invoice-to h3 { color: #46486F; font-size: 14px; margin-bottom: 8px; }
-        .invoice-to p { color: #46486F; font-size: 12px; margin: 3px 0; }
-        .invoice-date { text-align: right; color: #46486F; font-size: 16px; font-weight: bold; margin: 20px 0; }
-        .section-title { color: #46486F; font-size: 16px; font-weight: bold; margin: 20px 0 10px 0; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        thead { background-color: #46486F; color: white; }
-        th { padding: 12px; text-align: left; font-weight: 500; font-size: 12px; }
-        td { padding: 12px; color: #46486F; font-size: 11px; border-bottom: 1px solid rgba(70, 72, 111, 0.1); }
-        .highlight-row td { border-bottom: 3px solid #46486F; }
-        .thank-you { text-align: center; color: #46486F; font-size: 16px; font-weight: bold; margin: 30px 0; padding: 15px 0; border-top: 2px solid #46486F; border-bottom: 2px solid #46486F; }
-        .footer { margin-top: 30px; }
-        .location { width: 48%; float: left; }
-        .location h4 { color: #46486F; font-size: 14px; margin-bottom: 8px; font-weight: bold; }
-        .location p { color: #46486F; font-size: 11px; line-height: 1.6; margin: 2px 0; }
-    </style>
-    
-    <div class="header">
-        <div class="invoice-title">INVOICE</div>
-    </div>
-    
-    <div class="invoice-to">
-        <h3>Invoice To:</h3>
-        <p><strong>' . htmlspecialchars($booking['customer_name']) . '</strong></p>
-        <p>' . htmlspecialchars($booking['customer_email']) . '</p>
-        <p>' . htmlspecialchars($booking['customer_phone']) . '</p>
-    </div>
-    
-    <div class="invoice-date">' . date('F j, Y') . '</div>
-    
-    <div class="section-title">Customer Information</div>
-    <table>
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>Phone</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>' . htmlspecialchars($booking['customer_name']) . '</td>
-                <td>' . htmlspecialchars($booking['customer_email']) . '</td>
-                <td>' . htmlspecialchars($booking['customer_phone']) . '</td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <div class="section-title">Booking Details</div>
-    <table>
-        <thead>
-            <tr>
-                <th>Branch</th>
-                <th>Service</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Duration</th>
-                <th>Room</th>
-                <th>Therapist</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="highlight-row">
-                <td>' . htmlspecialchars($booking['branch_name']) . '</td>
-                <td>' . htmlspecialchars($booking['category_name']) . '</td>
-                <td>' . $bookingDate . '</td>
-                <td>' . $startTime . '-' . $endTime . '</td>
-                <td>' . $booking['duration'] . ' mins</td>
-                <td>Room ' . htmlspecialchars($booking['room_name']) . '</td>
-                <td>' . htmlspecialchars($booking['therapist_name']) . '</td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <div class="thank-you">Thank You for Your Business</div>
-    
-    <div class="footer">
-        <div class="location">
-            <h4>Rebah Fatmawati</h4>
-            <p>Fatmawati Raya Street, West Cilandak,</p>
-            <p>Cilandak, South Jakarta, 12430</p>
-            <p>+62 822-9999-4259</p>
-        </div>
-        <div class="location" style="float: right;">
-            <h4>Rebah Menteng</h4>
-            <p>51 Teuku Cik Ditiro Street, Menteng,</p>
-            <p>Central Jakarta, 10310</p>
-            <p>+62 822-9999-4263</p>
-        </div>
-    </div>
-    ';
+    $html = getInvoiceHTML($booking, true);
     
     $pdf->writeHTML($html, true, false, true, false, '');
+    $bookingCode = str_pad($booking['id'], 3, '0', STR_PAD_LEFT);
     $pdf->Output('Rebah_Invoice_' . $bookingCode . '.pdf', 'D');
 }
 
 // Fallback simple PDF generation without library
 function generateSimplePDF($booking) {
     $bookingCode = str_pad($booking['id'], 3, '0', STR_PAD_LEFT);
-    $bookingDate = date('d-m-Y', strtotime($booking['booking_date']));
-    $startTime = date('H:i', strtotime($booking['start_time']));
-    $endTime = date('H:i', strtotime($booking['end_time']));
     
-    // Set headers for download
     header('Content-Type: text/html; charset=utf-8');
     header('Content-Disposition: attachment; filename="Rebah_Invoice_' . $bookingCode . '.html"');
     
@@ -203,273 +225,17 @@ function generateSimplePDF($booking) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rebah Invoice</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            body {
-                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #f5f5f5;
-                padding: 30px 20px;
-            }
-
-            .invoice-container {
-                max-width: 800px;
-                margin: 0 auto;
-                background-color: white;
-                padding: 50px;
-                box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            }
-
-            .header {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                margin-bottom: 50px;
-            }
-
-            .logo {
-                width: 150px;
-                height: auto;
-            }
-
-            .invoice-title {
-                font-size: 36px;
-                color: #46486F;
-                font-weight: 600;
-                letter-spacing: 3px;
-            }
-
-            .invoice-to {
-                margin-bottom: 40px;
-            }
-
-            .invoice-to h3 {
-                color: #46486F;
-                font-size: 16px;
-                margin-bottom: 10px;
-                font-weight: 600;
-            }
-
-            .invoice-to p {
-                color: #46486F;
-                font-size: 14px;
-                margin: 5px 0;
-            }
-
-            .invoice-date {
-                text-align: right;
-                color: #46486F;
-                font-size: 18px;
-                font-weight: 600;
-                margin-top: -30px;
-                margin-bottom: 30px;
-            }
-
-            .section-title {
-                color: #46486F;
-                font-size: 18px;
-                font-weight: 600;
-                margin-bottom: 15px;
-                margin-top: 30px;
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 30px;
-            }
-
-            thead {
-                background-color: #46486F;
-                color: white;
-            }
-
-            th {
-                padding: 15px;
-                text-align: left;
-                font-weight: 500;
-                font-size: 14px;
-            }
-
-            td {
-                padding: 15px;
-                color: #46486F;
-                font-size: 14px;
-                border-bottom: 1px solid rgba(70, 72, 111, 0.1);
-            }
-
-            tbody tr {
-                background-color: white;
-            }
-
-            tbody tr:hover {
-                background-color: #f7fafc;
-            }
-
-            .highlight-row {
-                border-bottom: 3px solid #46486F !important;
-            }
-
-            .highlight-row td {
-                border-bottom: 3px solid #46486F !important;
-            }
-
-            .thank-you {
-                text-align: center;
-                color: #46486F;
-                font-size: 18px;
-                font-weight: 600;
-                margin: 40px 0;
-                padding: 20px 0;
-                border-top: 2px solid #46486F;
-                border-bottom: 2px solid #46486F;
-            }
-
-            .footer {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 40px;
-                gap: 50px;
-            }
-
-            .location {
-                flex: 1;
-                max-width: 48%;
-            }
-
-            .location h4 {
-                color: #46486F;
-                font-size: 16px;
-                margin-bottom: 10px;
-                font-weight: 600;
-            }
-
-            .location p {
-                color: #46486F;
-                font-size: 13px;
-                line-height: 1.6;
-                margin: 3px 0;
-            }
-
-            .no-print {
-                text-align: center;
-                margin-top: 30px;
-            }
-
-            .print-btn {
-                padding: 12px 30px;
-                background: #46486F;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                font-size: 14px;
-                font-weight: 600;
-            }
-
-            .print-btn:hover {
-                background: #363855;
-            }
-
-            @media print {
-                body {
-                    background-color: white;
-                    padding: 0;
-                }
-                .invoice-container {
-                    box-shadow: none;
-                    padding: 20px;
-                }
-                .no-print {
-                    display: none;
-                }
-            }
-        </style>
+        <style>body { background-color: #f5f5f5; padding: 40px; } .invoice-container { background: white; padding: 40px; max-width: 900px; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }</style>
     </head>
     <body>
-        <div class="invoice-container">
-            <div class="header">
-                <img src="../assets/images/logo.png" alt="Rebah Massage & Reflexology" class="logo">
-                <div class="invoice-title">INVOICE</div>
+        <div class="invoice-container">';
+    
+    echo getInvoiceHTML($booking, false);
+    
+    echo '
+            <div style="text-align: center; margin-top: 30px;" class="no-print">
+                <button onclick="window.print()" style="padding: 10px 20px; background: #46486F; color: white; border: none; border-radius: 5px; cursor: pointer;">Print Receipt</button>
             </div>
-
-            <div class="invoice-to">
-                <h3>Invoice To :</h3>
-                <p><strong>' . htmlspecialchars($booking['customer_name']) . '</strong></p>
-                <p>' . htmlspecialchars($booking['customer_email']) . '</p>
-                <p>' . htmlspecialchars($booking['customer_phone']) . '</p>
-            </div>
-
-            <div class="invoice-date">' . date('F j, Y') . '</div>
-
-            <h3 class="section-title">Customer Information</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>' . htmlspecialchars($booking['customer_name']) . '</td>
-                        <td>' . htmlspecialchars($booking['customer_email']) . '</td>
-                        <td>' . htmlspecialchars($booking['customer_phone']) . '</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3 class="section-title">Booking Details</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Branch</th>
-                        <th>Service</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Duration</th>
-                        <th>Room</th>
-                        <th>Therapist</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="highlight-row">
-                        <td>' . htmlspecialchars($booking['branch_name']) . '</td>
-                        <td>' . htmlspecialchars($booking['category_name']) . '</td>
-                        <td>' . $bookingDate . '</td>
-                        <td>' . $startTime . '-' . $endTime . '</td>
-                        <td>' . $booking['duration'] . ' mins</td>
-                        <td>Room ' . htmlspecialchars($booking['room_name']) . '</td>
-                        <td>' . htmlspecialchars($booking['therapist_name']) . '</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="thank-you">Thank You for Your Business</div>
-
-            <div class="footer">
-                <div class="location">
-                    <h4>Rebah Fatmawati</h4>
-                    <p>Fatmawati Raya Street, West Cilandak,</p>
-                    <p>Cilandak, South Jakarta, 12430</p>
-                    <p>+62 822-9999-4259</p>
-                </div>
-                <div class="location">
-                    <h4>Rebah Menteng</h4>
-                    <p>51 Teuku Cik Ditiro Street, Menteng,</p>
-                    <p>Central Jakarta, 10310</p>
-                    <p>+62 822-9999-4263</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="no-print">
-            <button onclick="window.print()" class="print-btn">Print Receipt</button>
         </div>
     </body>
     </html>';

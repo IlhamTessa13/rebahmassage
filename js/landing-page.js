@@ -5,20 +5,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const hamburger = document.getElementById("hamburgerBtn");
   const navContainer = document.getElementById("navContainer");
   const navClose = document.getElementById("navClose");
-  const navOverlay = document.getElementById("navOverlay");
   const navLinks = document.querySelectorAll(".nav-link");
 
   function openNav() {
     navContainer.classList.add("active");
-    navOverlay.classList.add("active");
-    hamburger.classList.add("hide"); // Tambahkan class hide
+    hamburger.classList.add("hide");
+    document.body.classList.add("nav-active");
     document.body.style.overflow = "hidden";
   }
 
   function closeNav() {
     navContainer.classList.remove("active");
-    navOverlay.classList.remove("active");
-    hamburger.classList.remove("hide"); // Hapus class hide
+    hamburger.classList.remove("hide");
+    document.body.classList.remove("nav-active");
     document.body.style.overflow = "";
   }
 
@@ -30,9 +29,16 @@ document.addEventListener("DOMContentLoaded", function () {
     navClose.addEventListener("click", closeNav);
   }
 
-  if (navOverlay) {
-    navOverlay.addEventListener("click", closeNav);
-  }
+  // Click pada body::after (blur overlay) untuk close nav
+  document.addEventListener("click", function (e) {
+    if (
+      document.body.classList.contains("nav-active") &&
+      !navContainer.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) {
+      closeNav();
+    }
+  });
 
   // Close nav when clicking nav links
   navLinks.forEach((link) => {
@@ -49,8 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
       closeNav();
     }
   });
-
-  // ... kode yang sudah ada sebelumnya ...
 
   // Navbar active link on scroll
   const sections = document.querySelectorAll("section[id]");
@@ -79,14 +83,16 @@ document.addEventListener("DOMContentLoaded", function () {
     link.addEventListener("click", function (e) {
       const href = this.getAttribute("href");
 
-      // Only prevent default for anchor links (starting with #)
       if (href.startsWith("#")) {
         e.preventDefault();
         const targetId = href.substring(1);
         const targetSection = document.getElementById(targetId);
 
         if (targetSection) {
-          const offsetTop = targetSection.offsetTop - 80;
+          // Offset untuk navbar fixed di mobile
+          const navbarHeight = window.innerWidth <= 768 ? 70 : 80;
+          const offsetTop = targetSection.offsetTop - navbarHeight;
+
           window.scrollTo({
             top: offsetTop,
             behavior: "smooth",
@@ -118,7 +124,6 @@ let servicesData = [];
 let autoSlideInterval;
 let isTransitioning = false;
 
-// Load services from API
 function loadServices() {
   console.log("Loading services from API...");
 
@@ -145,34 +150,27 @@ function loadServices() {
     });
 }
 
-// Render services HTML
 function renderServices(services) {
   const track = document.getElementById("servicesTrack");
   track.innerHTML = "";
 
-  // Create all cards (original + clones for infinite loop)
   const allCards = [];
 
-  // Clone before (for seamless loop)
   services.forEach((service) => {
     allCards.push(createServiceCard(service, true));
   });
 
-  // Original cards
   services.forEach((service) => {
     allCards.push(createServiceCard(service, false));
   });
 
-  // Clone after (for seamless loop)
   services.forEach((service) => {
     allCards.push(createServiceCard(service, true));
   });
 
-  // Append all cards
   allCards.forEach((card) => track.appendChild(card));
 }
 
-// Create service card element
 function createServiceCard(service, isClone = false) {
   const card = document.createElement("div");
   card.className = "service-card";
@@ -193,7 +191,6 @@ function createServiceCard(service, isClone = false) {
   return card;
 }
 
-// Show error message
 function showServicesError(message) {
   const track = document.getElementById("servicesTrack");
   track.innerHTML = `
@@ -202,7 +199,6 @@ function showServicesError(message) {
     </div>
   `;
 
-  // Hide navigation buttons
   const prevBtn = document.querySelector(".carousel-prev");
   const nextBtn = document.querySelector(".carousel-next");
   if (prevBtn) prevBtn.style.display = "none";
@@ -215,17 +211,12 @@ function initServicesCarousel() {
     return;
   }
 
-  // Start at the first original card (after clones)
   currentSlide = servicesData.length;
   updateCarousel(false);
 
-  // Create dots
   createCarouselDots();
-
-  // Start auto slide
   startAutoSlide();
 
-  // Pause auto slide on hover
   const track = document.getElementById("servicesTrack");
   track.addEventListener("mouseenter", stopAutoSlide);
   track.addEventListener("mouseleave", startAutoSlide);
@@ -238,16 +229,11 @@ function slideServices(direction) {
   currentSlide += direction;
   updateCarousel(true);
 
-  // Handle infinite loop reset
   setTimeout(() => {
-    const totalCards = servicesData.length * 3;
-
     if (currentSlide >= servicesData.length * 2) {
-      // Reset to start of original cards
       currentSlide = servicesData.length;
       updateCarousel(false);
     } else if (currentSlide < servicesData.length) {
-      // Reset to end of original cards
       currentSlide = servicesData.length * 2 - 1;
       updateCarousel(false);
     }
@@ -256,8 +242,6 @@ function slideServices(direction) {
   }, 500);
 
   updateDots();
-
-  // Reset auto slide timer
   stopAutoSlide();
   startAutoSlide();
 }
@@ -271,10 +255,9 @@ function updateCarousel(animate = true) {
   const cardElement = cards[0];
   const cardWidth = cardElement.offsetWidth;
 
-  // Gap dinamis berdasarkan ukuran layar
-  let gap = 24; // Desktop default
+  let gap = 24;
   if (window.innerWidth <= 768) {
-    gap = 16; // Mobile & tablet - seragam 16px
+    gap = 16;
   }
 
   const moveAmount = (cardWidth + gap) * currentSlide;
@@ -287,19 +270,11 @@ function updateCarousel(animate = true) {
 
   track.style.transform = `translateX(-${moveAmount}px)`;
 
-  // Re-enable transition after instant move
   if (!animate) {
     setTimeout(() => {
       track.style.transition = "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
     }, 50);
   }
-}
-
-function getVisibleCards() {
-  const width = window.innerWidth;
-  if (width <= 768) return 1;
-  if (width <= 1024) return 2;
-  return 3;
 }
 
 function createCarouselDots() {
@@ -338,7 +313,6 @@ function goToSlide(index) {
   updateCarousel(true);
   updateDots();
 
-  // Reset auto slide timer
   stopAutoSlide();
   startAutoSlide();
 }
@@ -355,7 +329,6 @@ function stopAutoSlide() {
   }
 }
 
-// Handle window resize
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);

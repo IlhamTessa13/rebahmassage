@@ -156,7 +156,6 @@ function showConfirmation(title, message) {
 // ============================================
 
 // Initialize on page load
-// Initialize on page load
 document.addEventListener("DOMContentLoaded", function () {
   // Create notification modal
   createNotificationModal();
@@ -170,15 +169,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openNav() {
     navContainer.classList.add("active");
-    navOverlay.classList.add("active");
     hamburger.classList.add("hide");
+    // Add class to body untuk blur overlay dan prevent scroll
+    document.body.classList.add("nav-active");
     document.body.style.overflow = "hidden";
   }
 
   function closeNav() {
     navContainer.classList.remove("active");
-    navOverlay.classList.remove("active");
     hamburger.classList.remove("hide");
+    // Remove class from body
+    document.body.classList.remove("nav-active");
     document.body.style.overflow = "";
   }
 
@@ -193,6 +194,17 @@ document.addEventListener("DOMContentLoaded", function () {
   if (navOverlay) {
     navOverlay.addEventListener("click", closeNav);
   }
+
+  // Click pada body::after (blur overlay) untuk close nav
+  document.addEventListener("click", function (e) {
+    if (
+      document.body.classList.contains("nav-active") &&
+      !navContainer.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) {
+      closeNav();
+    }
+  });
 
   // Close nav when clicking nav links
   navLinks.forEach((link) => {
@@ -213,6 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Load bookings
   loadBookings();
 });
+
 // ============================================
 // LOAD & DISPLAY BOOKINGS
 // ============================================

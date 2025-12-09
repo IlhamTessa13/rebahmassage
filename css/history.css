@@ -856,8 +856,9 @@ html {
     display: block;
   }
 
-  /* Navbar Mobile */
+  /* Navbar Mobile - FIXED POSITION */
   .navbar {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -867,8 +868,30 @@ html {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    position: relative;
     opacity: 100%;
+    z-index: 1002;
+  }
+
+  /* Blur overlay menggunakan body::after - SAMA SEPERTI BOOKING */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  body.nav-active::after {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .nav-logo-mobile {
@@ -878,9 +901,10 @@ html {
   .hamburger {
     display: flex;
     position: relative;
-    z-index: 1001;
+    z-index: 1003;
   }
 
+  /* Sidebar Navigation - NO BLUR */
   .nav-container {
     position: fixed;
     top: 0;
@@ -908,8 +932,9 @@ html {
     display: block;
   }
 
+  /* Overlay element - TIDAK DIPAKAI, pakai body::after */
   .nav-overlay {
-    display: block;
+    display: none;
   }
 
   .nav-link {
@@ -934,17 +959,17 @@ html {
     display: none;
   }
 
-  /* Hero Section */
+  /* Hero Section - Add padding top for fixed navbar */
   .hero-section {
     padding: 0.5rem 1rem 1rem 1rem;
+    padding-top: 80px; /* Space for fixed navbar */
     min-height: 40vh;
   }
 
   .hero-card {
     height: 300px;
-    margin-top: 30px;
+    margin-top: 0; /* Remove extra margin since we have padding-top */
   }
-
 
   .hero-title {
     font-size: 2.5rem;
@@ -1064,8 +1089,14 @@ html {
     font-size: 1.2rem;
   }
 
+  /* Hero Section - Add padding top for fixed navbar */
+  .hero-section {
+    padding-top: 70px;
+  }
+
   .hero-card {
-    margin-top: 20px;
+    margin-top: 0;
+    height: 250px;
   }
 
   .hero-title {

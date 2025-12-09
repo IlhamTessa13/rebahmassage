@@ -14,7 +14,6 @@ function getMaxStartTime(durationMinutes) {
   const durationHours = durationMinutes / 60;
   const maxStartHour = CLOSING_TIME - durationHours;
 
-  // Convert to HH:MM format
   const hours = Math.floor(maxStartHour);
   const minutes = (maxStartHour - hours) * 60;
 
@@ -29,7 +28,6 @@ function validateOperationalHours(startTime, durationMinutes) {
   const startTimeDecimal = hours + minutes / 60;
   const endTimeDecimal = startTimeDecimal + durationMinutes / 60;
 
-  // Check if start time is before opening
   if (startTimeDecimal < OPENING_TIME) {
     return {
       valid: false,
@@ -37,7 +35,6 @@ function validateOperationalHours(startTime, durationMinutes) {
     };
   }
 
-  // Check if end time exceeds closing
   if (endTimeDecimal > CLOSING_TIME) {
     const maxStart = getMaxStartTime(durationMinutes);
     return {
@@ -53,7 +50,6 @@ function validateOperationalHours(startTime, durationMinutes) {
 // NOTIFICATION MODAL FUNCTIONS
 // ============================================
 
-// Create notification modal HTML structure
 function createNotificationModal() {
   if (document.getElementById("notificationModal")) return;
 
@@ -88,7 +84,6 @@ function createNotificationModal() {
     .addEventListener("click", closeNotificationModal);
 }
 
-// Show notification modal
 function showNotification(type, message, title = null) {
   const modal = document.getElementById("notificationModal");
   const iconContainer = document.getElementById("notificationIcon");
@@ -129,7 +124,6 @@ function showNotification(type, message, title = null) {
   setTimeout(() => modal.classList.add("show"), 10);
 }
 
-// Close notification modal
 function closeNotificationModal() {
   const modal = document.getElementById("notificationModal");
   modal.classList.remove("show");
@@ -142,31 +136,28 @@ function closeNotificationModal() {
 // INITIALIZATION
 // ============================================
 
-// Initialize on page load
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Booking page loaded");
 
-  // Create notification modal
   createNotificationModal();
 
-  // Mobile Navigation
+  // Mobile Navigation - FIXED VERSION
   const hamburger = document.getElementById("hamburgerBtn");
   const navContainer = document.getElementById("navContainer");
   const navClose = document.getElementById("navClose");
-  const navOverlay = document.getElementById("navOverlay");
   const navLinks = document.querySelectorAll(".nav-link");
 
   function openNav() {
     navContainer.classList.add("active");
-    navOverlay.classList.add("active");
     hamburger.classList.add("hide");
+    document.body.classList.add("nav-active");
     document.body.style.overflow = "hidden";
   }
 
   function closeNav() {
     navContainer.classList.remove("active");
-    navOverlay.classList.remove("active");
     hamburger.classList.remove("hide");
+    document.body.classList.remove("nav-active");
     document.body.style.overflow = "";
   }
 
@@ -178,11 +169,17 @@ document.addEventListener("DOMContentLoaded", function () {
     navClose.addEventListener("click", closeNav);
   }
 
-  if (navOverlay) {
-    navOverlay.addEventListener("click", closeNav);
-  }
+  // Click pada body::after (blur overlay) untuk close nav
+  document.addEventListener("click", function (e) {
+    if (
+      document.body.classList.contains("nav-active") &&
+      !navContainer.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) {
+      closeNav();
+    }
+  });
 
-  // Close nav when clicking nav links
   navLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
       if (window.innerWidth <= 768) {
@@ -191,14 +188,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Close nav on ESC key
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && navContainer.classList.contains("active")) {
       closeNav();
     }
   });
 
-  // Load booking data
   loadBranches();
   setMinDate();
   generateTimeSlots();
@@ -208,7 +203,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // LOAD DATA FUNCTIONS
 // ============================================
 
-// Load branches
 function loadBranches() {
   console.log("Loading branches...");
   fetch("api/get_branches.php")
@@ -233,7 +227,6 @@ function loadBranches() {
     });
 }
 
-// Display branches - UPDATED for mobile layout
 function displayBranches(branches) {
   const branchGrid = document.getElementById("branchGrid");
   branchGrid.innerHTML = "";
@@ -258,7 +251,6 @@ function displayBranches(branches) {
   });
 }
 
-// Select branch
 function selectBranch(branchId, cardElement) {
   document.querySelectorAll(".branch-card").forEach((card) => {
     card.classList.remove("selected");
@@ -273,14 +265,17 @@ function selectBranch(branchId, cardElement) {
   document.getElementById("formSection").classList.add("hidden");
 
   setTimeout(() => {
-    document.getElementById("categorySection").scrollIntoView({
+    const navbarHeight = window.innerWidth <= 768 ? 80 : 0;
+    const element = document.getElementById("categorySection");
+    const elementPosition = element.offsetTop - navbarHeight;
+
+    window.scrollTo({
+      top: elementPosition,
       behavior: "smooth",
-      block: "start",
     });
   }, 100);
 }
 
-// Load categories
 function loadCategories(branchId) {
   console.log("Loading categories for branch:", branchId);
   fetch(`api/get_categories.php?branch_id=${branchId}`)
@@ -299,7 +294,6 @@ function loadCategories(branchId) {
     });
 }
 
-// Display categories - UPDATED for mobile layout
 function displayCategories(categories) {
   const categoryGrid = document.getElementById("categoryGrid");
   categoryGrid.innerHTML = "";
@@ -324,7 +318,6 @@ function displayCategories(categories) {
   });
 }
 
-// Select category
 function selectCategory(categoryId, cardElement) {
   document.querySelectorAll(".category-card").forEach((card) => {
     card.classList.remove("selected");
@@ -338,14 +331,17 @@ function selectCategory(categoryId, cardElement) {
   document.getElementById("formSection").classList.remove("hidden");
 
   setTimeout(() => {
-    document.getElementById("formSection").scrollIntoView({
+    const navbarHeight = window.innerWidth <= 768 ? 80 : 0;
+    const element = document.getElementById("formSection");
+    const elementPosition = element.offsetTop - navbarHeight;
+
+    window.scrollTo({
+      top: elementPosition,
       behavior: "smooth",
-      block: "start",
     });
   }, 100);
 }
 
-// Load rooms
 function loadRooms(branchId) {
   console.log("Loading rooms for branch:", branchId);
   fetch(`api/get_rooms.php?branch_id=${branchId}`)
@@ -371,7 +367,6 @@ function loadRooms(branchId) {
 // FORM SETUP WITH TIME VALIDATION
 // ============================================
 
-// Set minimum date (today)
 function setMinDate() {
   const dateInput = document.getElementById("date");
   const today = new Date().toISOString().split("T")[0];
@@ -379,7 +374,6 @@ function setMinDate() {
   dateInput.value = today;
 }
 
-// Generate time slots (09:00 - 22:00) - will be filtered by duration
 function generateTimeSlots() {
   const timeSelect = document.getElementById("time");
   timeSelect.innerHTML = '<option value="">Select time</option>';
@@ -392,12 +386,10 @@ function generateTimeSlots() {
     timeSelect.appendChild(option);
   }
 
-  // Add 19:30 for 90-minute bookings
   const option1930 = document.createElement("option");
   option1930.value = "19:30";
   option1930.textContent = "19:30";
 
-  // Insert before 20:00
   const options = Array.from(timeSelect.options);
   const index2000 = options.findIndex((opt) => opt.value === "20:00");
   if (index2000 > -1) {
@@ -405,22 +397,18 @@ function generateTimeSlots() {
   }
 }
 
-// Filter time slots based on duration
 function filterTimeSlots(durationMinutes) {
   const timeSelect = document.getElementById("time");
   const currentValue = timeSelect.value;
   const maxStartTime = getMaxStartTime(durationMinutes);
 
-  // Store all options
   const allOptions = Array.from(timeSelect.options);
 
-  // Clear and rebuild
   timeSelect.innerHTML = '<option value="">Select time</option>';
 
   allOptions.forEach((option) => {
-    if (option.value === "") return; // Skip placeholder
+    if (option.value === "") return;
 
-    // Only show times that are valid for this duration
     if (
       option.value <= maxStartTime &&
       option.value >= `${OPENING_TIME.toString().padStart(2, "0")}:00`
@@ -429,7 +417,6 @@ function filterTimeSlots(durationMinutes) {
     }
   });
 
-  // If current selection is invalid, clear it
   const newOptions = Array.from(timeSelect.options);
   const isCurrentValid = newOptions.some((opt) => opt.value === currentValue);
 
@@ -443,7 +430,6 @@ function filterTimeSlots(durationMinutes) {
   }
 }
 
-// Duration change handler - filter time slots
 document.getElementById("duration")?.addEventListener("change", function () {
   const duration = parseInt(this.value);
   if (duration > 0) {
@@ -451,20 +437,8 @@ document.getElementById("duration")?.addEventListener("change", function () {
 
     const maxStart = getMaxStartTime(duration);
     console.log(`Duration ${duration} minutes - Max start time: ${maxStart}`);
-
-    // Show info message
-    const infoMessages = {
-      60: "For 60 minutes duration, you can book until 8:00 PM",
-      90: "For 90 minutes duration, you can book until 7:30 PM",
-      120: "For 120 minutes duration, you can book until 7:00 PM",
-    };
-
-    if (infoMessages[duration]) {
-      console.log("INFO:", infoMessages[duration]);
-    }
   }
 
-  // Trigger availability check
   checkAvailability();
 });
 
@@ -472,7 +446,6 @@ document.getElementById("duration")?.addEventListener("change", function () {
 // AVAILABILITY CHECKING WITH TIME VALIDATION
 // ============================================
 
-// Check availability when inputs change
 document.getElementById("date")?.addEventListener("change", checkAvailability);
 document.getElementById("time")?.addEventListener("change", checkAvailability);
 document.getElementById("room")?.addEventListener("change", checkAvailability);
@@ -495,13 +468,11 @@ function checkAvailability() {
     room
   );
 
-  // VALIDATE OPERATIONAL HOURS FIRST
   if (time && duration) {
     const validation = validateOperationalHours(time, parseInt(duration));
     if (!validation.valid) {
       showNotification("error", validation.message, "Invalid Time");
 
-      // Clear therapist dropdown
       const therapistSelect = document.getElementById("therapist");
       therapistSelect.innerHTML = '<option value="">Select therapist</option>';
       return;
@@ -512,7 +483,6 @@ function checkAvailability() {
     console.log("All fields ready, loading therapists...");
     loadTherapists();
 
-    // Check room availability in background
     fetch("api/check_availability.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -539,7 +509,6 @@ function checkAvailability() {
   }
 }
 
-// Load therapists
 function loadTherapists() {
   const date = document.getElementById("date").value;
   const time = document.getElementById("time").value;
@@ -604,7 +573,6 @@ function loadTherapists() {
 // FORM SUBMISSION WITH VALIDATION
 // ============================================
 
-// Handle form submission
 document
   .getElementById("bookingForm")
   ?.addEventListener("submit", function (e) {
@@ -613,7 +581,6 @@ document
     const time = document.getElementById("time").value;
     const duration = document.getElementById("duration").value;
 
-    // FINAL VALIDATION BEFORE SUBMIT
     const validation = validateOperationalHours(time, parseInt(duration));
     if (!validation.valid) {
       showNotification("error", validation.message, "Invalid Booking");
@@ -624,7 +591,6 @@ document
     const btnText = document.getElementById("btnText");
     const btnLoader = document.getElementById("btnLoader");
 
-    // Disable button and show loader
     btnSubmit.disabled = true;
     btnText.textContent = "Processing...";
     btnLoader.classList.remove("hidden");
@@ -644,7 +610,6 @@ document
         return response.json();
       })
       .then((data) => {
-        // ALWAYS re-enable button first
         btnSubmit.disabled = false;
         btnText.textContent = "Confirm Booking";
         btnLoader.classList.add("hidden");
@@ -656,12 +621,10 @@ document
             "Booking Successful"
           );
 
-          // Redirect after success
           setTimeout(() => {
             window.location.href = "history.php";
           }, 3000);
         } else {
-          // Handle specific error messages
           let errorMessage = data.message || "Failed to create booking";
 
           if (
@@ -693,7 +656,6 @@ document
         }
       })
       .catch((error) => {
-        // ALWAYS re-enable button in catch too
         btnSubmit.disabled = false;
         btnText.textContent = "Confirm Booking";
         btnLoader.classList.add("hidden");
@@ -706,7 +668,6 @@ document
       });
   });
 
-// Legacy showAlert function for backwards compatibility (optional)
 function showAlert(type, message) {
   showNotification(type, message);
 }
