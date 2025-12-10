@@ -336,3 +336,157 @@ window.addEventListener("resize", () => {
     updateCarousel(false);
   }, 250);
 });
+
+// WhatsApp Floating Button - ENHANCED WITH TOUCH SUPPORT
+document.addEventListener("DOMContentLoaded", function () {
+  const waFloat = document.getElementById("whatsappFloat");
+  const waBubbleContainer = document.getElementById("waBubbleContainer");
+  const waIcon = waFloat?.querySelector(".wa-icon");
+  const bubbles = document.querySelectorAll(".wa-bubble");
+  let isOpen = false;
+  let hasScrolled = false;
+  let touchStartTime = 0;
+
+  if (waFloat && waBubbleContainer) {
+    // Toggle bubble on click with smooth animation
+    waFloat.addEventListener("click", function (e) {
+      e.stopPropagation();
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        waBubbleContainer.classList.add("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(90deg) scale(1.1)";
+        }
+      } else {
+        waBubbleContainer.classList.remove("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(0deg) scale(1)";
+        }
+      }
+    });
+
+    // Add touch feedback for bubbles
+    bubbles.forEach(bubble => {
+      const bubbleItem = bubble.querySelector(".wa-bubble-item");
+      
+      if (bubbleItem) {
+        // Touch start
+        bubbleItem.addEventListener("touchstart", function(e) {
+          touchStartTime = Date.now();
+          bubble.classList.add("pressed");
+          bubbleItem.classList.add("ripple");
+        }, { passive: true });
+        
+        // Touch end
+        bubbleItem.addEventListener("touchend", function(e) {
+          setTimeout(() => {
+            bubble.classList.remove("pressed");
+          }, 150);
+          
+          setTimeout(() => {
+            bubbleItem.classList.remove("ripple");
+          }, 600);
+        }, { passive: true });
+        
+        // Touch cancel
+        bubbleItem.addEventListener("touchcancel", function(e) {
+          bubble.classList.remove("pressed");
+          bubbleItem.classList.remove("ripple");
+        }, { passive: true });
+      }
+    });
+
+    // Close bubble when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!waFloat.contains(e.target) && isOpen) {
+        isOpen = false;
+        waBubbleContainer.classList.remove("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(0deg) scale(1)";
+        }
+      }
+    });
+
+    // Close on touch outside (for mobile)
+    document.addEventListener("touchstart", function (e) {
+      if (!waFloat.contains(e.target) && isOpen) {
+        isOpen = false;
+        waBubbleContainer.classList.remove("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(0deg) scale(1)";
+        }
+      }
+    }, { passive: true });
+
+    // Prevent bubble clicks from closing
+    waBubbleContainer.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+
+    waBubbleContainer.addEventListener("touchstart", function (e) {
+      e.stopPropagation();
+    }, { passive: true });
+
+    // Enhanced scroll animation
+    let scrollTimeout;
+    let lastScrollTop = 0;
+    
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Show animation after first scroll
+      if (currentScroll > 100 && !hasScrolled) {
+        hasScrolled = true;
+        if (waIcon) {
+          waIcon.style.animation = "pulse 2s infinite, bounce 1s ease";
+        }
+      }
+      
+      // Add bounce on scroll direction change
+      if (Math.abs(currentScroll - lastScrollTop) > 50) {
+        if (waIcon && !isOpen) {
+          waIcon.style.animation = "pulse 2s infinite, bounce 0.6s ease";
+        }
+      }
+      
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+      
+      // Reset animation on scroll stop
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (waIcon && hasScrolled && !isOpen) {
+          waIcon.style.animation = "pulse 2s infinite";
+        }
+      }, 150);
+    }, { passive: true });
+
+    // Add bounce effect on page load after 2s
+    setTimeout(() => {
+      if (waIcon) {
+        waIcon.style.animation = "pulse 2s infinite, bounce 1s ease";
+        setTimeout(() => {
+          waIcon.style.animation = "pulse 2s infinite";
+        }, 1000);
+      }
+    }, 2000);
+
+    // Close on ESC key
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && isOpen) {
+        isOpen = false;
+        waBubbleContainer.classList.remove("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(0deg) scale(1)";
+        }
+      }
+    });
+
+    // Prevent scroll when bubbles are open on mobile
+    waBubbleContainer.addEventListener("touchmove", function(e) {
+      if (isOpen) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
+});

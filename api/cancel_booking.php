@@ -57,10 +57,29 @@ try {
     ]);
     
     if ($result && $stmt->rowCount() > 0) {
+        // Send response IMMEDIATELY
         echo json_encode([
             'success' => true,
             'message' => 'Booking cancelled successfully'
         ]);
+        
+        // Trigger background email sending (non-blocking)
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $base_url = $protocol . '://' . $host . dirname($_SERVER['PHP_SELF']);
+        
+        $email_url = $base_url . '/send-email-background.php?type=cancel_customer&booking_id=' . $booking_id . '&booking_type=online';
+        
+        // Call in background using stream context (non-blocking)
+        $context = stream_context_create([
+            'http' => [
+                'timeout' => 1, // 1 second timeout - script will continue in background
+                'ignore_errors' => true
+            ]
+        ]);
+        
+        @file_get_contents($email_url, false, $context);
+        
     } else {
         echo json_encode([
             'success' => false,

@@ -480,7 +480,7 @@ function changePage(page) {
 function acceptSchedule(id, type) {
   showConfirmation(
     "Accept Booking",
-    "Are you sure you want to accept this booking?"
+    "Are you sure you want to accept this booking? The customer will receive an email notification."
   ).then((confirmed) => {
     if (!confirmed) return;
 
@@ -492,7 +492,16 @@ function acceptSchedule(id, type) {
       .then((r) => r.json())
       .then((data) => {
         if (data.success) {
-          showNotification("success", "Booking accepted successfully");
+          let message = "Booking accepted successfully";
+
+          if (data.email_sent) {
+            message +=
+              "\n\n📧 Confirmation email has been sent to the customer.";
+          } else {
+            message += "\n\n⚠️ Note: Email notification could not be sent.";
+          }
+
+          showNotification("success", message);
           loadSchedules();
         } else {
           showNotification("error", data.message);
@@ -505,34 +514,41 @@ function acceptSchedule(id, type) {
   });
 }
 
-
 function rejectSchedule(id, type) {
-  showConfirmation("Reject Booking", "Are you sure you want to reject this booking?")
-    .then((confirmed) => {
-      if (!confirmed) return;
+  showConfirmation(
+    "Reject Booking",
+    "Are you sure you want to reject this booking?"
+  ).then((confirmed) => {
+    if (!confirmed) return;
 
-      const reason = prompt("Reason for rejection (optional):");
-      if (reason === null) return;
+    const reason = prompt("Reason for rejection (optional):");
+    if (reason === null) return;
 
-      fetch("api/reject_schedule.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, type: type, reason: reason }),
-      })
-        .then((r) => r.json())
-        .then((data) => {
-          if (data.success) {
-            showNotification("success", "Booking rejected successfully");
-            loadSchedules();
-          } else {
-            showNotification("error", data.message);
+    fetch("api/reject_schedule.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, type: type, reason: reason }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.success) {
+          let message = "Booking rejected successfully";
+
+          if (data.email_sent) {
+            message += "\n\n📧 Rejection email has been sent to the customer.";
           }
-        })
-        .catch((err) => {
-          console.error("Error:", err);
-          showNotification("error", "Failed to reject booking");
-        });
-    });
+
+          showNotification("success", message);
+          loadSchedules();
+        } else {
+          showNotification("error", data.message);
+        }
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        showNotification("error", "Failed to reject booking");
+      });
+  });
 }
 
 // Mark complete

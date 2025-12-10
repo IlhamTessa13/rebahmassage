@@ -739,6 +739,236 @@ html {
   font-weight: 500;
 }
 
+/* Label with Info Button Container */
+.label-with-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #915437;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+/* Info Button - Modern Design */
+.info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, #46486f 0%, #565cd1 100%);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.info-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: #46486f;
+}
+
+.info-btn svg path {
+  stroke: white;
+}
+
+.info-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+  background: linear-gradient(135deg, #46486f 0%, #565cd1  100%);
+}
+
+.info-btn:active {
+  transform: scale(0.95);
+}
+
+/* Pulse animation on load */
+@keyframes infoPulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+  }
+  50% {
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3), 0 0 0 6px rgba(33, 150, 243, 0.2);
+  }
+}
+
+.info-btn {
+  animation: infoPulse 2s infinite;
+}
+
+.info-btn:hover {
+  animation: none;
+}
+
+/* Info Modal - Enhanced Design */
+.info-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+
+.info-modal.show {
+  opacity: 1;
+}
+
+.info-modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 35px 40px;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform: scale(0.8) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+}
+
+.info-modal.show .info-modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* Info Icon Large - Better Design */
+.info-icon-large {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  border: 4px solid #2196F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleInBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 8px 24px rgba(33, 150, 243, 0.3);
+  position: relative;
+}
+
+/* Animated ring effect */
+.info-icon-large::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid #2196F3;
+  opacity: 0;
+  animation: ringPulse 2s infinite;
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.info-icon-large svg {
+  width: 45px;
+  height: 45px;
+  fill: #2196F3;
+}
+
+.info-icon-large svg path {
+  stroke: white;
+  stroke-width: 2.5;
+}
+
+/* Modal Title */
+.info-modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1565C0;
+  margin-bottom: 16px;
+  font-family: 'Ubuntu', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+/* Modal Message */
+.info-modal-message {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 28px;
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+  padding: 0 10px;
+}
+
+/* Modal Button */
+.info-modal-ok-btn {
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+  font-family: 'Ubuntu', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-modal-ok-btn:hover {
+  background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.5);
+}
+
+.info-modal-ok-btn:active {
+  transform: translateY(0);
+}
+
+/* Bounce animation */
+@keyframes scaleInBounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 /* ========================================
    RESPONSIVE - MOBILE & TABLET FIXED
    ======================================== */
@@ -1029,7 +1259,7 @@ html {
   }
 
   .social-links {
-    justify-content: center;
+    justify-content:flex-start;
   }
 
   .footer-bottom {
@@ -1067,6 +1297,57 @@ html {
   .notification-ok-btn {
     padding: 10px 30px;
     font-size: 13px;
+  }
+
+  /* Info Button Mobile */
+  .info-btn {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .info-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  /* Info Modal Mobile */
+  .info-modal {
+    padding: 15px;
+  }
+  
+  .info-modal-content {
+    padding: 28px 25px;
+    max-width: 360px;
+    border-radius: 18px;
+  }
+  
+  .info-icon-large {
+    width: 70px;
+    height: 70px;
+    border-width: 3px;
+  }
+  
+  .info-icon-large svg {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .info-modal-title {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  
+  .info-modal-message {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    padding: 0 5px;
+  }
+  
+  .info-modal-ok-btn {
+    padding: 12px 35px;
+    font-size: 14px;
+    border-radius: 25px;
   }
 }
 
@@ -1140,5 +1421,474 @@ html {
   .btn-confirm {
     padding: 0.85rem;
     font-size: 0.95rem;
+  }
+  .info-btn {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .info-btn svg {
+    width: 13px;
+    height: 13px;
+  }
+  
+  .info-modal-content {
+    padding: 25px 22px;
+    max-width: 340px;
+  }
+  
+  .info-icon-large {
+    width: 65px;
+    height: 65px;
+  }
+  
+  .info-icon-large svg {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .info-modal-title {
+    font-size: 18px;
+  }
+  
+  .info-modal-message {
+    font-size: 13px;
+  }
+  
+  .info-modal-ok-btn {
+    padding: 11px 32px;
+    font-size: 13px;
+  }
+}
+
+
+/* WhatsApp Floating Button - OPTIMIZED SIZE */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wa-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 4px 15px rgba(37, 211, 102, 0.3));
+  animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover .wa-icon {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float:active .wa-icon {
+  transform: scale(0.95);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+  }
+}
+
+/* WhatsApp Bubble Container */
+.wa-bubble-container {
+  position: absolute;
+  bottom: 75px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  pointer-events: none;
+}
+
+.wa-bubble-container.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Individual Bubble */
+.wa-bubble {
+  position: relative;
+  background: white;
+  border-radius: 15px;
+  padding: 2px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  animation: slideInRight 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wa-bubble:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.wa-bubble:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+/* Bubble Item Link */
+.wa-bubble-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 16px;
+  text-decoration: none;
+  background: linear-gradient(135deg, #25D366 0%, #1EBE57 50%, #128C7E 100%);
+  border-radius: 13px;
+  transition: all 0.3s ease;
+  min-width: 190px;
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Shine Effect */
+.wa-bubble-item::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+}
+
+/* Desktop Hover */
+@media (hover: hover) and (pointer: fine) {
+  .wa-bubble-item:hover::before {
+    left: 100%;
+  }
+
+  .wa-bubble-item:hover {
+    transform: translateX(-5px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    background: linear-gradient(135deg, #1EBE57 0%, #25D366 50%, #2EE76F 100%);
+  }
+
+  .wa-bubble-item::after {
+    content: '→';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .wa-bubble-item:hover::after {
+    opacity: 1;
+    right: 12px;
+  }
+}
+
+/* Touch Device Active State */
+.wa-bubble-item:active {
+  transform: scale(0.97);
+  background: linear-gradient(135deg, #1EBE57 0%, #25D366 50%, #2EE76F 100%);
+}
+
+/* Add pressed state for bubbles on touch */
+.wa-bubble.pressed {
+  transform: translateX(-3px) scale(1.01);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.wa-bubble.pressed .wa-bubble-item {
+  background: linear-gradient(135deg, #1EBE57 0%, #25D366 50%, #2EE76F 100%);
+}
+
+/* Text Styling */
+.wa-bubble-text {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.7rem;
+  font-weight: 500;
+  font-family: "Ubuntu", sans-serif;
+  margin-bottom: 3px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+.wa-bubble-location {
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: "Ubuntu", sans-serif;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Tooltip Arrow */
+.wa-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 20px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
+  z-index: -1;
+}
+
+/* Tablet Responsive (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .whatsapp-float {
+    bottom: 30px;
+    right: 30px;
+  }
+  
+  .wa-icon {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .wa-bubble-container {
+    bottom: 70px;
+    gap: 9px;
+  }
+  
+  .wa-bubble {
+    border-radius: 14px;
+    padding: 2px;
+  }
+  
+  .wa-bubble-item {
+    min-width: 175px;
+    padding: 9px 14px;
+    border-radius: 12px;
+  }
+  
+  .wa-bubble-text {
+    font-size: 0.68rem;
+  }
+  
+  .wa-bubble-location {
+    font-size: 0.95rem;
+  }
+  
+  .wa-bubble::after {
+    width: 11px;
+    height: 11px;
+    bottom: -5.5px;
+  }
+}
+
+/* Mobile & Small Tablet (481px - 768px) */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    bottom: 22px;
+    right: 22px;
+  }
+  
+  .wa-icon {
+    width: 52px;
+    height: 52px;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  }
+  
+  .wa-bubble-container {
+    bottom: 65px;
+    right: -8px;
+    gap: 8px;
+  }
+  
+  .wa-bubble {
+    border-radius: 13px;
+    padding: 2px;
+  }
+  
+  .wa-bubble-item {
+    min-width: 165px;
+    padding: 8px 13px;
+    border-radius: 11px;
+  }
+  
+  .wa-bubble-text {
+    font-size: 0.65rem;
+    margin-bottom: 2px;
+  }
+  
+  .wa-bubble-location {
+    font-size: 0.9rem;
+  }
+  
+  .wa-bubble::after {
+    width: 10px;
+    height: 10px;
+    bottom: -5px;
+    right: 18px;
+  }
+  
+  /* Add ripple effect on touch */
+  .wa-bubble-item {
+    position: relative;
+  }
+  
+  .wa-bubble-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  .wa-bubble-item.ripple::after {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .whatsapp-float {
+    bottom: 18px;
+    right: 18px;
+  }
+  
+  .wa-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .wa-bubble-container {
+    bottom: 60px;
+    right: -12px;
+    gap: 7px;
+  }
+  
+  .wa-bubble {
+    padding: 2px;
+    border-radius: 12px;
+  }
+  
+  .wa-bubble-item {
+    min-width: 150px;
+    padding: 7px 12px;
+    border-radius: 10px;
+  }
+  
+  .wa-bubble-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.1px;
+  }
+  
+  .wa-bubble-location {
+    font-size: 0.85rem;
+  }
+  
+  .wa-bubble::after {
+    width: 9px;
+    height: 9px;
+    bottom: -4.5px;
+    right: 16px;
+  }
+}
+
+/* Extra Small Mobile (< 360px) */
+@media (max-width: 360px) {
+  .whatsapp-float {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .wa-icon {
+    width: 46px;
+    height: 46px;
+  }
+  
+  .wa-bubble-container {
+    bottom: 58px;
+    right: -15px;
+    gap: 6px;
+  }
+  
+  .wa-bubble-item {
+    min-width: 140px;
+    padding: 7px 11px;
+  }
+  
+  .wa-bubble-text {
+    font-size: 0.6rem;
+  }
+  
+  .wa-bubble-location {
+    font-size: 0.8rem;
+  }
+}
+
+/* Landscape Mobile Fix */
+@media (max-height: 500px) and (orientation: landscape) {
+  .whatsapp-float {
+    bottom: 12px;
+    right: 12px;
+  }
+  
+  .wa-icon {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .wa-bubble-container {
+    bottom: 52px;
+    gap: 6px;
+  }
+  
+  .wa-bubble-item {
+    padding: 6px 10px;
+    min-width: 135px;
+  }
+  
+  .wa-bubble-text {
+    font-size: 0.58rem;
+  }
+  
+  .wa-bubble-location {
+    font-size: 0.78rem;
   }
 }

@@ -48,15 +48,30 @@ try {
     ]);
     
     if ($result && $stmt->rowCount() > 0) {
-        // TODO: Send notification to customer about rejection
-        // if (!empty($reason)) {
-        //     // Send email/SMS with reason
-        // }
-        
+        // Send response IMMEDIATELY
         echo json_encode([
             'success' => true, 
             'message' => 'Booking rejected successfully'
         ]);
+        
+        // Trigger background email sending (only for online bookings)
+        if ($booking_type === 'online') {
+            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+            $host = $_SERVER['HTTP_HOST'];
+            $base_url = $protocol . '://' . $host . dirname($_SERVER['PHP_SELF']);
+            
+            $email_url = $base_url . '/send-email-background.php?type=reject&booking_id=' . $booking_id . '&booking_type=online&reason=' . urlencode($reason);
+            
+            $context = stream_context_create([
+                'http' => [
+                    'timeout' => 1,
+                    'ignore_errors' => true
+                ]
+            ]);
+            
+            @file_get_contents($email_url, false, $context);
+        }
+        
     } else {
         echo json_encode([
             'success' => false, 
@@ -65,6 +80,7 @@ try {
     }
     
 } catch (Exception $e) {
+    error_log("Error in reject_schedule: " . $e->getMessage());
     echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 }
 ?>

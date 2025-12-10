@@ -143,6 +143,26 @@ require_once 'includes/db.php';
     </div>
   </footer>
 
+    <!-- WhatsApp Floating Button -->
+  <div class="whatsapp-float" id="whatsappFloat">
+    <img src="/php/public/walogo.png" alt="WhatsApp" class="wa-icon">
+    <div class="wa-bubble-container" id="waBubbleContainer">
+      <div class="wa-bubble">
+        <a href="https://wa.me/6282299994259" target="_blank" class="wa-bubble-item">
+          <span class="wa-bubble-text">Booking via WhatsApp</span>
+          <span class="wa-bubble-location">Fatmawati</span>
+        </a>
+      </div>
+      <div class="wa-bubble">
+        <a href="https://wa.me/6282299994263" target="_blank" class="wa-bubble-item">
+          <span class="wa-bubble-text">Booking via WhatsApp</span>
+          <span class="wa-bubble-location">Menteng</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
   <script src="js/history.js"></script>
 </body>
 </html>

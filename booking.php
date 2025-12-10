@@ -106,7 +106,15 @@ require_once 'includes/db.php';
 
         <!-- Room -->
         <div class="form-group">
-          <label for="room">Room</label>
+          <div class="label-with-info">
+            <label for="room">Room</label>
+            <button type="button" class="info-btn" onclick="showRoomInfo()" aria-label="Room Information" title="Important information about room assignment">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4M12 8h.01" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
           <select id="room" name="room_id" required>
             <option value="">Select room</option>
             <!-- Will be loaded dynamically -->
@@ -131,7 +139,15 @@ require_once 'includes/db.php';
 
         <!-- Therapist -->
         <div class="form-group">
-          <label for="therapist">Therapist</label>
+          <div class="label-with-info">
+            <label for="therapist">Therapist</label>
+            <button type="button" class="info-btn" onclick="showTherapistInfo()" aria-label="Therapist Information" title="Important information about therapist assignment">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4M12 8h.01" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
           <select id="therapist" name="therapist_id" required>
             <option value="">Select therapist</option>
             <!-- Will be loaded dynamically -->
@@ -195,6 +211,26 @@ require_once 'includes/db.php';
       @2025 Rebah Massage. All rights reserved
     </div>
   </footer>
+
+    <!-- WhatsApp Floating Button -->
+  <div class="whatsapp-float" id="whatsappFloat">
+    <img src="/php/public/walogo.png" alt="WhatsApp" class="wa-icon">
+    <div class="wa-bubble-container" id="waBubbleContainer">
+      <div class="wa-bubble">
+        <a href="https://wa.me/6282299994259" target="_blank" class="wa-bubble-item">
+          <span class="wa-bubble-text">Booking via WhatsApp</span>
+          <span class="wa-bubble-location">Fatmawati</span>
+        </a>
+      </div>
+      <div class="wa-bubble">
+        <a href="https://wa.me/6282299994263" target="_blank" class="wa-bubble-item">
+          <span class="wa-bubble-text">Booking via WhatsApp</span>
+          <span class="wa-bubble-location">Menteng</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
 
   <script src="js/booking.js"></script>
 </body>

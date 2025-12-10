@@ -355,7 +355,7 @@ function loadRooms(branchId) {
         data.rooms.forEach((room) => {
           const option = document.createElement("option");
           option.value = room.id;
-          option.textContent = `Room ${room.name}`;
+          option.textContent = `${room.name}`;
           roomSelect.appendChild(option);
         });
       }
@@ -670,4 +670,241 @@ document
 
 function showAlert(type, message) {
   showNotification(type, message);
+}
+
+// WhatsApp Floating Button - ENHANCED WITH TOUCH SUPPORT
+document.addEventListener("DOMContentLoaded", function () {
+  const waFloat = document.getElementById("whatsappFloat");
+  const waBubbleContainer = document.getElementById("waBubbleContainer");
+  const waIcon = waFloat?.querySelector(".wa-icon");
+  const bubbles = document.querySelectorAll(".wa-bubble");
+  let isOpen = false;
+  let hasScrolled = false;
+  let touchStartTime = 0;
+
+  if (waFloat && waBubbleContainer) {
+    // Toggle bubble on click with smooth animation
+    waFloat.addEventListener("click", function (e) {
+      e.stopPropagation();
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        waBubbleContainer.classList.add("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(90deg) scale(1.1)";
+        }
+      } else {
+        waBubbleContainer.classList.remove("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(0deg) scale(1)";
+        }
+      }
+    });
+
+    // Add touch feedback for bubbles
+    bubbles.forEach(bubble => {
+      const bubbleItem = bubble.querySelector(".wa-bubble-item");
+      
+      if (bubbleItem) {
+        // Touch start
+        bubbleItem.addEventListener("touchstart", function(e) {
+          touchStartTime = Date.now();
+          bubble.classList.add("pressed");
+          bubbleItem.classList.add("ripple");
+        }, { passive: true });
+        
+        // Touch end
+        bubbleItem.addEventListener("touchend", function(e) {
+          setTimeout(() => {
+            bubble.classList.remove("pressed");
+          }, 150);
+          
+          setTimeout(() => {
+            bubbleItem.classList.remove("ripple");
+          }, 600);
+        }, { passive: true });
+        
+        // Touch cancel
+        bubbleItem.addEventListener("touchcancel", function(e) {
+          bubble.classList.remove("pressed");
+          bubbleItem.classList.remove("ripple");
+        }, { passive: true });
+      }
+    });
+
+    // Close bubble when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!waFloat.contains(e.target) && isOpen) {
+        isOpen = false;
+        waBubbleContainer.classList.remove("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(0deg) scale(1)";
+        }
+      }
+    });
+
+    // Close on touch outside (for mobile)
+    document.addEventListener("touchstart", function (e) {
+      if (!waFloat.contains(e.target) && isOpen) {
+        isOpen = false;
+        waBubbleContainer.classList.remove("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(0deg) scale(1)";
+        }
+      }
+    }, { passive: true });
+
+    // Prevent bubble clicks from closing
+    waBubbleContainer.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+
+    waBubbleContainer.addEventListener("touchstart", function (e) {
+      e.stopPropagation();
+    }, { passive: true });
+
+    // Enhanced scroll animation
+    let scrollTimeout;
+    let lastScrollTop = 0;
+    
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Show animation after first scroll
+      if (currentScroll > 100 && !hasScrolled) {
+        hasScrolled = true;
+        if (waIcon) {
+          waIcon.style.animation = "pulse 2s infinite, bounce 1s ease";
+        }
+      }
+      
+      // Add bounce on scroll direction change
+      if (Math.abs(currentScroll - lastScrollTop) > 50) {
+        if (waIcon && !isOpen) {
+          waIcon.style.animation = "pulse 2s infinite, bounce 0.6s ease";
+        }
+      }
+      
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+      
+      // Reset animation on scroll stop
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (waIcon && hasScrolled && !isOpen) {
+          waIcon.style.animation = "pulse 2s infinite";
+        }
+      }, 150);
+    }, { passive: true });
+
+    // Add bounce effect on page load after 2s
+    setTimeout(() => {
+      if (waIcon) {
+        waIcon.style.animation = "pulse 2s infinite, bounce 1s ease";
+        setTimeout(() => {
+          waIcon.style.animation = "pulse 2s infinite";
+        }, 1000);
+      }
+    }, 2000);
+
+    // Close on ESC key
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && isOpen) {
+        isOpen = false;
+        waBubbleContainer.classList.remove("active");
+        if (waIcon) {
+          waIcon.style.transform = "rotate(0deg) scale(1)";
+        }
+      }
+    });
+
+    // Prevent scroll when bubbles are open on mobile
+    waBubbleContainer.addEventListener("touchmove", function(e) {
+      if (isOpen) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
+});
+
+// ============================================
+// INFO MODAL FUNCTIONS
+// ============================================
+
+// Create info modal structure
+function createInfoModal() {
+  if (document.getElementById("infoModal")) return;
+
+  const modalHTML = `
+    <div id="infoModal" class="info-modal">
+      <div class="info-modal-content">
+        <div class="info-icon-large">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="14"></line>
+            <circle cx="12" cy="17" r="0.5" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <h3 id="infoModalTitle" class="info-modal-title">Information</h3>
+        <p id="infoModalMessage" class="info-modal-message"></p>
+        <button id="infoModalOkBtn" class="info-modal-ok-btn">Got it</button>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+  
+  document.getElementById("infoModalOkBtn").addEventListener("click", closeInfoModal);
+  
+  // Close on outside click
+  document.getElementById("infoModal").addEventListener("click", function(e) {
+    if (e.target === this) {
+      closeInfoModal();
+    }
+  });
+  
+  // Close on ESC key
+  document.addEventListener("keydown", function(e) {
+    const modal = document.getElementById("infoModal");
+    if (e.key === "Escape" && modal && modal.classList.contains("show")) {
+      closeInfoModal();
+    }
+  });
+}
+
+function showInfoModal(title, message) {
+  createInfoModal();
+  
+  const modal = document.getElementById("infoModal");
+  const titleElement = document.getElementById("infoModalTitle");
+  const messageElement = document.getElementById("infoModalMessage");
+
+  titleElement.textContent = title;
+  messageElement.textContent = message;
+
+  modal.style.display = "flex";
+  setTimeout(() => modal.classList.add("show"), 10);
+}
+
+function closeInfoModal() {
+  const modal = document.getElementById("infoModal");
+  modal.classList.remove("show");
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 300);
+}
+
+// Show room info
+function showRoomInfo() {
+  showInfoModal(
+    "Room Assignment Notice",
+    "Please note that the admin may change your assigned room at any time due to operational requirements, availability, or other circumstances. We will notify you if any changes are made to ensure the best service experience."
+  );
+}
+
+// Show therapist info
+function showTherapistInfo() {
+  showInfoModal(
+    "Therapist Assignment Notice",
+    "Please note that the admin may change your assigned therapist at any time due to scheduling conflicts, availability, or other operational reasons. We will notify you if any changes are made to ensure you receive the best service possible."
+  );
 }

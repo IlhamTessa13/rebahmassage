@@ -28,16 +28,17 @@ try {
     $pdo = db();
     
     // Only online bookings can be accepted (offline are auto-approved)
-    if ($booking_type === 'online') {
-        $update = "UPDATE bookings 
-                   SET status = 'approved', updated_at = NOW()
-                   WHERE id = :booking_id 
-                   AND branch_id = :branch_id 
-                   AND status = 'pending'";
-    } else {
+    if ($booking_type !== 'online') {
         echo json_encode(['success' => false, 'message' => 'Offline bookings are already approved']);
         exit();
     }
+    
+    // Update status to approved
+    $update = "UPDATE bookings 
+               SET status = 'approved', updated_at = NOW()
+               WHERE id = :booking_id 
+               AND branch_id = :branch_id 
+               AND status = 'pending'";
     
     $stmt = $pdo->prepare($update);
     $result = $stmt->execute([
@@ -46,12 +47,34 @@ try {
     ]);
     
     if ($result && $stmt->rowCount() > 0) {
-        echo json_encode(['success' => true, 'message' => 'Booking accepted successfully']);
+        // Send response IMMEDIATELY
+        echo json_encode([
+            'success' => true, 
+            'message' => 'Booking accepted successfully'
+        ]);
+        
+        // Trigger background email sending
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $base_url = $protocol . '://' . $host . dirname($_SERVER['PHP_SELF']);
+        
+        $email_url = $base_url . '/send-email-background.php?type=accept&booking_id=' . $booking_id . '&booking_type=online';
+        
+        $context = stream_context_create([
+            'http' => [
+                'timeout' => 1,
+                'ignore_errors' => true
+            ]
+        ]);
+        
+        @file_get_contents($email_url, false, $context);
+        
     } else {
         echo json_encode(['success' => false, 'message' => 'Booking not found or already processed']);
     }
     
 } catch (Exception $e) {
+    error_log("Error in accept_schedule: " . $e->getMessage());
     echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 }
 ?>

@@ -234,13 +234,11 @@ require_once 'includes/db.php';
         <div class="footer-column">
           <h4 class="footer-heading">Rebah Fatmawati</h4>
           <p class="footer-info">Everyday - 9AM - 9PM, last order<br>8PM (1 hour treatment)</p>
-          <a href="https://wa.me/6282299994259" class="footer-whatsapp" target="_blank">Booking via WhatsApp</a>
         </div>
         
         <div class="footer-column">
           <h4 class="footer-heading">Rebah Menteng</h4>
           <p class="footer-info">Everyday - 9AM - 9PM, last order<br>8PM (1 hour treatment)</p>
-          <a href="https://wa.me/6282299994263" class="footer-whatsapp" target="_blank">Booking via WhatsApp</a>
         </div>
 
         <div class="footer-column">
@@ -260,6 +258,26 @@ require_once 'includes/db.php';
       @2025 Rebah Massage. All rights reserved
     </div>
   </footer>
+
+    <!-- WhatsApp Floating Button -->
+  <div class="whatsapp-float" id="whatsappFloat">
+    <img src="/php/public/walogo.png" alt="WhatsApp" class="wa-icon">
+    <div class="wa-bubble-container" id="waBubbleContainer">
+      <div class="wa-bubble">
+        <a href="https://wa.me/6282299994259" target="_blank" class="wa-bubble-item">
+          <span class="wa-bubble-text">Booking via WhatsApp</span>
+          <span class="wa-bubble-location">Fatmawati</span>
+        </a>
+      </div>
+      <div class="wa-bubble">
+        <a href="https://wa.me/6282299994263" target="_blank" class="wa-bubble-item">
+          <span class="wa-bubble-text">Booking via WhatsApp</span>
+          <span class="wa-bubble-location">Menteng</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
 
   <script src="js/landing-page.js"></script>
 </body>
