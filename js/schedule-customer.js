@@ -608,33 +608,99 @@ function markNoShow(id, type) {
   });
 }
 
-// View schedule details
+// View schedule details dengan custom modal
 function viewSchedule(id, type) {
   fetch(`api/get_booking_detail.php?id=${id}&type=${type}`)
     .then((r) => r.json())
     .then((data) => {
       if (data.success) {
         const booking = data.booking;
+        
+        // Format detail booking dengan styling yang lebih compact
         const details = `
-Customer: ${booking.customer_name}
-Category: ${booking.category_name || "N/A"}
-Duration: ${booking.duration} minutes
-Room: ${booking.room_name || "N/A"}
-Date: ${booking.booking_date}
-Time: ${booking.start_time} - ${booking.end_time}
-Therapist: ${booking.therapist_name || "N/A"}
-Status: ${booking.status}
-Type: ${type}
-                `;
-        alert(details);
+<div style="text-align: left; line-height: 1.6; font-size: 14px;">
+  <div style="display: grid; grid-template-columns: 100px 1fr; gap: 8px 12px; margin-bottom: 0;">
+    <strong style="color: #46486f;">Customer:</strong>
+    <span>${booking.customer_name}</span>
+    
+    <strong style="color: #46486f;">Category:</strong>
+    <span>${booking.category_name || "N/A"}</span>
+    
+    <strong style="color: #46486f;">Duration:</strong>
+    <span>${booking.duration} mins</span>
+    
+    <strong style="color: #46486f;">Room:</strong>
+    <span>${booking.room_name || "N/A"}</span>
+    
+    <strong style="color: #46486f;">Date:</strong>
+    <span>${formatDate(booking.booking_date)}</span>
+    
+    <strong style="color: #46486f;">Time:</strong>
+    <span>${booking.start_time.substring(0, 5)} - ${booking.end_time.substring(0, 5)}</span>
+    
+    <strong style="color: #46486f;">Therapist:</strong>
+    <span>${booking.therapist_name || "N/A"}</span>
+    
+    <strong style="color: #46486f;">Status:</strong>
+    <span style="text-transform: uppercase; font-weight: 600; color: #007bff;">${booking.status}</span>
+    
+    <strong style="color: #46486f;">Type:</strong>
+    <span style="text-transform: uppercase; font-weight: 600; color: #6c757d;">${type}</span>
+  </div>
+</div>
+        `.trim();
+        
+        // Gunakan modal yang sudah ada dengan modifikasi
+        showBookingDetailModal("Booking Details", details);
       } else {
-        showAlert("error", "Failed to load booking details");
+        showNotification("error", "Failed to load booking details");
       }
     })
     .catch((err) => {
       console.error("Error:", err);
-      showAlert("error", "Error loading booking details");
+      showNotification("error", "Error loading booking details");
     });
+}
+
+// Fungsi untuk menampilkan detail booking dalam modal
+function showBookingDetailModal(title, htmlContent) {
+  const modal = document.getElementById("notificationModal");
+  const iconContainer = document.getElementById("notificationIcon");
+  const titleElement = document.getElementById("notificationTitle");
+  const messageElement = document.getElementById("notificationMessage");
+  const successIcon = document.getElementById("successIcon");
+  const errorIcon = document.getElementById("errorIcon");
+  const warningIcon = document.getElementById("warningIcon");
+
+  titleElement.textContent = title;
+  messageElement.innerHTML = htmlContent;
+  
+  // Reset styles untuk notifikasi normal
+  messageElement.style.textAlign = "left";
+  messageElement.style.maxHeight = "none";
+  messageElement.style.overflowY = "visible";
+
+  // Sembunyikan semua icon
+  successIcon.style.display = "none";
+  errorIcon.style.display = "none";
+  warningIcon.style.display = "none";
+  
+  // Gunakan icon info
+  iconContainer.className = "notification-icon info";
+  iconContainer.style.background = "linear-gradient(135deg, #cce5ff 0%, #b8daff 100%)";
+  iconContainer.style.borderColor = "#007bff";
+  
+  // Buat icon info custom
+  iconContainer.innerHTML = `
+    <svg style="width: 48px; height: 48px; stroke: #007bff;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="16" x2="12" y2="12"></line>
+      <circle cx="12" cy="8" r="0.5" fill="currentColor"></circle>
+    </svg>
+  `;
+
+  modal.style.display = "flex";
+  setTimeout(() => modal.classList.add("show"), 10);
 }
 
 // Edit schedule (only room & therapist)

@@ -139,30 +139,11 @@ body {
 
 /* Menu Styles */
 .menu {
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 3px;
-    overflow-y: auto;
     margin-bottom: 15px;
-}
-
-.menu::-webkit-scrollbar {
-    width: 6px;
-}
-
-.menu::-webkit-scrollbar-track {
-    background: rgba(70, 72, 111, 0.05);
-    border-radius: 10px;
-}
-
-.menu::-webkit-scrollbar-thumb {
-    background: rgba(70, 72, 111, 0.3);
-    border-radius: 10px;
-}
-
-.menu::-webkit-scrollbar-thumb:hover {
-    background: rgba(70, 72, 111, 0.5);
+    flex-shrink: 0;
 }
 
 .menu-item {
