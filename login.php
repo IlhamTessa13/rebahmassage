@@ -105,7 +105,7 @@ $googleLoginUrl = getGoogleLoginUrl();
   <div class="auth-container">
     
     <!-- Sliding Panel (Logo Background Image) -->
-    <div class="sliding-panel" style="background-image: url('/php/public/loginbg.png');">
+    <div class="sliding-panel" style="background-image: url('/php/public/loginbg.webp');">
       <!-- Background image dari file PNG -->
     </div>
     

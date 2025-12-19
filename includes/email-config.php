@@ -37,7 +37,7 @@ function sendEmail($to, $subject, $body) {
 }
 
 function sendVerificationEmail($email, $name, $token) {
-    $verifyUrl = "http://localhost/php/verify-email.php?token=" . urlencode($token);
+    $verifyUrl = "https:/rebahmassage.com/php/verify-email.php?token=" . urlencode($token);
     
     $subject = "Verify Your Email - Rebah Massage";
     $body = "
@@ -81,7 +81,7 @@ function sendVerificationEmail($email, $name, $token) {
 }
 
 function sendPasswordResetEmail($email, $name, $token) {
-    $resetUrl = "http://localhost/php/reset-password.php?token=" . urlencode($token);
+    $resetUrl = "https:/rebahmassage.com/php/reset-password.php?token=" . urlencode($token);
     
     $subject = "Reset Your Password - Rebah Massage";
     $body = "

@@ -18,7 +18,7 @@ $admin = current_user();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Services Management - Rebah Admin</title>
+    <title>Content Management - Rebah Admin</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/content-management.css">
 </head>
@@ -43,15 +43,14 @@ $admin = current_user();
             
             <div class="page-header">
                 <div>
-                    <h1>Menu Services Management</h1>
-                    <p class="subtitle">Manage your service menu. Add, edit, or delete services displayed on the landing page.</p>
+                    <h1>Content Management</h1>
+                    <button class="btn-add-new" onclick="openAddModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                        Add New Service
+                    </button>
                 </div>
-                <button class="btn-add-new" onclick="openAddModal()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 5v14M5 12h14"/>
-                    </svg>
-                    Add New Service
-                </button>
             </div>
             
             <!-- Services Cards Container -->

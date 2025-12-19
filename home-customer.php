@@ -35,7 +35,9 @@ require_once 'includes/db.php';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rebah Massage & Reflexology</title>
+  <title>Family Massage & Reflexology Jakarta | Rebah Massage</title>
+  <meta name="description" content="Rebah Massage & Reflexology menyediakan layanan family massage dan reflexology profesional. Cabang Menteng Jakarta Pusat & Fatmawati Jakarta Selatan. Booking mudah.">
+  <meta name="keywords" content="family massage jakarta, reflexology jakarta, massage menteng, massage fatmawati, rebah massage">
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="/php/css/home-customer.css">
   <style>
@@ -84,7 +86,7 @@ require_once 'includes/db.php';
         </p>
       </div>
       <div class="about-images">
-        <img src="/php/public/aboutoverview.png" alt="Massage Room" class="about-img">
+        <img src="/php/public/aboutoverview.webp" alt="Massage Room" class="about-img">
       </div>
     </div>
   </section>
@@ -221,10 +223,10 @@ require_once 'includes/db.php';
         </p>
         <div class="social-links">
           <a href="https://www.instagram.com/rebahmassage?igsh=MWJvbjJ6aHMxM2g0cw==" class="social-icon" aria-label="Instagram">
-            <img src="/php/public/instagram.png" alt="Instagram">
+            <img src="/php/public/instagram.webp" alt="Instagram">
           </a>
           <a href="https://www.facebook.com/share/14QipLmP3zo/" class="social-icon" aria-label="Facebook">
-            <img src="/php/public/facebook.png" alt="Facebook">
+            <img src="/php/public/facebook.webp" alt="Facebook">
           </a>
         </div>
       </div>
@@ -261,7 +263,7 @@ require_once 'includes/db.php';
 
     <!-- WhatsApp Floating Button -->
   <div class="whatsapp-float" id="whatsappFloat">
-    <img src="/php/public/walogo.png" alt="WhatsApp" class="wa-icon">
+    <img src="/php/public/walogo.webp" alt="WhatsApp" class="wa-icon">
     <div class="wa-bubble-container" id="waBubbleContainer">
       <div class="wa-bubble">
         <a href="https://wa.me/6282299994259" target="_blank" class="wa-bubble-item">

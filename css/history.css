@@ -173,7 +173,7 @@ html {
   width: 100%;
   max-width: 1200px;
   height: 600px;
-  background: url('/php/public/historybg.png') center/cover;
+  background: url('/php/public/historybg.webp') center/cover;
   border-radius: 20px;
   position: relative;
   overflow: hidden;

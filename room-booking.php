@@ -48,7 +48,7 @@ $branch_name = $branch_data['name'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Management - Rebah Admin</title>
+    <title>Room Booking - Rebah Admin</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/room-booking.css">
 </head>
@@ -71,7 +71,7 @@ $branch_name = $branch_data['name'];
         <div class="content-wrapper">
             <div id="alertContainer"></div>
             
-            <h1>Room Management</h1>
+            <h1>Room Booking</h1>
             
             <!-- Add Room Button -->
             <button class="btn btn-add" onclick="openAddModal()">

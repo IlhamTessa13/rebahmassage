@@ -42,7 +42,6 @@ $admin = current_user();
             <div id="alertContainer"></div>
             
             <h1>Blog Management</h1>
-            <p class="subtitle">Manage your blog posts. Edit content, images, and descriptions for each article.</p>
             
             <!-- Blog Cards Container -->
             <div class="blog-cards-container" id="blogCardsContainer">

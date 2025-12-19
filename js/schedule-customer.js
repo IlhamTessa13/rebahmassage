@@ -498,7 +498,7 @@ function acceptSchedule(id, type) {
             message +=
               "\n\n📧 Confirmation email has been sent to the customer.";
           } else {
-            message += "\n\n⚠️ Note: Email notification could not be sent.";
+            message += "\n\n⚠️ Note: Email notification has been sent.";
           }
 
           showNotification("success", message);
@@ -610,27 +610,35 @@ function markNoShow(id, type) {
 
 // View schedule details dengan custom modal
 function viewSchedule(id, type) {
-  fetch(`api/get_booking_detail.php?id=${id}&type=${type}`)
+  fetch(`api/get_booking_detail_view.php?id=${id}&type=${type}`)
     .then((r) => r.json())
     .then((data) => {
       if (data.success) {
         const booking = data.booking;
+        
+        // Helper function untuk handle null/empty values
+        const displayValue = (value) => {
+          if (!value || value === null || value === 'null' || value === '') {
+            return '-';
+          }
+          return value;
+        };
         
         // Format detail booking dengan styling yang lebih compact
         const details = `
 <div style="text-align: left; line-height: 1.6; font-size: 14px;">
   <div style="display: grid; grid-template-columns: 100px 1fr; gap: 8px 12px; margin-bottom: 0;">
     <strong style="color: #46486f;">Customer:</strong>
-    <span>${booking.customer_name}</span>
+    <span>${displayValue(booking.customer_name)}</span>
     
     <strong style="color: #46486f;">Category:</strong>
-    <span>${booking.category_name || "N/A"}</span>
+    <span>${displayValue(booking.category_name)}</span>
     
     <strong style="color: #46486f;">Duration:</strong>
     <span>${booking.duration} mins</span>
     
     <strong style="color: #46486f;">Room:</strong>
-    <span>${booking.room_name || "N/A"}</span>
+    <span>${displayValue(booking.room_name)}</span>
     
     <strong style="color: #46486f;">Date:</strong>
     <span>${formatDate(booking.booking_date)}</span>
@@ -639,7 +647,7 @@ function viewSchedule(id, type) {
     <span>${booking.start_time.substring(0, 5)} - ${booking.end_time.substring(0, 5)}</span>
     
     <strong style="color: #46486f;">Therapist:</strong>
-    <span>${booking.therapist_name || "N/A"}</span>
+    <span>${displayValue(booking.therapist_name)}</span>
     
     <strong style="color: #46486f;">Status:</strong>
     <span style="text-transform: uppercase; font-weight: 600; color: #007bff;">${booking.status}</span>

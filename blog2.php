@@ -74,10 +74,10 @@ try {
                 </p>
                 <div class="social-links">
                     <a href="https://www.instagram.com/rebahmassage?igsh=MWJvbjJ6aHMxM2g0cw==" class="social-icon">
-                        <img src="/php/public/instagram.png" alt="Instagram">
+                        <img src="/php/public/instagram.webp" alt="Instagram">
                     </a>
                     <a href="https://www.facebook.com/share/14QipLmP3zo/" class="social-icon">
-                        <img src="/php/public/facebook.png" alt="Facebook">
+                        <img src="/php/public/facebook.webp" alt="Facebook">
                     </a>
                 </div>
             </div>
